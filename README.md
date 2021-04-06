@@ -1,6 +1,6 @@
 # daoOS
 
-Background
+## Background
 What problems do you aim to solve? How does it serve the mission of a user owned internet?
 
 Bitcoin was the first Decentralized Autonomous Organization, or DAO. DAOs empower groups of people to organize in a decentralized fashion to prioritize tasks and execute on projects. daoOS is an open source tool that can empower DAOs to organize, vote on priorities, and execute through a single interface. The key problem with decentralized organizations is that it can be challenging organizing around central principals and determining how and what to fund. The result can be unnecessary bureaucracy and often there ends up being some kind of centralized board or leaders who end up making all of the decisions and others can have issues getting their priorities funded.
@@ -9,7 +9,7 @@ In a world where apps like Uber and Airbnb are decentralized, it won't be done t
 
 Our aim is to create daoOS as an open source tool that anyone can then use to create their own DAO. Empowering users to organize and fund projects in a decentralized fashioned will be at the heart of a user owned internet.
 
-# Project Overview
+## Project Overview
 
 This app should empower the following for any DAO:
 
@@ -27,7 +27,7 @@ Insofar as possible, tracking projects that use this app and their efficacy, as 
 We will build a landing page to gauge interest in a hosted SaaS version and run a simple ad campaign to test messaging.
 If there is a need, we will offer a hosted SaaS of this tool, in which case we will be better able to track usage and set KPIs to that effect.
 
-# Milestones
+## Milestones
 
 M0: Research Phase. In this phase, we will develop a test case to validate the UX and general functionality of the DAO. We will do a pared down interface, develop the core smart contract(s) that will manage the organization. We will design and develop a basic UI to support these features. Specifically, this first phase will include the following features:
 
