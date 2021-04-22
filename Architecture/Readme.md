@@ -1,7 +1,7 @@
 <h1>Architecture model</h1>
 We will use the C4model to describe the DAOos architecture. I think (314159...) this is a candidate for a standard way of working within Labs3. 
 
-In short (thanks Inow) the C4 model is a way of visualizing software using 4 levels of details:
+In short (thanks LNow) the C4 model is a way of visualizing software using 4 levels of details:
 
 1) System Context: On this level you only show who will be user of your system, what your system will do (in general) and in what environment it will work on (with what other systems it will have to interact)
 
