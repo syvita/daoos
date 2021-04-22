@@ -18,7 +18,7 @@ His book:
 
 <h1>Drawing the diagrams and collaborating</h1>
 
-I suggest using draw.io, as Cryptopanter is already familirizing himself with it and Inow already started a concept. 
+I suggest using draw.io, as Cryptopanter is already familirizing himself with it and LNow already started a concept. 
 We will put the current version in this folder so it can be downloaded for local editing with draw.io. 
 
 Do we need a way to inform eachother when it is being worked on to avoid having to integrate changes later?
