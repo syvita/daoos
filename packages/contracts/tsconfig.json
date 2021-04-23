@@ -12,8 +12,8 @@
     "noEmit": true
   },
   "include": [
-    "tests"
-  ],
+    "test"
+, "tests/rbac_test.ts"  ],
   "exclude": [
     "node_modules",
   ]
