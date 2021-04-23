@@ -282,4 +282,109 @@ describe("rbac contract test suite", () => {
       }
     });
   });
+
+  describe("Contract security", async () => {
+    beforeEach(async () => {
+      provider = await ProviderRegistry.createProvider();
+      client = new RBACClient(DEPLOYER, provider);
+
+      await client.deployContract();
+    });
+
+   
+    afterEach(async () => {
+      await provider.close();
+    });
+
+    it("should faill granting role if called by non-owner user", async () => {
+      let receipt = await client.grantRole(USER, 1, USER);
+      
+      expect(receipt.success).eq(false);
+      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+    });
+
+    it("should succeed granting role if called by contract owner", async () => {
+      let receipt = await client.grantRole(USER, 1, DEPLOYER);
+      
+      expect(receipt.success).eq(true);
+    });
+
+    it("should succeed granting role if called by user with correct permission", async () => {
+      await client.grantPermission("grant-role", 10, DEPLOYER);
+      await client.grantRole(USER, 10, DEPLOYER);
+
+      let receipt = await client.grantRole(USER, 1, USER);
+      expect(receipt.success).eq(true);
+    });
+
+
+    it("should faill revoking role if called by non-owner user", async () => {
+      let receipt = await client.revokeRole(USER, 1, USER);
+      
+      expect(receipt.success).eq(false);
+      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+    });
+
+    it("should succeed revoking role if called by contract owner", async () => {
+      await client.grantRole(USER, 1, DEPLOYER);
+      let receipt = await client.revokeRole(USER, 1, DEPLOYER);
+      
+      expect(receipt.success).eq(true);
+    });
+
+    it("should succeed revoking role if called by user with correct permission", async () => {
+      await client.grantPermission("revoke-role", 10, DEPLOYER);
+      await client.grantRole(USER, 10, DEPLOYER);
+
+      await client.grantRole(USER, 1, DEPLOYER);
+
+      let receipt = await client.revokeRole(USER, 1, USER);
+      expect(receipt.success).eq(true);
+    });
+
+    it("should fail granting permission if called by non-owner user", async () => {
+      let receipt = await client.grantPermission("dummy-permission", 1, USER);
+
+      expect(receipt.success).eq(false)
+      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+    });
+
+    it("should succeed granting permission if called by contract owner", async () => {
+      let receipt = await client.grantPermission("dummy-permission", 1, DEPLOYER);
+
+      expect(receipt.success).eq(true)
+    });
+
+    it("should succeed granting permission if called by user with correct permission", async () => {
+      await client.grantPermission("grant-permission", 10, DEPLOYER);
+      await client.grantRole(USER, 10, DEPLOYER);
+
+      let receipt = await client.grantPermission("dummy-permission", 1, USER);
+      expect(receipt.success).eq(true);
+    });
+
+    it("should fail revoking permission if called by non-owner user", async () => {
+      let receipt = await client.revokePermission("dummy-permission", 1, USER);
+      
+      expect(receipt.success).eq(false);
+      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+    });
+
+    it("should succeed revoking permission if called by contract owner", async () => {
+      await client.grantPermission("dummy-permission", 1, DEPLOYER);
+      
+      let receipt = await client.revokePermission("dummy-permission", 1, DEPLOYER);
+      expect(receipt.success).eq(true);
+    })
+
+    it("should succeed revoking permission if called by user with correct permission", async () => {
+      await client.grantPermission("revoke-permission", 10, DEPLOYER);
+      await client.grantRole(USER, 10, DEPLOYER);
+      await client.grantPermission("dummy-permission", 1, DEPLOYER);
+      
+      let receipt = await client.revokePermission("dummy-permission", 1, USER);
+      expect(receipt.success).eq(true);
+    });
+
+  });
 });

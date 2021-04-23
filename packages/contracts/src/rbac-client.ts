@@ -127,4 +127,18 @@ export class RBACClient extends Client {
 
       return receipt
     }
+
+    async canExecute(permission: string): Promise<Receipt> {
+      const query = this.createQuery({
+        method: {
+          name: 'can-execute',
+          args: [
+            Clarity.string(permission)
+          ]
+        }
+      });
+
+      const receipt = await this.submitQuery(query);
+      return receipt;
+    }
 }

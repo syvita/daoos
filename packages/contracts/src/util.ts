@@ -50,8 +50,16 @@ export namespace Clarity {
     const match = getWrappedResult(input, /^(?:\(ok\s)?(true|false)\)?$/);
     return match === 'true';
   }
+
+  export function unwrapError(input: ResultInterface<string, any>) {
+    let err = input.error!;
+    
+    const pattern = /^Aborted:\s"(.*?)"$/
+    const match = pattern.exec(err.commandOutput);
+
+    if (!match) {
+      throw new Error(`Unable to unwrap result: ${err.commandOutput}`);
+    }
+    return match[1];
+  }
 }
-
-
-
-

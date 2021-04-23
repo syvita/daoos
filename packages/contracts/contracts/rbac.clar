@@ -32,6 +32,7 @@
 
 (define-public (grant-role (user principal) (role uint))
   (begin
+    (asserts! (can-execute tx-sender "grant-role") (err "Unauthorized"))
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (not (has-role user role)) (err "Role already granted"))
     (let
@@ -51,6 +52,7 @@
 
 (define-public (revoke-role (user principal) (role uint))
   (begin
+    (asserts! (can-execute tx-sender "revoke-role") (err "Unauthorized"))
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (has-role user role) (err "Role already revoked"))
     (let
@@ -87,6 +89,7 @@
 
 (define-public (grant-permission (permission (string-ascii 50)) (role uint))
   (begin
+    (asserts! (can-execute tx-sender "grant-permission") (err "Unauthorized"))
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (not (has-permission role permission)) (err "Permission already granted"))
     (let
@@ -106,6 +109,7 @@
 
 (define-public (revoke-permission (permission (string-ascii 50)) (role uint))
   (begin
+    (asserts! (can-execute tx-sender "revoke-permission") (err "Unauthorized"))
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (has-permission role permission) (err "Permission already revoked"))
     (let
@@ -118,6 +122,22 @@
         {roles: (- currentRoles revokedRole)}
       )
       (ok true)
+    )
+  )
+)
+
+
+(define-read-only (can-execute (user principal) (permission (string-ascii 50)))
+  (begin
+    (asserts! (not (is-eq CONTRACT_OWNER user)) true)
+    (let
+      (
+        (permittedRoles (get-permitted-roles permission))
+        (userRoles (get-roles user))
+      )
+      (asserts! (< u0 permittedRoles) false)  ;; false if permission is not granted to any role (permission is uknown)
+      (asserts! (< u0 userRoles) false)       ;; false if user have no roles granted (unknown user)
+      (> permittedRoles (xor permittedRoles userRoles))
     )
   )
 )
