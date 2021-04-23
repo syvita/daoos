@@ -20,6 +20,10 @@ export namespace Clarity {
     return "0x" + Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
   }
 
+  export function string(val: string): string {
+    return `"${val}"`;
+  }
+
   function getWrappedResult(input: ResultInterface<string, unknown>, r: RegExp): string {
     if (input.result) {
       const match = r.exec(input.result);

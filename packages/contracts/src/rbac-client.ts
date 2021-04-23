@@ -83,7 +83,7 @@ export class RBACClient extends Client {
           name: 'has-permission',
           args: [
             Clarity.uint(role),
-            Clarity.stringBuff(permission)
+            Clarity.string(permission)
           ]
         }
       });
@@ -97,7 +97,7 @@ export class RBACClient extends Client {
         method: {
           name: 'grant-permission',
           args: [
-            Clarity.stringBuff(permission),
+            Clarity.string(permission),
             Clarity.uint(role)
           ]
         }
@@ -115,7 +115,7 @@ export class RBACClient extends Client {
         method: {
           name: 'revoke-permission',
           args: [
-            Clarity.stringBuff(permission),
+            Clarity.string(permission),
             Clarity.uint(role)
           ]
         }

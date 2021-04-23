@@ -6,7 +6,7 @@
 )
 
 (define-map PermissionRoles
-  {permission: (buff 50)}
+  {permission: (string-ascii 50)}
   {roles: uint}
 )
 
@@ -68,11 +68,11 @@
 )
 
 
-(define-read-only (get-permitted-roles (permission (buff 50)))
+(define-read-only (get-permitted-roles (permission (string-ascii 50)))
   (default-to u0 (get roles (map-get? PermissionRoles {permission: permission})))
 )
 
-(define-read-only (has-permission (role uint) (permission (buff 50)))
+(define-read-only (has-permission (role uint) (permission (string-ascii 50)))
   (begin 
     (asserts! (> u128 role) false)
     (let
@@ -85,7 +85,7 @@
   )
 )
 
-(define-public (grant-permission (permission (buff 50)) (role uint))
+(define-public (grant-permission (permission (string-ascii 50)) (role uint))
   (begin
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (not (has-permission role permission)) (err "Permission already granted"))
@@ -104,7 +104,7 @@
 )
 
 
-(define-public (revoke-permission (permission (buff 50)) (role uint))
+(define-public (revoke-permission (permission (string-ascii 50)) (role uint))
   (begin
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
     (asserts! (has-permission role permission) (err "Permission already revoked"))
