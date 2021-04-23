@@ -1,5 +1,6 @@
 import { Provider, ProviderRegistry } from "@blockstack/clarity";
 import { expect } from "chai";
+import { resolve } from "dns";
 import { RBACClient } from "../src/rbac-client"
 import { Clarity } from "../src/util"
 
@@ -155,6 +156,129 @@ describe("rbac contract test suite", () => {
         
         receipt = await client.hasRole(USER, role);
         expect(Clarity.unwrapBool(receipt)).eq(false)
+      }
+    });
+  });
+
+  describe("Contract logic [RolesPermissions]", async () => {
+    beforeEach(async () => {
+      provider = await ProviderRegistry.createProvider();
+      client = new RBACClient(DEPLOYER, provider);
+
+      await client.deployContract();
+    });
+
+   
+    afterEach(async () => {
+      await provider.close();
+    });
+
+    
+    it("returns false when permission have no assigned roles", async () => {
+      const permission = "do-something";
+      const role = 123;
+
+      const receipt = await client.hasPermission(role, permission);
+
+      expect(Clarity.unwrapBool(receipt)).false;
+    })
+
+
+    it("should fail granting permission to role higher than 127", async () => {
+      const permission = "do-something";
+
+      for (let role=128; role <=150; role++) {
+        let receipt = await client.grantPermission(permission, role, DEPLOYER);
+
+        expect(receipt.success).eq(false);
+      }
+    });
+
+    
+    it("should succeed granting permission to role in range 0-127", async () => {
+      const permission = "test-permission"
+
+      for (let role=0; role <=127; role++) {
+        let receipt = await client.grantPermission(permission, role, DEPLOYER);
+        
+        expect(receipt.success).eq(true);
+      }
+    });
+
+    it("should remember granted permissions", async () => {
+      const permission = "test-something";      
+      const roles = [1, 8 , 22, 47, 69, 72, 101, 123, 127]
+
+      for(let role of roles) {
+        await client.grantPermission(permission, role, DEPLOYER);
+
+        let receipt = await client.hasPermission(role, permission);
+        expect(Clarity.unwrapBool(receipt)).eq(true);
+      }
+    });
+
+    it("should fail granting permission to role more than once", async () => {
+      const permission = "test-test-test";
+      const roles = [2, 3, 17, 26, 49, 55, 87, 93, 99, 115];
+
+      for(let role of roles) {
+        await client.grantPermission(permission, role, DEPLOYER);
+
+        let receipt = await client.grantPermission(permission, role, DEPLOYER);
+        expect(receipt.success).eq(false);
+      }
+    });
+
+    it("should fail revoking permission from role higher than 127", async () => {
+      const permission = "bla-bla-bla";
+
+      for(let role=128; role<=150; role++) {
+        let receipt = await client.revokePermission(permission, role, DEPLOYER);
+
+        expect(receipt.success).eq(false);
+      }
+    });
+
+    it("should fail revoking permission from role that never been granted", async () => {
+      const permission = "stx-stx";
+      const roles = [0, 3, 15, 56, 82, 102, 112, 122]
+
+      for(let role of roles) {
+        let receipt = await client.revokePermission(permission, role, DEPLOYER);
+
+        expect(receipt.success).eq(false);
+      }
+    });
+
+    it("should suceed revoking granted permission from role in range 0-127", async () => {
+      const permission = "super-secure";
+
+      for(let role=0; role<=127; role++) {
+        await client.grantPermission(permission, role, DEPLOYER);
+
+        let receipt = await client.revokePermission(permission, role, DEPLOYER);
+        expect(receipt.success).eq(true)
+      }
+    });
+
+
+    it("should remember permission revoked from role", async () => {
+      const permission = "permission-permission"
+      
+      for(let role=0; role<=127; role++) {
+        await client.grantPermission(permission, role, DEPLOYER);
+      }
+
+      const revokeRoles = [0, 8 , 15, 39, 44, 97, 102, 127];
+      for(let role of revokeRoles) {
+        // test if permission have been granted before revoking it
+        let receipt = await client.hasPermission(role, permission);
+        expect(Clarity.unwrapBool(receipt)).eq(true);
+
+        await client.revokePermission(permission, role, DEPLOYER);
+        //check if permission have been revoked
+        receipt = await client.hasPermission(role, permission);
+        expect(Clarity.unwrapBool(receipt)).eq(false);
       }
     });
   });

@@ -1,4 +1,5 @@
 import { ResultInterface } from '@blockstack/clarity'
+import { TextEncoder } from 'util';
 
 export namespace Clarity {
   export function uint(val: number): string {
@@ -11,6 +12,12 @@ export namespace Clarity {
 
   export function principal(val: string): string {
     return `'${val}`;
+  }
+
+  export function stringBuff(val: string): string {
+    const encoder = new TextEncoder();
+    const buffer = encoder.encode(val)
+    return "0x" + Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
   }
 
   function getWrappedResult(input: ResultInterface<string, unknown>, r: RegExp): string {

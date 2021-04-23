@@ -1,5 +1,5 @@
 import { Client, Provider, Receipt } from "@blockstack/clarity"
-import { stringify } from "querystring";
+import { TextEncoder } from "util";
 import { Clarity } from "./util"
 
 
@@ -65,6 +65,57 @@ export class RBACClient extends Client {
           name: 'revoke-role',
           args: [
             Clarity.principal(user),
+            Clarity.uint(role)
+          ]
+        }
+      });
+
+      tx.sign(sender);
+
+      const receipt = await this.submitTransaction(tx);
+
+      return receipt
+    }
+
+    async hasPermission(role: number, permission: string): Promise<Receipt> {
+      const query = this.createQuery({
+        method: {
+          name: 'has-permission',
+          args: [
+            Clarity.uint(role),
+            Clarity.stringBuff(permission)
+          ]
+        }
+      });
+
+      const receipt = await this.submitQuery(query);
+      return receipt;
+    }
+
+    async grantPermission(permission: string, role: number, sender: string): Promise<Receipt> {
+      const tx = this.createTransaction({
+        method: {
+          name: 'grant-permission',
+          args: [
+            Clarity.stringBuff(permission),
+            Clarity.uint(role)
+          ]
+        }
+      });
+
+      tx.sign(sender);
+
+      const receipt = await this.submitTransaction(tx);
+
+      return receipt
+    }
+
+    async revokePermission(permission: string, role: number, sender: string): Promise<Receipt> {
+      const tx = this.createTransaction({
+        method: {
+          name: 'revoke-permission',
+          args: [
+            Clarity.stringBuff(permission),
             Clarity.uint(role)
           ]
         }
