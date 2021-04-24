@@ -60,7 +60,7 @@ describe("rbac contract test suite", () => {
       for (let i = 0; i <= 127; i++) {
         let receipt = await client.grantRole(USER, i, DEPLOYER);
       
-        expect(receipt.success, "Failed at "+i).eq(true);
+        expect(receipt.success, `Failed at role ${i}`).to.be.true;
       }
     });
 
