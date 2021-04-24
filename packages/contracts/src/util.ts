@@ -28,7 +28,6 @@ export namespace Clarity {
     if (input.result) {
       const match = r.exec(input.result);
       if (!match) {
-        // console.debug(input)
         throw new Error(`Unable to unwrap result: ${input.result}`);
       }
       return match[1];
