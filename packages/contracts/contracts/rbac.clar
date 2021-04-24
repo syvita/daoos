@@ -10,7 +10,7 @@
 
 ;; Stores the roles granted to permissions
 ;; Each permission can be granted to up to 128 roles ranging from 0-127
-;; Roles are stored as bit-mask value represented as uint.
+;; Roles are stored as bitmask values represented as uint's.
 (define-map PermissionRoles
   {permission: (string-ascii 50)}
   {roles: uint}
