@@ -16,7 +16,7 @@
   {roles: uint}
 )
 
-;; Returns all roles granted to specific user
+;; Returns all roles granted to a specific user
 ;; Returns u0 if user is unknown (has no roles granted)
 (define-read-only (get-roles (user principal)) 
   (default-to u0 (get roles (map-get? UserRoles {user: user})))
