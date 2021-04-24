@@ -36,11 +36,11 @@
   )
 )
 
-;; Allows to grant a role to user
+;; Grant a role to a user.
 ;; Throws an error if :
 ;; - caller doesn't have role with granted "grant-role" permission, 
 ;; - provided role is not in range 0-127
-;; - user already have specified role
+;; - user already has specified role
 (define-public (grant-role (user principal) (role uint))
   (begin
     (asserts! (can-execute tx-sender "grant-role") (err "Unauthorized"))
@@ -60,11 +60,11 @@
   )
 )
 
-;; Allows to revoke a role from user
+;; Revoke a role from a user.
 ;; Throws an error if :
 ;; - caller doesn't have role with granted "revoke-role" permission, 
 ;; - provided role is not in range 0-127
-;; - user already have specified role
+;; - user already has specified role
 (define-public (revoke-role (user principal) (role uint))
   (begin
     (asserts! (can-execute tx-sender "revoke-role") (err "Unauthorized"))
@@ -84,13 +84,13 @@
   )
 )
 
-;; Returns all roles with specyfic permission
-;; Returns u0 if persmission have not been granted to any role (unknow permission)
+;; Returns all roles that possess a specific permission
+;; Returns u0 if permission has not been granted to any role (unknown permission)
 (define-read-only (get-permitted-roles (permission (string-ascii 50)))
   (default-to u0 (get roles (map-get? PermissionRoles {permission: permission})))
 )
 
-;; Checks if role have specyfic permission
+;; Checks if a role has a specific permission
 (define-read-only (has-permission (role uint) (permission (string-ascii 50)))
   (begin 
     (asserts! (> u128 role) false)
@@ -104,11 +104,11 @@
   )
 )
 
-;; Allows to grant a permission to role
+;; Grant a permission to a role.
 ;; Throws an error if :
 ;; - caller doesn't have role with granted "grant-permission" permission, 
 ;; - provided role is not in range 0-127
-;; - permision have been already granted to a specified role
+;; - permission has already been granted to the specified role
 (define-public (grant-permission (permission (string-ascii 50)) (role uint))
   (begin
     (asserts! (can-execute tx-sender "grant-permission") (err "Unauthorized"))
@@ -128,16 +128,16 @@
   )
 )
 
-;; Allows to revoke a permission from role
+;; Revoke a permission from a role.
 ;; Throws an error if :
 ;; - caller doesn't have role with granted "revoke-permission" permission, 
 ;; - provided role is not in range 0-127
-;; - permision have been already revoked from specified role
+;; - permission does not exist for role
 (define-public (revoke-permission (permission (string-ascii 50)) (role uint))
   (begin
     (asserts! (can-execute tx-sender "revoke-permission") (err "Unauthorized"))
     (asserts! (> u128 role) (err "Role is out of range 0-127"))
-    (asserts! (has-permission role permission) (err "Permission already revoked"))
+    (asserts! (has-permission role permission) (err "The permission does not exist for the specified role."))
     (let
       (
         (currentRoles (get-permitted-roles permission))
@@ -152,7 +152,7 @@
   )
 )
 
-;; Checks if user have at lease one role granted with specified permission.
+;; Checks if user has at least one role granted with a specified permission.
 (define-read-only (can-execute (user principal) (permission (string-ascii 50)))
   (begin
     (asserts! (not (is-eq CONTRACT_OWNER user)) true)
@@ -161,8 +161,8 @@
         (permittedRoles (get-permitted-roles permission))
         (userRoles (get-roles user))
       )
-      (asserts! (< u0 permittedRoles) false)  ;; false if permission is not granted to any role (permission is uknown)
-      (asserts! (< u0 userRoles) false)       ;; false if user have no roles granted (unknown user)
+      (asserts! (< u0 permittedRoles) false)  ;; false if permission is not granted to any role (permission is unknown)
+      (asserts! (< u0 userRoles) false)       ;; false if user doesn't have any roles (unknown user)
       (> permittedRoles (xor permittedRoles userRoles))
     )
   )
