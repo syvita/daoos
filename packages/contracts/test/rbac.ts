@@ -130,7 +130,7 @@ describe("rbac contract test suite", () => {
     });
 
 
-    it("should suceed revoking granted role in range 0-127", async () => {
+    it("should succeed revoking granted role in range 0-127", async () => {
       for (let role = 0; role <=127; role++) {
         await client.grantRole(USER, role, DEPLOYER);
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
