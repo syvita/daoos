@@ -7,7 +7,7 @@ export namespace Clarity {
   }
 
   export function int(val: number): string {
-    return `${BigInt(val).toString()}`;
+    return BigInt(val).toString();
   }
 
   export function principal(val: string): string {
