@@ -41,7 +41,7 @@ describe("rbac contract test suite", () => {
     });
 
 
-    it("returns false user have no roles at all", async () => {
+    it("returns false if user doesn't have any roles", async () => {
       const receipt = await client.hasRole(USER, 123);
 
       expect(Clarity.unwrapBool(receipt)).false;
@@ -56,7 +56,7 @@ describe("rbac contract test suite", () => {
     });
 
    
-    it("should suceed granting role in range 0-127", async () => {
+    it("should succeed granting role in range 0-127", async () => {
       for (let i = 0; i <= 127; i++) {
         let receipt = await client.grantRole(USER, i, DEPLOYER);
       
@@ -78,7 +78,7 @@ describe("rbac contract test suite", () => {
     });
 
 
-    it("can test if user have a specific role", async() => {
+    it("tests if user has a specific role", async() => {
       for (let role = 0; role <= 127; role++) {
         let receipt = await client.hasRole(USER, role);
 
@@ -174,7 +174,7 @@ describe("rbac contract test suite", () => {
     });
 
     
-    it("returns false when permission have no assigned roles", async () => {
+    it("returns false when permission has no assigned roles", async () => {
       const permission = "do-something";
       const role = 123;
 
@@ -271,7 +271,7 @@ describe("rbac contract test suite", () => {
 
       const revokeRoles = [0, 8 , 15, 39, 44, 97, 102, 127];
       for(let role of revokeRoles) {
-        // test if permission have been granted before revoking it
+        // test if permission has been granted before revoking it
         let receipt = await client.hasPermission(role, permission);
         expect(Clarity.unwrapBool(receipt)).eq(true);
 
@@ -296,7 +296,7 @@ describe("rbac contract test suite", () => {
       await provider.close();
     });
 
-    it("should faill granting role if called by non-owner user", async () => {
+    it("should fail granting role if called by non-owner user", async () => {
       let receipt = await client.grantRole(USER, 1, USER);
       
       expect(receipt.success).eq(false);
@@ -318,7 +318,7 @@ describe("rbac contract test suite", () => {
     });
 
 
-    it("should faill revoking role if called by non-owner user", async () => {
+    it("should fail revoking role if called by non-owner user", async () => {
       let receipt = await client.revokeRole(USER, 1, USER);
       
       expect(receipt.success).eq(false);
