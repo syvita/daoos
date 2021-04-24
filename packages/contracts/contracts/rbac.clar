@@ -2,7 +2,7 @@
 
 ;; Stores roles granted to users
 ;; Each user can have up to 128 roles ranging from 0-127.
-;; Roles are stored as bit-mask value represented to uint.
+;; Roles are stored as bitmask values represented as uint's.
 (define-map UserRoles
   {user: principal}
   {roles: uint}
