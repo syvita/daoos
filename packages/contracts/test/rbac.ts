@@ -1,6 +1,5 @@
 import { Provider, ProviderRegistry } from "@blockstack/clarity";
 import { expect } from "chai";
-import { resolve } from "dns";
 import { RBACClient } from "../src/rbac-client"
 import { Clarity } from "../src/util"
 
@@ -42,25 +41,32 @@ describe("rbac contract test suite", () => {
 
 
     it("returns false if user doesn't have any roles", async () => {
-      const receipt = await client.hasRole(USER, 123);
+      const invalidRole = 129;
+      const receipt = await client.hasRole(USER, invalidRole);
 
-      expect(Clarity.unwrapBool(receipt)).false;
+      expect(Clarity.unwrapBool(receipt),`${USER} should not have role: ${invalidRole}.`).to.be.false;
     });
 
    
     it("should fail granting role higher than 127", async () => {
-      for (let i = 128; i <=150; i++) {
-        let receipt = await client.grantRole(USER, i, DEPLOYER);
-        expect(receipt.success).eq(false);
+      const expectedError = "Role is out of range 0-127";
+
+      for (let role = 128; role <=150; role++) {
+        let receipt = await client.grantRole(USER, role, DEPLOYER);
+
+        expect(receipt.success,`The success status of granting role ${role} should be false.`).to.be.false;
+        
+        expect(Clarity.unwrapError(receipt), 
+          `Granting role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
    
     it("should succeed granting role in range 0-127", async () => {
-      for (let i = 0; i <= 127; i++) {
-        let receipt = await client.grantRole(USER, i, DEPLOYER);
+      for (let role = 0; role <= 127; role++) {
+        let receipt = await client.grantRole(USER, role, DEPLOYER);
       
-        expect(receipt.success, `Failed at role ${i}`).to.be.true;
+        expect(receipt.success, `The success status of granting role ${role} should be true.`).to.be.true;
       }
     });
 
@@ -73,7 +79,8 @@ describe("rbac contract test suite", () => {
         
         let receipt = await client.hasRole(USER, role);
 
-        expect(Clarity.unwrapBool(receipt)).eq(true);
+        expect(Clarity.unwrapBool(receipt), 
+          `${USER} should have role ${role} after it has been granted.`).to.be.true;
       }
     });
 
@@ -82,7 +89,8 @@ describe("rbac contract test suite", () => {
       for (let role = 0; role <= 127; role++) {
         let receipt = await client.hasRole(USER, role);
 
-        expect(Clarity.unwrapBool(receipt)).eq(false)
+        expect(Clarity.unwrapBool(receipt),
+          `${USER} should not have role ${role} before granting it.`).to.be.false;
       }
 
 
@@ -90,12 +98,14 @@ describe("rbac contract test suite", () => {
         await client.grantRole(USER, role, DEPLOYER);
         let receipt = await client.hasRole(USER, role);
 
-        expect(Clarity.unwrapBool(receipt)).eq(true)
+        expect(Clarity.unwrapBool(receipt),
+          `${USER} should have role ${role} after it has been granted.`).to.be.true;
       }
     })
 
     
     it("should fail granting role more than once", async () => {
+      const expectedError = "Role already granted";
       const roles = [1, 7, 8, 9,15, 32, 67, 88, 92, 120, 127];
 
       for (const role of roles) {
@@ -107,25 +117,36 @@ describe("rbac contract test suite", () => {
         let receipt = await client.grantRole(USER, role, DEPLOYER);
 
         
-        expect(receipt.success).eq(false);
+        expect(receipt.success, 
+          `The success status of subsequent granting role ${role} shoudl be false.`).to.be.false;
+        expect(Clarity.unwrapError(receipt),
+          `Subsequent granting role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
 
     it("should fail revoking role above 128", async () => {
+      const expectedError = "Role is out of range 0-127";
+
       for (let role = 128; role < 150; role++) {
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
 
-        expect(receipt.success).eq(false);
+        expect(receipt.success,`The success status of revoking role ${role} should be false.`).to.be.false;
+        expect(Clarity.unwrapError(receipt), 
+          `Revoking role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError)
       }
     });
 
 
     it("should fail revoking role that was never granted", async () => {
+      const expectedError = "Role already revoked";
+
       for (let role = 0; role <=127; role++) {
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
 
-        expect(receipt.success).eq(false)
+        expect(receipt.success, `The success status of revoking role ${role} should be false.`).to.be.false;
+        expect(Clarity.unwrapError(receipt),
+          `Revoking role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
@@ -135,7 +156,7 @@ describe("rbac contract test suite", () => {
         await client.grantRole(USER, role, DEPLOYER);
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
 
-        expect(receipt.success).eq(true)
+        expect(receipt.success, `The success status of revoking ${role} should be true.`).to.be.true;
       }
     });
 
@@ -150,12 +171,13 @@ describe("rbac contract test suite", () => {
       for(let role of roles) {
         // verification that role has been granted
         let receipt = await client.hasRole(USER, role);
-        expect(Clarity.unwrapBool(receipt)).eq(true); 
+        expect(Clarity.unwrapBool(receipt),`${USER} should have role ${role}.`).to.be.true;
 
         await client.revokeRole(USER, role, DEPLOYER);
         
         receipt = await client.hasRole(USER, role);
-        expect(Clarity.unwrapBool(receipt)).eq(false)
+        expect(Clarity.unwrapBool(receipt), 
+          `${USER} should not have role ${role} after it has been revoked.`).to.be.false;
       }
     });
   });
@@ -180,17 +202,23 @@ describe("rbac contract test suite", () => {
 
       const receipt = await client.hasPermission(role, permission);
 
-      expect(Clarity.unwrapBool(receipt)).false;
+      expect(Clarity.unwrapBool(receipt), 
+        `Role ${role} should not have "${permission}" permission.`).to.be.false;
     })
 
 
     it("should fail granting permission to role higher than 127", async () => {
+      const expectedError = "Role is out of range 0-127";
       const permission = "do-something";
 
       for (let role=128; role <=150; role++) {
         let receipt = await client.grantPermission(permission, role, DEPLOYER);
 
-        expect(receipt.success).eq(false);
+        expect(receipt.success, 
+          `The success status of granting "${permission}" permission to role ${role} should be false.`).to.be.false;
+        
+        expect(Clarity.unwrapError(receipt),
+          `Granting "${permission}" permission to role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
@@ -201,7 +229,8 @@ describe("rbac contract test suite", () => {
       for (let role=0; role <=127; role++) {
         let receipt = await client.grantPermission(permission, role, DEPLOYER);
         
-        expect(receipt.success).eq(true);
+        expect(receipt.success, 
+          `The success status of granting "${permission}" permission to role ${role} should be true`).to.be.true;
       }
     });
 
@@ -213,11 +242,13 @@ describe("rbac contract test suite", () => {
         await client.grantPermission(permission, role, DEPLOYER);
 
         let receipt = await client.hasPermission(role, permission);
-        expect(Clarity.unwrapBool(receipt)).eq(true);
+        expect(Clarity.unwrapBool(receipt), 
+          `Role ${role} should have "${permission}" permission after it has been granted.`).to.be.true;
       }
     });
 
     it("should fail granting permission to role more than once", async () => {
+      const expectedError = "Permission already granted";
       const permission = "test-test-test";
       const roles = [2, 3, 17, 26, 49, 55, 87, 93, 99, 115];
 
@@ -225,28 +256,42 @@ describe("rbac contract test suite", () => {
         await client.grantPermission(permission, role, DEPLOYER);
 
         let receipt = await client.grantPermission(permission, role, DEPLOYER);
-        expect(receipt.success).eq(false);
+        expect(receipt.success, 
+          `The success status of subsequent granting "${permission}" permission to role ${role} should be false.`).to.be.false;
+        
+        expect(Clarity.unwrapError(receipt),
+          `Subsequent granting "${permission}" permission to role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
     it("should fail revoking permission from role higher than 127", async () => {
+      const expectedError = "Role is out of range 0-127";
       const permission = "bla-bla-bla";
 
       for(let role=128; role<=150; role++) {
         let receipt = await client.revokePermission(permission, role, DEPLOYER);
 
-        expect(receipt.success).eq(false);
+        expect(receipt.success, 
+          `The success status of revoking "${permission}" from role ${role} should be false.`).to.be.false;
+        
+        expect(Clarity.unwrapError(receipt),
+          `Revoking "${permission}" permission from role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
     it("should fail revoking permission from role that never been granted", async () => {
+      const expectedError = "The permission does not exist for the specified role.";
       const permission = "stx-stx";
       const roles = [0, 3, 15, 56, 82, 102, 112, 122]
 
       for(let role of roles) {
         let receipt = await client.revokePermission(permission, role, DEPLOYER);
 
-        expect(receipt.success).eq(false);
+        expect(receipt.success, 
+          `The success status of revoking "${permission}" permission from role ${role} should be false.`).to.be.false;
+
+        expect(Clarity.unwrapError(receipt),
+          `Revoking "${permission}" permission from role ${role} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
       }
     });
 
@@ -257,7 +302,8 @@ describe("rbac contract test suite", () => {
         await client.grantPermission(permission, role, DEPLOYER);
 
         let receipt = await client.revokePermission(permission, role, DEPLOYER);
-        expect(receipt.success).eq(true)
+        expect(receipt.success, 
+          `The success status of revoking "${permission}" permission from role ${role} should be true.`).to.be.true;
       }
     });
 
@@ -273,12 +319,14 @@ describe("rbac contract test suite", () => {
       for(let role of revokeRoles) {
         // test if permission has been granted before revoking it
         let receipt = await client.hasPermission(role, permission);
-        expect(Clarity.unwrapBool(receipt)).eq(true);
+        expect(Clarity.unwrapBool(receipt), 
+          `Role ${role} should have "${permission}" permission.`).to.be.true;
 
         await client.revokePermission(permission, role, DEPLOYER);
         //check if permission have been revoked
         receipt = await client.hasPermission(role, permission);
-        expect(Clarity.unwrapBool(receipt)).eq(false);
+        expect(Clarity.unwrapBool(receipt), 
+          `Role ${role} should not have "${permission}" permission after it has been revoked.`).to.be.false;
       }
     });
   });
@@ -297,93 +345,115 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail granting role if called by non-owner user", async () => {
+      let expectedError = "Unauthorized";
       let receipt = await client.grantRole(USER, 1, USER);
       
-      expect(receipt.success).eq(false);
-      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+      expect(receipt.success, `The success status of granting role by ${USER} should be false.`).to.be.false;
+      expect(Clarity.unwrapError(receipt),
+        `Granting role by ${USER} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
     });
 
     it("should succeed granting role if called by contract owner", async () => {
       let receipt = await client.grantRole(USER, 1, DEPLOYER);
       
-      expect(receipt.success).eq(true);
+      expect(receipt.success, `The success status of granting role by ${DEPLOYER} should be true`).to.be.true;
     });
 
     it("should succeed granting role if called by user with correct permission", async () => {
-      await client.grantPermission("grant-role", 10, DEPLOYER);
-      await client.grantRole(USER, 10, DEPLOYER);
+      const permission = "grant-role";
+      const role = 10;
+      await client.grantPermission(permission, role, DEPLOYER);
+      await client.grantRole(USER, role, DEPLOYER);
 
       let receipt = await client.grantRole(USER, 1, USER);
-      expect(receipt.success).eq(true);
+      expect(receipt.success, 
+        `The success status of granting role by ${USER} after granting him role ${role} with "${permission}" permission should be true.`).to.be.true;
     });
 
 
     it("should fail revoking role if called by non-owner user", async () => {
+      const expectedError = "Unauthorized";
       let receipt = await client.revokeRole(USER, 1, USER);
       
-      expect(receipt.success).eq(false);
-      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+      expect(receipt.success, `The status of revoking role by ${USER} should be false.`).to.be.false;
+      expect(Clarity.unwrapError(receipt),
+        `Revoking role by ${USER} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
     });
 
     it("should succeed revoking role if called by contract owner", async () => {
       await client.grantRole(USER, 1, DEPLOYER);
       let receipt = await client.revokeRole(USER, 1, DEPLOYER);
       
-      expect(receipt.success).eq(true);
+      expect(receipt.success, `The status of revoking role by ${DEPLOYER} should be true`).to.be.true;
     });
 
     it("should succeed revoking role if called by user with correct permission", async () => {
-      await client.grantPermission("revoke-role", 10, DEPLOYER);
-      await client.grantRole(USER, 10, DEPLOYER);
+      const permission = "revoke-role";
+      const role = 10;
+      await client.grantPermission(permission, role, DEPLOYER);
+      await client.grantRole(USER, role, DEPLOYER);
 
       await client.grantRole(USER, 1, DEPLOYER);
 
       let receipt = await client.revokeRole(USER, 1, USER);
-      expect(receipt.success).eq(true);
+      expect(receipt.success,
+        `Revoking role by ${USER} after granting him role ${role} with "${permission}" permission should be true.`).to.be.true;
     });
 
     it("should fail granting permission if called by non-owner user", async () => {
+      const expectedError = "Unauthorized";
       let receipt = await client.grantPermission("dummy-permission", 1, USER);
 
-      expect(receipt.success).eq(false)
-      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+      expect(receipt.success, `The success status of granting permission by ${USER} should be false.`).to.be.false;
+      expect(Clarity.unwrapError(receipt),
+      `Granting permission by ${USER} should fail with "${expectedError}" error.`).to.be.eq(expectedError);
     });
 
     it("should succeed granting permission if called by contract owner", async () => {
       let receipt = await client.grantPermission("dummy-permission", 1, DEPLOYER);
 
-      expect(receipt.success).eq(true)
+      expect(receipt.success, `The success status of granting permission by ${DEPLOYER} should be true.`).to.be.true;
     });
 
     it("should succeed granting permission if called by user with correct permission", async () => {
-      await client.grantPermission("grant-permission", 10, DEPLOYER);
-      await client.grantRole(USER, 10, DEPLOYER);
+      const permission = "grant-permission";
+      const role = 10;
+      
+      await client.grantPermission(permission, role, DEPLOYER);
+      await client.grantRole(USER, role, DEPLOYER);
 
       let receipt = await client.grantPermission("dummy-permission", 1, USER);
-      expect(receipt.success).eq(true);
+      expect(receipt.success, 
+        `Granting permission by ${USER} after granting him role ${role} with "${permission}" persmission should be true.`).to.be.true;
     });
 
     it("should fail revoking permission if called by non-owner user", async () => {
+      const expectedError = "Unauthorized";
       let receipt = await client.revokePermission("dummy-permission", 1, USER);
       
-      expect(receipt.success).eq(false);
-      expect(Clarity.unwrapError(receipt)).eq("Unauthorized");
+      expect(receipt.success,`The success status of revoking permission by ${USER} should be false.`).to.be.false;
+      expect(Clarity.unwrapError(receipt),
+        `Revoking permission by ${USER} should fail wiht "${expectedError}" error.`).to.be.eq(expectedError);
     });
 
     it("should succeed revoking permission if called by contract owner", async () => {
       await client.grantPermission("dummy-permission", 1, DEPLOYER);
       
       let receipt = await client.revokePermission("dummy-permission", 1, DEPLOYER);
-      expect(receipt.success).eq(true);
+      expect(receipt.success, `The success status of revoking permission by ${DEPLOYER} should be true.`).to.be.true;
     })
 
     it("should succeed revoking permission if called by user with correct permission", async () => {
-      await client.grantPermission("revoke-permission", 10, DEPLOYER);
-      await client.grantRole(USER, 10, DEPLOYER);
+      const permission = "revoke-permission";
+      const role = 10;
+      
+      await client.grantPermission(permission, role, DEPLOYER);
+      await client.grantRole(USER, role, DEPLOYER);
       await client.grantPermission("dummy-permission", 1, DEPLOYER);
       
       let receipt = await client.revokePermission("dummy-permission", 1, USER);
-      expect(receipt.success).eq(true);
+      expect(receipt.success, 
+        `Revoking permission by ${USER} after granting him role ${role} with "${permission}" permission should be true`).to.be.true;
     });
 
   });
