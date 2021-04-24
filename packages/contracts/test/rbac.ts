@@ -295,7 +295,7 @@ describe("rbac contract test suite", () => {
       }
     });
 
-    it("should suceed revoking granted permission from role in range 0-127", async () => {
+    it("should succeed revoking granted permission from role in range 0-127", async () => {
       const permission = "super-secure";
 
       for(let role=0; role<=127; role++) {
