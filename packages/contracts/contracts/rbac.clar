@@ -22,7 +22,7 @@
   (default-to u0 (get roles (map-get? UserRoles {user: user})))
 )
 
-;; Checks if user have granted a specific role 
+;; Checks if user has a specified role
 (define-read-only (has-role (user principal) (role uint))
   (begin 
     (asserts! (> u128 role) false)
