@@ -1,5 +1,7 @@
 # daoOS
 
+This project complies with [`AYLIP/v2`](https://github.com/labs3/standards/releases/tag/v2).
+
 ## Background
 What problems do you aim to solve? How does it serve the mission of a user owned internet?
 
