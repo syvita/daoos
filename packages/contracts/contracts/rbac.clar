@@ -36,6 +36,18 @@
     (let
       (
         (currentRoles (get-roles user))
+      )
+      (contains currentRoles role)
+    )
+  )
+)
+
+;;
+(define-read-only (contains (currentRoles uint) (role uint))
+  (begin
+    (asserts! (> u128 role) false)
+    (let
+      (
         (searchRole (pow u2 role))
       )
       (> currentRoles (xor currentRoles searchRole))
@@ -104,9 +116,8 @@
     (let
       (
         (currentRoles (get-permitted-roles permission))
-        (searchRole (pow u2 role))
       )
-      (> currentRoles (xor currentRoles searchRole))
+      (contains currentRoles role)
     )
   )
 )
