@@ -73,6 +73,7 @@ describe("rbac contract test suite", () => {
         let receipt = await client.grantRole(USER, role, DEPLOYER);
       
         expect(receipt.success, `The success status of granting role ${role} should be true.`).to.be.true;
+        expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
       }
     });
 
@@ -163,6 +164,7 @@ describe("rbac contract test suite", () => {
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
 
         expect(receipt.success, `The success status of revoking ${role} should be true.`).to.be.true;
+        expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
       }
     });
 
@@ -237,6 +239,7 @@ describe("rbac contract test suite", () => {
         
         expect(receipt.success, 
           `The success status of granting "${permission}" permission to role ${role} should be true`).to.be.true;
+        expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
       }
     });
 
@@ -310,6 +313,7 @@ describe("rbac contract test suite", () => {
         let receipt = await client.revokePermission(permission, role, DEPLOYER);
         expect(receipt.success, 
           `The success status of revoking "${permission}" permission from role ${role} should be true.`).to.be.true;
+        expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
       }
     });
 
@@ -363,6 +367,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.grantRole(USER, 1, DEPLOYER);
       
       expect(receipt.success, `The success status of granting role by ${DEPLOYER} should be true`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
     it("should succeed granting role if called by user with correct permission", async () => {
@@ -374,6 +379,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.grantRole(USER, 1, USER);
       expect(receipt.success, 
         `The success status of granting role by ${USER} after granting him role ${role} with "${permission}" permission should be true.`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
 
@@ -391,6 +397,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.revokeRole(USER, 1, DEPLOYER);
       
       expect(receipt.success, `The status of revoking role by ${DEPLOYER} should be true`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
     it("should succeed revoking role if called by user with correct permission", async () => {
@@ -404,6 +411,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.revokeRole(USER, 1, USER);
       expect(receipt.success,
         `Revoking role by ${USER} after granting him role ${role} with "${permission}" permission should be true.`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
     it("should fail granting permission if called by non-owner user", async () => {
@@ -419,6 +427,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.grantPermission("dummy-permission", 1, DEPLOYER);
 
       expect(receipt.success, `The success status of granting permission by ${DEPLOYER} should be true.`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
     it("should succeed granting permission if called by user with correct permission", async () => {
@@ -431,6 +440,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.grantPermission("dummy-permission", 1, USER);
       expect(receipt.success, 
         `Granting permission by ${USER} after granting him role ${role} with "${permission}" persmission should be true.`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
     it("should fail revoking permission if called by non-owner user", async () => {
@@ -447,6 +457,7 @@ describe("rbac contract test suite", () => {
       
       let receipt = await client.revokePermission("dummy-permission", 1, DEPLOYER);
       expect(receipt.success, `The success status of revoking permission by ${DEPLOYER} should be true.`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     })
 
     it("should succeed revoking permission if called by user with correct permission", async () => {
@@ -460,6 +471,7 @@ describe("rbac contract test suite", () => {
       let receipt = await client.revokePermission("dummy-permission", 1, USER);
       expect(receipt.success, 
         `Revoking permission by ${USER} after granting him role ${role} with "${permission}" permission should be true`).to.be.true;
+      expect(receipt.result, "Incorrect transaction result").to.be.eq("Transaction executed and committed. Returned: true\n[]")
     });
 
   });
