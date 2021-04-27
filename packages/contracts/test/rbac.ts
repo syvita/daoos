@@ -91,26 +91,7 @@ describe("rbac contract test suite", () => {
       }
     });
 
-
-    it("tests if user has a specific role", async() => {
-      for (let role = 0; role <= 127; role++) {
-        let receipt = await client.hasRole(USER, role);
-
-        expect(Clarity.unwrapBool(receipt),
-          `${USER} should not have role ${role} before granting it.`).to.be.false;
-      }
-
-
-      for (let role = 0; role <= 127; role++) {
-        await client.grantRole(USER, role, DEPLOYER);
-        let receipt = await client.hasRole(USER, role);
-
-        expect(Clarity.unwrapBool(receipt),
-          `${USER} should have role ${role} after it has been granted.`).to.be.true;
-      }
-    })
-
-    
+   
     it("should fail granting role more than once", async () => {
       const expectedError = ERR_ROLE_ALREADY_GRANTED;
       const roles = [1, 7, 8, 9,15, 32, 67, 88, 92, 120, 127];
