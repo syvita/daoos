@@ -172,8 +172,8 @@
 
 ;; Checks if user has at least one role granted with a specified permission.
 (define-read-only (can-execute (user principal) (permission (string-ascii 50)))
-  (begin
-    (asserts! (not (is-eq CONTRACT_OWNER user)) true)
+  (if (is-eq CONTRACT_OWNER user)
+    true
     (let
       (
         (permittedRoles (get-permitted-roles permission))
