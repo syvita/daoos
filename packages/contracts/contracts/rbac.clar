@@ -7,6 +7,11 @@
 
 (define-constant ROLE_CONTRACT_OWNER (pow u2 u127))
 
+(define-constant PERMISSION_GRANT_ROLE "grant-role")
+(define-constant PERMISSION_REVOKE_ROLE "revoke-role")
+(define-constant PERMISSION_GRANT_PERMISSION "grant-permission")
+(define-constant PERMISSION_REVOKE_PERMISSION "revoke-permission")
+
 (define-constant CONTRACT_OWNER tx-sender)
 
 ;; Stores roles granted to users
@@ -64,7 +69,7 @@
 ;; - user already has specified role
 (define-public (grant-role (user principal) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "grant-role") ERR_UNAUTHORIZED)
+    (asserts! (can-execute tx-sender PERMISSION_GRANT_ROLE) ERR_UNAUTHORIZED)
     (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
     (asserts! (not (has-role user role)) ERR_ROLE_ALREADY_GRANTED)
     (let
@@ -88,7 +93,7 @@
 ;; - user already has specified role
 (define-public (revoke-role (user principal) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "revoke-role") ERR_UNAUTHORIZED)
+    (asserts! (can-execute tx-sender PERMISSION_REVOKE_ROLE) ERR_UNAUTHORIZED)
     (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
     (asserts! (has-role user role) ERR_ROLE_NOT_FOUND)
     (let
@@ -131,7 +136,7 @@
 ;; - permission has already been granted to the specified role
 (define-public (grant-permission (permission (string-ascii 50)) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "grant-permission") ERR_UNAUTHORIZED)
+    (asserts! (can-execute tx-sender PERMISSION_GRANT_PERMISSION) ERR_UNAUTHORIZED)
     (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
     (asserts! (not (has-permission role permission)) ERR_PERMISSION_ALREADY_GRANTED)
     (let
@@ -155,7 +160,7 @@
 ;; - permission does not exist for role
 (define-public (revoke-permission (permission (string-ascii 50)) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "revoke-permission") ERR_UNAUTHORIZED)
+    (asserts! (can-execute tx-sender PERMISSION_REVOKE_PERMISSION) ERR_UNAUTHORIZED)
     (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
     (asserts! (has-permission role permission) ERR_PERMISSION_NOT_FOUND)
     (let
@@ -190,7 +195,7 @@
 ;; grant ROLE_CONTRACT_OWNER role to contract owner (aka. deployer)
 (map-set UserRoles {user: tx-sender} {roles: ROLE_CONTRACT_OWNER})
 ;; grant permissions for contract owner
-(map-set PermissionRoles {permission: "grant-permission"} {roles: ROLE_CONTRACT_OWNER})
-(map-set PermissionRoles {permission: "revoke-permission"} {roles: ROLE_CONTRACT_OWNER})
-(map-set PermissionRoles {permission: "grant-role"} {roles: ROLE_CONTRACT_OWNER})
-(map-set PermissionRoles {permission: "revoke-role"} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: PERMISSION_GRANT_PERMISSION} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: PERMISSION_REVOKE_PERMISSION} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: PERMISSION_GRANT_ROLE} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: PERMISSION_REVOKE_ROLE} {roles: ROLE_CONTRACT_OWNER})
