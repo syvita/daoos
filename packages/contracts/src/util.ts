@@ -53,11 +53,11 @@ export namespace Clarity {
   export function unwrapError(input: ResultInterface<string, any>) {
     let err = input.error!;
     
-    const pattern = /^Aborted:\s"(.*?)"$/
+    const pattern = /^Aborted:\s"?(.*?)"?$/
     const match = pattern.exec(err.commandOutput);
 
     if (!match) {
-      throw new Error(`Unable to unwrap result: ${err.commandOutput}`);
+      throw new Error(`Unable to unwrap error: "${err.commandOutput}"`);
     }
     return match[1];
   }

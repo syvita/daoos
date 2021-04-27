@@ -1,3 +1,10 @@
+(define-constant ERR_UNAUTHORIZED (err u401))
+(define-constant ERR_ROLE_OUT_OF_RANGE (err u1001))
+(define-constant ERR_ROLE_ALREADY_GRANTED (err u1002))
+(define-constant ERR_ROLE_NOT_FOUND (err u1003))
+(define-constant ERR_PERMISSION_ALREADY_GRANTED (err u1004))
+(define-constant ERR_PERMISSION_NOT_FOUND (err u1005))
+
 (define-constant CONTRACT_OWNER tx-sender)
 
 ;; Stores roles granted to users
@@ -43,9 +50,9 @@
 ;; - user already has specified role
 (define-public (grant-role (user principal) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "grant-role") (err "Unauthorized"))
-    (asserts! (> u128 role) (err "Role is out of range 0-127"))
-    (asserts! (not (has-role user role)) (err "Role already granted"))
+    (asserts! (can-execute tx-sender "grant-role") ERR_UNAUTHORIZED)
+    (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
+    (asserts! (not (has-role user role)) ERR_ROLE_ALREADY_GRANTED)
     (let
       (
         (currentRoles (get-roles user))
@@ -67,9 +74,9 @@
 ;; - user already has specified role
 (define-public (revoke-role (user principal) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "revoke-role") (err "Unauthorized"))
-    (asserts! (> u128 role) (err "Role is out of range 0-127"))
-    (asserts! (has-role user role) (err "Role already revoked"))
+    (asserts! (can-execute tx-sender "revoke-role") ERR_UNAUTHORIZED)
+    (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
+    (asserts! (has-role user role) ERR_ROLE_NOT_FOUND)
     (let
       (
         (currentRoles (get-roles user))
@@ -111,9 +118,9 @@
 ;; - permission has already been granted to the specified role
 (define-public (grant-permission (permission (string-ascii 50)) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "grant-permission") (err "Unauthorized"))
-    (asserts! (> u128 role) (err "Role is out of range 0-127"))
-    (asserts! (not (has-permission role permission)) (err "Permission already granted"))
+    (asserts! (can-execute tx-sender "grant-permission") ERR_UNAUTHORIZED)
+    (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
+    (asserts! (not (has-permission role permission)) ERR_PERMISSION_ALREADY_GRANTED)
     (let
       (
         (currentRoles (get-permitted-roles permission))
@@ -135,9 +142,9 @@
 ;; - permission does not exist for role
 (define-public (revoke-permission (permission (string-ascii 50)) (role uint))
   (begin
-    (asserts! (can-execute tx-sender "revoke-permission") (err "Unauthorized"))
-    (asserts! (> u128 role) (err "Role is out of range 0-127"))
-    (asserts! (has-permission role permission) (err "The permission does not exist for the specified role."))
+    (asserts! (can-execute tx-sender "revoke-permission") ERR_UNAUTHORIZED)
+    (asserts! (> u128 role) ERR_ROLE_OUT_OF_RANGE)
+    (asserts! (has-permission role permission) ERR_PERMISSION_NOT_FOUND)
     (let
       (
         (currentRoles (get-permitted-roles permission))

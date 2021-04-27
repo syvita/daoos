@@ -11,6 +11,12 @@ describe("rbac contract test suite", () => {
   const DEPLOYER = 'SP3GWX3NE58KXHESRYE4DYQ1S31PQJTCRXB3PE9SB';
   const USER = 'STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6';
 
+  const ERR_UNAUTHORIZED = 'u401';
+  const ERR_ROLE_OUT_OF_RANGE = 'u1001';
+  const ERR_ROLE_ALREADY_GRANTED = 'u1002';
+  const ERR_ROLE_NOT_FOUND = 'u1003';
+  const ERR_PERMISSION_ALREADY_GRANTED = 'u1004';
+  const ERR_PERMISSION_NOT_FOUND = 'u1005';
 
   describe("Contract syntax", async () => {
     it("should be valid", async () => {
@@ -49,7 +55,7 @@ describe("rbac contract test suite", () => {
 
    
     it("should fail granting role higher than 127", async () => {
-      const expectedError = "Role is out of range 0-127";
+      const expectedError = ERR_ROLE_OUT_OF_RANGE;
 
       for (let role = 128; role <=150; role++) {
         let receipt = await client.grantRole(USER, role, DEPLOYER);
@@ -105,7 +111,7 @@ describe("rbac contract test suite", () => {
 
     
     it("should fail granting role more than once", async () => {
-      const expectedError = "Role already granted";
+      const expectedError = ERR_ROLE_ALREADY_GRANTED;
       const roles = [1, 7, 8, 9,15, 32, 67, 88, 92, 120, 127];
 
       for (const role of roles) {
@@ -126,7 +132,7 @@ describe("rbac contract test suite", () => {
 
 
     it("should fail revoking role above 128", async () => {
-      const expectedError = "Role is out of range 0-127";
+      const expectedError = ERR_ROLE_OUT_OF_RANGE;
 
       for (let role = 128; role < 150; role++) {
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
@@ -139,7 +145,7 @@ describe("rbac contract test suite", () => {
 
 
     it("should fail revoking role that was never granted", async () => {
-      const expectedError = "Role already revoked";
+      const expectedError = ERR_ROLE_NOT_FOUND;
 
       for (let role = 0; role <=127; role++) {
         let receipt = await client.revokeRole(USER, role, DEPLOYER);
@@ -208,7 +214,7 @@ describe("rbac contract test suite", () => {
 
 
     it("should fail granting permission to role higher than 127", async () => {
-      const expectedError = "Role is out of range 0-127";
+      const expectedError = ERR_ROLE_OUT_OF_RANGE;
       const permission = "do-something";
 
       for (let role=128; role <=150; role++) {
@@ -248,7 +254,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail granting permission to role more than once", async () => {
-      const expectedError = "Permission already granted";
+      const expectedError = ERR_PERMISSION_ALREADY_GRANTED;
       const permission = "test-test-test";
       const roles = [2, 3, 17, 26, 49, 55, 87, 93, 99, 115];
 
@@ -265,7 +271,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail revoking permission from role higher than 127", async () => {
-      const expectedError = "Role is out of range 0-127";
+      const expectedError = ERR_ROLE_OUT_OF_RANGE;
       const permission = "bla-bla-bla";
 
       for(let role=128; role<=150; role++) {
@@ -280,7 +286,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail revoking permission from role that never been granted", async () => {
-      const expectedError = "The permission does not exist for the specified role.";
+      const expectedError = ERR_PERMISSION_NOT_FOUND;
       const permission = "stx-stx";
       const roles = [0, 3, 15, 56, 82, 102, 112, 122]
 
@@ -345,7 +351,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail granting role if called by non-owner user", async () => {
-      let expectedError = "Unauthorized";
+      let expectedError = ERR_UNAUTHORIZED;
       let receipt = await client.grantRole(USER, 1, USER);
       
       expect(receipt.success, `The success status of granting role by ${USER} should be false.`).to.be.false;
@@ -372,7 +378,7 @@ describe("rbac contract test suite", () => {
 
 
     it("should fail revoking role if called by non-owner user", async () => {
-      const expectedError = "Unauthorized";
+      const expectedError = ERR_UNAUTHORIZED;
       let receipt = await client.revokeRole(USER, 1, USER);
       
       expect(receipt.success, `The status of revoking role by ${USER} should be false.`).to.be.false;
@@ -401,7 +407,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail granting permission if called by non-owner user", async () => {
-      const expectedError = "Unauthorized";
+      const expectedError = ERR_UNAUTHORIZED;
       let receipt = await client.grantPermission("dummy-permission", 1, USER);
 
       expect(receipt.success, `The success status of granting permission by ${USER} should be false.`).to.be.false;
@@ -428,7 +434,7 @@ describe("rbac contract test suite", () => {
     });
 
     it("should fail revoking permission if called by non-owner user", async () => {
-      const expectedError = "Unauthorized";
+      const expectedError = ERR_UNAUTHORIZED;
       let receipt = await client.revokePermission("dummy-permission", 1, USER);
       
       expect(receipt.success,`The success status of revoking permission by ${USER} should be false.`).to.be.false;
