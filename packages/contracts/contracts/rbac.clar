@@ -5,6 +5,8 @@
 (define-constant ERR_PERMISSION_ALREADY_GRANTED (err u1004))
 (define-constant ERR_PERMISSION_NOT_FOUND (err u1005))
 
+(define-constant ROLE_CONTRACT_OWNER (pow u2 u127))
+
 (define-constant CONTRACT_OWNER tx-sender)
 
 ;; Stores roles granted to users
@@ -172,16 +174,23 @@
 
 ;; Checks if user has at least one role granted with a specified permission.
 (define-read-only (can-execute (user principal) (permission (string-ascii 50)))
-  (if (is-eq CONTRACT_OWNER user)
-    true
-    (let
-      (
-        (permittedRoles (get-permitted-roles permission))
-        (userRoles (get-roles user))
-      )
-      (asserts! (< u0 permittedRoles) false)  ;; false if permission is not granted to any role (permission is unknown)
-      (asserts! (< u0 userRoles) false)       ;; false if user doesn't have any roles (unknown user)
-      (> permittedRoles (xor permittedRoles userRoles))
+  (let
+    (
+      (permittedRoles (get-permitted-roles permission))
+      (userRoles (get-roles user))
     )
+    (asserts! (< u0 permittedRoles) false)  ;; false if permission is not granted to any role (permission is unknown)
+    (asserts! (< u0 userRoles) false)       ;; false if user doesn't have any roles (unknown user)
+    (> permittedRoles (xor permittedRoles userRoles))
   )
 )
+
+;; Contract Init
+;;
+;; grant ROLE_CONTRACT_OWNER role to contract owner (aka. deployer)
+(map-set UserRoles {user: tx-sender} {roles: ROLE_CONTRACT_OWNER})
+;; grant permissions for contract owner
+(map-set PermissionRoles {permission: "grant-permission"} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: "revoke-permission"} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: "grant-role"} {roles: ROLE_CONTRACT_OWNER})
+(map-set PermissionRoles {permission: "revoke-role"} {roles: ROLE_CONTRACT_OWNER})
