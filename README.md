@@ -1,6 +1,6 @@
 ![repo header gradient](readme-img/header.png "repo header gradient")
 
-`This project complies with [`AYLIP/v3`](https://github.com/labs3/standards/releases/tag/v3).`
+This project complies with [`AYLIP/v3`](https://github.com/labs3/standards/releases/tag/v3).
 
 ---
 
