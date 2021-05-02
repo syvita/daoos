@@ -1,6 +1,8 @@
-# daoOS
+![repo header gradient](readme-img/header.png "repo header gradient")
 
-This project complies with [`AYLIP/v3`](https://github.com/labs3/standards/releases/tag/v3).
+```This project complies with [`AYLIP/v3`](https://github.com/labs3/standards/releases/tag/v3).```
+
+---
 
 ## Background
 What problems do you aim to solve? How does it serve the mission of a user owned internet?
