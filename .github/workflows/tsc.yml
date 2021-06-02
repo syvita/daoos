@@ -16,5 +16,6 @@ jobs:
       - name: yarn install
         run: yarn install
       - name: tsc
-        working-directory: ./packages/contracts
         uses: icrawl/action-tsc@v1
+        with:
+          project: ./packages/contracts
