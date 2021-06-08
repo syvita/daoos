@@ -18,4 +18,4 @@ jobs:
       - name: tsc
         uses: icrawl/action-tsc@v1
         with:
-          project: "/packages/contracts"
+          project: "/packages/contracts/tsconfig.json"
