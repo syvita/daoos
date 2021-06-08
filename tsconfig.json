@@ -13,7 +13,9 @@
     "allowJs": true
   },
   "include": [
-    "packages/contracts/**/*.ts"
+    "packages/contracts/**/*.ts",
+    "packages/ui/**/*.ts",
+    "packages/ui/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
