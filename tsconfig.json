@@ -9,7 +9,8 @@
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true
   },
   "include": [
     "packages/contracts/**/*.ts"
