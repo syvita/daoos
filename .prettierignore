@@ -1,0 +1,10 @@
+# Ignore artifacts:
+docs/CLARITY_STANDARDS.md
+docs/README.md
+lerna.json
+package-lock.json
+packages/contracts/.vscode/extensions.json
+packages/contracts/tsconfig.json
+packages/ui/.next/
+README.md
+tsconfig.json
