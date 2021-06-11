@@ -8,3 +8,4 @@ packages/contracts/tsconfig.json
 packages/ui/.next/
 README.md
 tsconfig.json
+.github/
