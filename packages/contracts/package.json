@@ -15,16 +15,13 @@
     "test:watch": "mocha --watch"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^10",
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
-    "ts-node": "^8.2.0",
-    "typescript": "^3.5.2"
+    "prettier": "^2.3.0"
   },
   "dependencies": {
     "@blockstack/clarity": "^0.3.11",
-    "@blockstack/clarity-native-bin": "^0.3.11"
+    "@blockstack/clarity-native-bin": "^0.3.11",
+    "ts-node": "^10.0.0"
   }
 }

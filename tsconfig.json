@@ -9,10 +9,13 @@
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true
   },
   "include": [
-    "tests"
+    "packages/contracts/**/*.ts",
+    "packages/ui/**/*.ts",
+    "packages/ui/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
