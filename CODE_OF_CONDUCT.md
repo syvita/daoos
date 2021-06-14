@@ -1,8 +1,28 @@
-# Contributor Covenant Code of Conduct
+# General DAOos Code of Conduct
+
+## Purpose
+
+A primary goal of <DAO> is to be inclusive to the largest number of contributors, with the most varied and diverse backgrounds possible. As such, we are committed to providing a friendly, safe and welcoming environment for all, regardless of gender, sexual orientation, ability, ethnicity, socioeconomic status, and religion (or lack thereof).
+
+This code of conduct outlines our expectations for all those who participate in our <DAO>, as well as the consequences for unacceptable behavior.
+
+We invite all those who participate in the Stacks Community to help us create safe and positive experiences for everyone.
+
+## Open Citizenship
+
+A supplemental goal of this Code of Conduct is to increase open citizenship by encouraging participants to recognize and strengthen the relationships between our actions and their effects on our community.
+
+Communities mirror the societies in which they exist and positive action is essential to counteract the many forms of inequality and abuses of power that exist in society.
+
+If you see someone who is making an extra effort to ensure our community is welcoming, friendly, and encourages all participants to contribute to the fullest extent, we want to know.
+
+## A Can't Be Evil Ethos
+
+A root ethos of the Stacks community is _Can’t Be Evil_. This rallying cry represents a deep core belief in a user owned internet flanked by the pillars of privacy and self-sovereign identity. We strongly believe in individual rights together with decentralization. This ethos is also a centerpiece of our <DAO> on Stacks.  
 
 ## Our Pledge
 
-We as members, contributors, and leaders pledge to make participation in our
+We as DAO members, contributors, and leaders pledge to make participation in our
 community a harassment-free experience for everyone, regardless of age, body
 size, visible or invisible disability, ethnicity, sex characteristics, gender
 identity and expression, level of experience, education, socio-economic status,
@@ -48,8 +68,8 @@ decisions when appropriate.
 
 ## Scope
 
-This Code of Conduct applies within all community spaces, and also applies when
-an individual is officially representing the community in public spaces.
+This Code of Conduct applies within all community spaces of the DAO, and also applies 
+when an individual is officially representing the community in public spaces.
 Examples of representing our community include using an official e-mail address,
 posting via an official social media account, or acting as an appointed
 representative at an online or offline event.
@@ -112,15 +132,19 @@ the community.
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+This code of conduct is adapted from The Stacks Code of Conduct (Beta) by Joberding (2021) which in turn is adapted from the [Contributor Covenant][homepage],
 version 2.0, available at
 https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
 
 Community Impact Guidelines were inspired by [Mozilla's code of conduct
 enforcement ladder](https://github.com/mozilla/diversity).
-
-[homepage]: https://www.contributor-covenant.org
-
+  
+Language was incorporated from the following Codes of Conduct:
+*	Citizen Code of Conduct licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+*	LGBTQ in Tech , licensed under a Creative Commons Zero License
+*	Django Project Code of Conduct, licensed under a Creative Commons Attribution 3.0 Unported License.
+*	Rust Code of Conduct
+  
 For answers to common questions about this code of conduct, see the FAQ at
 https://www.contributor-covenant.org/faq. Translations are available at
 https://www.contributor-covenant.org/translations.
