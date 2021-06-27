@@ -1,0 +1,10 @@
+.contentContainer {
+  display: flex;
+}
+
+.mainContent {
+  background-color: white !important;
+  width: 100%;
+  min-height: -webkit-fill-available;
+  flex-grow: 1;
+}
