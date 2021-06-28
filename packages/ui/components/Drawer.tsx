@@ -41,7 +41,7 @@ function Drawer({
             [styles.mobileLogo]: expanded,
           })}
         >
-          LOGO
+          daoOS (alpha)
         </p>
         <NavLink icon={<DashboardIcon className={styles.navIcon} />} href="/">
           Dashboard
