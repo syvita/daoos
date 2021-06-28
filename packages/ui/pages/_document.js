@@ -2,6 +2,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "../src/theme";
+import { mediaStyles } from "../components/media";
 
 export default class MyDocument extends Document {
   render() {
@@ -10,10 +11,17 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <style
+            type="text/css"
+            dangerouslySetInnerHTML={{ __html: mediaStyles }}
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <link href="/fonts/inter/importme.css" rel="stylesheet" />
+          <link href="/fonts/menlo/importme.css" rel="stylesheet" />
+          <link href="/fonts/roobert/importme.css" rel="stylesheet" />
         </Head>
         <body>
           <Main />

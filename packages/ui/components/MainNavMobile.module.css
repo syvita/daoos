@@ -1,0 +1,29 @@
+.hamburger {
+  cursor: pointer;
+  font-size: 2.5rem !important;
+  position: absolute;
+  right: 0px;
+  color: #452056;
+  margin-top: 20px;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.main {
+  background-color: white;
+  min-height: -webkit-fill-available;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.mobileDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileDrawer {
+  flex-shrink: 0;
+  min-height: -webkit-fill-available;
+  right: 0px;
+  position: absolute;
+}
