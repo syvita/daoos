@@ -1,7 +1,7 @@
 .hamburger {
   cursor: pointer;
   font-size: 2.5rem !important;
-  position: absolute;
+  position: fixed;
   right: 0px;
   color: #452056;
   margin-top: 20px;
@@ -25,5 +25,7 @@
   flex-shrink: 0;
   min-height: -webkit-fill-available;
   right: 0px;
-  position: absolute;
+  position: fixed;
+  overflow-y: scroll;
+  max-height: 100%;
 }
