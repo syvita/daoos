@@ -11,7 +11,6 @@
 
 .main {
   background-color: white;
-  height: 100vh;
   min-height: -webkit-fill-available;
   width: 100%;
   flex-grow: 1;
