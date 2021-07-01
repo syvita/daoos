@@ -1,4 +1,4 @@
-# daoOS
+<img src="https://x.syvita.org/repoheaders/daoos.png"></img>
 
 This project complies with [`SyvR-v4`](https://github.com/labs3/standards/releases/tag/v4).
 
