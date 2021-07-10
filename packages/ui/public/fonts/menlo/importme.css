@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Menlo";
+  src: url("Menlo-Bold.woff2") format("woff2"),
+    url("Menlo-Bold.woff") format("woff"),
+    url("Menlo-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Menlo";
+  src: url("Menlo-Italic.woff2") format("woff2"),
+    url("Menlo-Italic.woff") format("woff"),
+    url("Menlo-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Menlo";
+  src: url("Menlo-BoldItalic.woff2") format("woff2"),
+    url("Menlo-BoldItalic.woff") format("woff"),
+    url("Menlo-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Menlo";
+  src: url("Menlo-Regular.woff2") format("woff2"),
+    url("Menlo-Regular.woff") format("woff"),
+    url("Menlo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

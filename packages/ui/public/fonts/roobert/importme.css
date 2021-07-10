@@ -1,0 +1,119 @@
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-Heavy.woff2") format("woff2"),
+    url("Roobert-Heavy.woff") format("woff"),
+    url("Roobert-Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-BoldItalic.woff2") format("woff2"),
+    url("Roobert-BoldItalic.woff") format("woff"),
+    url("Roobert-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-Bold.woff2") format("woff2"),
+    url("Roobert-Bold.woff") format("woff"),
+    url("Roobert-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-SemiBoldItalic.woff2") format("woff2"),
+    url("Roobert-SemiBoldItalic.woff") format("woff"),
+    url("Roobert-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-RegularItalic.woff2") format("woff2"),
+    url("Roobert-RegularItalic.woff") format("woff"),
+    url("Roobert-RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-Medium.woff2") format("woff2"),
+    url("Roobert-Medium.woff") format("woff"),
+    url("Roobert-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-MediumItalic.woff2") format("woff2"),
+    url("Roobert-MediumItalic.woff") format("woff"),
+    url("Roobert-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-Regular.woff2") format("woff2"),
+    url("Roobert-Regular.woff") format("woff"),
+    url("Roobert-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-Light.woff2") format("woff2"),
+    url("Roobert-Light.woff") format("woff"),
+    url("Roobert-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-HeavyItalic.woff2") format("woff2"),
+    url("Roobert-HeavyItalic.woff") format("woff"),
+    url("Roobert-HeavyItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-SemiBold.woff2") format("woff2"),
+    url("Roobert-SemiBold.woff") format("woff"),
+    url("Roobert-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert";
+  src: url("Roobert-LightItalic.woff2") format("woff2"),
+    url("Roobert-LightItalic.woff") format("woff"),
+    url("Roobert-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
