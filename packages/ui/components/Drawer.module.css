@@ -58,7 +58,7 @@
 
 .inviteBtn {
   border-radius: 8px;
-  background: #9324f8;
+  background: #9324f8 !important;
   color: white;
   width: 204px;
   height: 50px;
