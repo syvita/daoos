@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          {this.props.materialStyle}
           <style
             type="text/css"
             dangerouslySetInnerHTML={{ __html: mediaStyles }}
@@ -70,10 +71,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [
-      ...React.Children.toArray(initialProps.styles),
-      sheets.getStyleElement(),
-    ],
+    materialStyle: sheets.getStyleElement(),
   };
 };

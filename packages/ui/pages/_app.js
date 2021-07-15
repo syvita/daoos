@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import { useRouter } from "next/router";
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <React.Fragment>
+    <StylesProvider injectFirst>
       <Head>
         <title>daoOS</title>
         <meta
@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         )}
       </ThemeProvider>
-    </React.Fragment>
+    </StylesProvider>
   );
 }
 
