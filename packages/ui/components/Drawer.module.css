@@ -57,25 +57,25 @@
 }
 
 .inviteBtn {
-  border-radius: 8px !important;
+  border-radius: 8px;
   background: #9324f8 !important;
-  color: white !important;
-  width: 204px !important;
-  height: 50px !important;
-  align-self: center !important;
-  text-transform: none !important;
-  font-family: "Inter" !important;
-  font-weight: bold !important;
-  font-size: 16px !important;
-  letter-spacing: 0.5px !important;
+  color: white;
+  width: 204px;
+  height: 50px;
+  align-self: center;
+  text-transform: none;
+  font-family: "Inter";
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
 .rules {
-  margin-top: 26px !important;
-  color: white !important;
-  font-family: "Inter" !important;
-  font-size: 16px !important;
-  letter-spacing: 0.5px !important;
+  margin-top: 26px;
+  color: white;
+  font-family: "Inter";
+  font-size: 16px;
+  letter-spacing: 0.5px;
   text-align: center;
   text-underline-offset: 2px;
 }
