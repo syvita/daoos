@@ -1,0 +1,6 @@
+.memberGroupContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: 1;
+  margin-top: 24px;
+}

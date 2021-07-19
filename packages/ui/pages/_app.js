@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   // Hardcoded routes that will have our Nav. May use a different approach later.
-  const sideBarRoutes = ["/"];
+  const sideBarRoutes = ["/", "/members"];
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.

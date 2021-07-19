@@ -19,21 +19,18 @@ function MainNavMobile({ children }: MainNavMobileProps) {
 
   const ref = useRef(null);
   useClickAway(ref, () => {
-    console.log(setExpanded(false));
+    setExpanded(false);
   });
 
   return (
     <div className={styles.mobileDiv}>
       {showHamburger && (
-        <main className={styles.main}>
-          {children}
-          <MenuIcon
-            className={styles.hamburger}
-            onClick={() => setExpanded(true)}
-          />
-        </main>
+        <MenuIcon
+          className={styles.hamburger}
+          onClick={() => setExpanded(true)}
+        />
       )}
-      {expanded && <main className={styles.main}>{children}</main>}
+      <main className={styles.main}>{children}</main>
       <CSSTransition
         in={expanded}
         timeout={200}

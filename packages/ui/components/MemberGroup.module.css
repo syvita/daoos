@@ -1,0 +1,48 @@
+.memberGroup {
+  background: #f8f8f8;
+  border-radius: 10px;
+  flex-basis: 47%;
+}
+
+.subheader {
+  border-radius: 10px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.25px;
+  color: #000618;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.memberTextDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.memberName {
+  margin-left: 15px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  color: #181920;
+  width: 100%;
+}
+
+.roleText {
+  margin-left: 15px;
+  width: 100%;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.1px;
+  color: #9fa4bc;
+}

@@ -1,0 +1,33 @@
+.search {
+  justify-content: center;
+  margin-top: 50px;
+  border: 1px solid #dcdde2;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  padding-left: 50px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.3px;
+}
+
+.relativeParent {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 59px;
+  left: 10px;
+  color: #d9dce3;
+}
+
+.search::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #d9dce3;
+  opacity: 1; /* Firefox */
+}
