@@ -1,5 +1,6 @@
 .mainNavDiv {
   display: flex;
+  position: fixed;
   background: #181829;
   min-height: -webkit-fill-available;
   flex-direction: column;
@@ -12,10 +13,6 @@
 
 .noWidth {
   width: 0px;
-}
-
-.fullWidth {
-  width: 284px;
 }
 
 .fullHeight {
@@ -41,11 +38,6 @@
 .navIcon {
   margin-right: 24px;
   color: #ffffff;
-}
-
-.dockRight {
-  right: 0px;
-  position: absolute;
 }
 
 .closeIcon {

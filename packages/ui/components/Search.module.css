@@ -1,6 +1,6 @@
 .search {
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 24px;
   border: 1px solid #dcdde2;
   box-sizing: border-box;
   border-radius: 5px;
@@ -21,7 +21,7 @@
 
 .searchIcon {
   position: absolute;
-  top: 59px;
+  top: 34px;
   left: 10px;
   color: #d9dce3;
 }

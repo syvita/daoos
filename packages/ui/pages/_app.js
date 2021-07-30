@@ -40,14 +40,14 @@ function MyApp({ Component, pageProps }) {
         <CssBaseline />
         {sideBarRoutes.includes(router.pathname) ? (
           <MediaContextProvider>
-            <Media lessThan="md">
+            <Media lessThan="sm">
               <MainNavMobile>
-                <Component {...pageProps} />
+                <Component {...pageProps} isMobile={true} />
               </MainNavMobile>
             </Media>
-            <Media greaterThan="sm">
+            <Media greaterThan="xs">
               <MainNav className={styles.fullHeight}>
-                <Component {...pageProps} />
+                <Component {...pageProps} isMobile={false} />
               </MainNav>
             </Media>
           </MediaContextProvider>

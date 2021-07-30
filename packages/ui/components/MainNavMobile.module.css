@@ -2,11 +2,11 @@
   cursor: pointer;
   font-size: 2.5rem;
   position: fixed;
-  right: 0px;
   color: #452056;
-  margin-top: 36px;
-  margin-right: 20px;
+  top: 30px;
+  right: 20px;
   flex-shrink: 0;
+  z-index: 2;
 }
 
 .main {
@@ -14,6 +14,7 @@
   min-height: -webkit-fill-available;
   width: 100%;
   flex-grow: 1;
+  margin-left: 40px;
 }
 
 .mobileDiv {
@@ -28,4 +29,6 @@
   position: fixed;
   overflow-y: scroll;
   max-height: 100%;
+  height: 100%;
+  z-index: 2;
 }

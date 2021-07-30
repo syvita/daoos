@@ -1,6 +1,13 @@
 .memberGroupContainer {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: 1;
-  margin-top: 24px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.memberGroupContainerMobile {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
