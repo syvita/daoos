@@ -3,7 +3,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import styles from "./Search.module.css";
 
-function Search(props) {
+function Search() {
   return (
     <div className={styles.relativeParent}>
       <SearchIcon className={styles.searchIcon} />
