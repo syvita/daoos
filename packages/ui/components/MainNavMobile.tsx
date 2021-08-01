@@ -15,7 +15,12 @@ interface MainNavMobileProps {
 
 function MainNavMobile({ children }: MainNavMobileProps) {
   const [expanded, setExpanded] = useState(false);
-  const [showHamburger, setShowHamburger] = useState(true);
+
+  const closeDrawer = (): void => {
+    if (expanded) {
+      setExpanded(false);
+    }
+  };
 
   const ref = useRef(null);
   useClickAway(ref, () => {
@@ -24,7 +29,7 @@ function MainNavMobile({ children }: MainNavMobileProps) {
 
   return (
     <div className={styles.mobileDiv}>
-      {showHamburger && (
+      {!expanded && (
         <MenuIcon
           className={styles.hamburger}
           onClick={() => setExpanded(true)}
@@ -41,8 +46,6 @@ function MainNavMobile({ children }: MainNavMobileProps) {
           exitDone: transitionStyles.myNodeExit,
         }}
         unmountOnExit
-        onEnter={() => setShowHamburger(false)}
-        onExited={() => setShowHamburger(true)}
       >
         {/**
          * This approach to animation with CSSTransition is a bit hacky
@@ -59,6 +62,7 @@ function MainNavMobile({ children }: MainNavMobileProps) {
           className={styles.mobileDrawer}
           expanded={expanded}
           handleCloseClick={() => setExpanded(false)}
+          closeDrawer={closeDrawer}
         />
       </CSSTransition>
     </div>

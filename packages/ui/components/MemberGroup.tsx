@@ -100,9 +100,7 @@ function MemberGroup({ groupName, isMobile }: MemberGroupProps) {
         </ListItem>
       </List>
 
-      <Box boxShadow={12} className={styles.box}>
-        <Button className={styles.moreBtn}>Show More</Button>
-      </Box>
+      <Button className={styles.moreBtn}>Show More</Button>
     </div>
   );
 }

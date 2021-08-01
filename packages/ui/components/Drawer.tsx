@@ -17,6 +17,7 @@ interface DrawerProps {
   className?: string;
   expanded?: boolean;
   handleCloseClick?: () => void;
+  closeDrawer: () => void;
 }
 
 function Drawer({
@@ -24,6 +25,7 @@ function Drawer({
   className,
   expanded,
   handleCloseClick,
+  closeDrawer,
 }: DrawerProps) {
   return (
     <div
@@ -43,30 +45,38 @@ function Drawer({
         >
           daoOS (alpha)
         </p>
-        <NavLink icon={<DashboardIcon className={styles.navIcon} />} href="/">
+        <NavLink
+          icon={<DashboardIcon className={styles.navIcon} />}
+          href="/"
+          closeDrawer={closeDrawer}
+        >
           Dashboard
         </NavLink>
         <NavLink
           icon={<PeopleIcon className={styles.navIcon} />}
           href="/members"
+          closeDrawer={closeDrawer}
         >
           Members
         </NavLink>
         <NavLink
           icon={<AccountCircleIcon className={styles.navIcon} />}
           href="/profile"
+          closeDrawer={closeDrawer}
         >
           Profile
         </NavLink>
         <NavLink
           icon={<ContactSupportIcon className={styles.navIcon} />}
           href="/faq"
+          closeDrawer={closeDrawer}
         >
           FAQ & Help
         </NavLink>
         <NavLink
           icon={<ExitToAppIcon className={styles.navIcon} />}
           href="/logout"
+          closeDrawer={closeDrawer}
         >
           Log out
         </NavLink>
