@@ -22,6 +22,6 @@
   "dependencies": {
     "@blockstack/clarity": "^0.3.11",
     "@blockstack/clarity-native-bin": "^0.3.11",
-    "ts-node": "^10.0.0"
+    "ts-node": "^10.1.0"
   }
 }
