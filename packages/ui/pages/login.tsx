@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 import { Button } from "@material-ui/core";
 
@@ -15,11 +15,7 @@ function Login({ isMobile }: LoginProps) {
     <>
       {/* TODO: Add styling and proper layouts */}
       <PageHeading>Welcome to DaoOS</PageHeading>
-      <Button
-				onClick={() => authenticate()}
-			>
-        Connect wallet
-      </Button>
+      <Button onClick={() => authenticate()}>Connect wallet</Button>
     </>
   );
 }
