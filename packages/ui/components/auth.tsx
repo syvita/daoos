@@ -2,6 +2,7 @@
 import { AppConfig, UserSession, showConnect } from '@stacks/connect';
 // import { Storage } from '@stacks/storage';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
+import { callReadOnlyFunction, cvToJSON, standardPrincipalCV } from '@stacks/transactions';
 
 // Initialize Gaia hub permissions for the user
 const appConfig = new AppConfig(['store_write', 'publish_data']);
@@ -41,38 +42,53 @@ export function authenticate(): void {
     appDetails: {
       name: 'daoOS',
       // TODO: add daoOS logo over here
-      icon: './public/favicon.ico',
+      icon: '../public/favicon.ico',
     },
     redirectTo: '/',
     onFinish: () => {
+      // TODO: Enter miami vice's contract address 
+      const contractAddress: string = "SP98329831323123";
+      // TODO: Enter miami vice's contract name 
+      const contractName: string = "miami-vice-v1";
+      
+      const functionName: string = "is-dao-member";
       const stxAddress: string = getMyStxAddress();
-      const networkName: string = getNetworkName();
-      const numberOfMiamiCoinsRequired: number = 1;
+      const principalArg = standardPrincipalCV(stxAddress);
 
-      // TODO: add proper miami-coin-address, added wrapped nothing address as a placeholder for now
-      const miamiTokenAddress = "SP32AEEF6WW5Y0NMJ1S8SBSZDAY8R5J32NBZFPKKZ.wrapped-nothing-v8::wrapped-nthng";
+      const options = {
+        contractAddress,
+        contractName,
+        functionName,
+        functionArgs: [principalArg],
+        network: networkType(),
+        senderAddress: stxAddress,
+      };
 
-      // Fetch the miami coin balance from blockchain API
-      fetch(`https://stacks-node-api.${networkName}.stacks.co/extended/v1/address/${stxAddress}/balances`)
-      .then(response => {
+      callReadOnlyFunction(options)
+      .then(clarityValue => {
+        const jsonValue = cvToJSON(clarityValue);
 
-        response.json()
-        .then(jsonResponse => {
-          
-          // Check miami coin balance from blockchain api
-          const miamiBalance: number = jsonResponse.fungible_tokens[miamiTokenAddress] ?
-            parseInt(jsonResponse.fungible_tokens[miamiTokenAddress].balance) :
-            0;
-          
-          if (miamiBalance >= numberOfMiamiCoinsRequired){
-            // TODO: redirect to user miami vice dashboard
-            console.log("You got access!");
+        // TODO: check that the right type is compared
+        if(jsonValue.type === "(response bool)"){
+
+          // TODO: console log and check whether the right argument is used as boolean
+          const isMember: boolean = jsonValue.value["is-member"].value;
+
+          if(isMember){
+            // Allow access to the miami dashboard
+            // TODO: add redirect to miami dashboard
+            window.location.replace(window.location.origin + '/');
           }
-          else {
-            // TODO: deny access to miami vice or goto register screen
-            console.log("Access denied");
+          else{
+            // Deny access
+            // TODO: add redirect to register page
+            window.location.replace(window.location.origin + '/register');
           }
-        })
+        }
+      })
+      .catch(error => {
+        // TODO: any error handling such as the contract or the function doesn't exist
+        console.log(error.message);
       })
     },
     userSession: userSession,

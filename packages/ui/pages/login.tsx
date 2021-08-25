@@ -13,6 +13,7 @@ interface LoginProps {
 function Login({ isMobile }: LoginProps) {
   return (
     <>
+      {/* TODO: Add styling and proper layouts */}
       <PageHeading>Welcome to DaoOS</PageHeading>
       <Button
 				onClick={() => authenticate()}
