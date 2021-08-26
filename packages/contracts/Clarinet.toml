@@ -1,0 +1,15 @@
+[project]
+name = "fake-dao-registry"
+requirements = []
+
+[contracts.dao-traits]
+path = "contracts/dao-traits.clar"
+depends_on = []
+
+[contracts.daos-miami]
+path = "contracts/daos-miami.clar"
+depends_on = ["miamicoin-token", "dao-traits"]
+
+[contracts.miamicoin-token]
+path = "contracts/miamicoin-token.clar"
+depends_on = []
