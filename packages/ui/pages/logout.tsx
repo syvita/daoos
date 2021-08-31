@@ -4,7 +4,7 @@ import { userSession } from "../components/auth";
 import PageHeading from "../components/PageHeading";
 
 // Rough draft of what the logout page could look like
-function Login() {
+function Logout() {
   useEffect(() => {
     // Sign the user out
     userSession.signUserOut();
@@ -21,4 +21,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Logout;
