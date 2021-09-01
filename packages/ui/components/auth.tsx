@@ -10,27 +10,22 @@ import {
 // Initialize Gaia hub permissions for the user
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 
-// Set this to true if you want to use Mainnet
-// Using a boolean helps to switch the entire application to mainnet
-// or testnet with only changing a single value
-const isNetworkMainnet = true;
-
 export const userSession = new UserSession({ appConfig });
 // export const storage = new Storage({ userSession });
 
 // Return the network type object for the current network in use
 export function networkType() {
-  if (isNetworkMainnet) return new StacksMainnet();
+  if (process.env.IS_NETWORK_MAINNET === "true") return new StacksMainnet();
   else return new StacksTestnet();
 }
 
 export function getMyStxAddress(): string {
-  if (isNetworkMainnet) return getUserData().profile.stxAddress.mainnet;
-  else return getUserData().profile.stxAddress.testnet;
+  if (process.env.IS_NETWORK_MAINNET === "true") return userSession.loadUserData().profile.stxAddress.mainnet;
+  else return userSession.loadUserData().profile.stxAddress.testnet;
 }
 
 export function getNetworkName(): string {
-  if (isNetworkMainnet) return "mainnet";
+  if (process.env.IS_NETWORK_MAINNET === "true") return "mainnet";
   else return "testnet";
 }
 
@@ -61,6 +56,9 @@ export function authenticate(): void {
         senderAddress: stxAddress,
       };
 
+      // TODO: Remove this multiline comment when the testnet contract is deployed
+      //       and resolve the rest of the TODO in this comment block
+      /*
       callReadOnlyFunction(options)
         .then((clarityValue) => {
           const jsonValue = cvToJSON(clarityValue);
@@ -85,11 +83,8 @@ export function authenticate(): void {
           // TODO: any error handling such as the contract or the function doesn't exist
           console.log(error.message);
         });
+      */
     },
     userSession: userSession,
   });
-}
-
-export function getUserData() {
-  return userSession.loadUserData();
 }

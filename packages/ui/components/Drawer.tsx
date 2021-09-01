@@ -18,6 +18,7 @@ interface DrawerProps {
   expanded?: boolean;
   handleCloseClick?: () => void;
   closeDrawer: () => void;
+  handleLogout?: () => void;
 }
 
 function Drawer({
@@ -26,6 +27,7 @@ function Drawer({
   expanded,
   handleCloseClick,
   closeDrawer,
+  handleLogout
 }: DrawerProps) {
   return (
     <div
@@ -75,8 +77,9 @@ function Drawer({
         </NavLink>
         <NavLink
           icon={<ExitToAppIcon className={styles.navIcon} />}
-          href="/logout"
+          href="#"
           closeDrawer={closeDrawer}
+          handleLogout={handleLogout}
         >
           Log out
         </NavLink>
