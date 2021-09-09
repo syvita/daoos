@@ -72,7 +72,6 @@ function MainNavMobile({ children }: MainNavMobileProps) {
           expanded={expanded}
           handleCloseClick={() => setExpanded(false)}
           closeDrawer={closeDrawer}
-          handleLogout={handleLogout}
         />
       </CSSTransition>
     </div>

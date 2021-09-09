@@ -88,3 +88,11 @@ export function authenticate(): void {
     userSession: userSession,
   });
 }
+
+export const handleLogout = () => {
+  // Sign the user out
+  userSession.signUserOut();
+
+  // TODO: Redirect the user to the home/landing page
+  window.location.href = "/login";
+}

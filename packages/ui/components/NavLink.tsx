@@ -6,21 +6,11 @@ import styles from "./NavLink.module.css";
 interface NavLinkProps {
   icon: React.ReactElement;
   href: string;
-  closeDrawer: () => void;
-  handleLogout?: () => void;
+  handleClick?: () => void;
   children: React.ReactNode;
 }
 
-function NavLink({ icon, href, closeDrawer, handleLogout, children }: NavLinkProps) {
-
-  const handleClick = () => {
-    closeDrawer();
-
-    // If the handleLogout function is passed then call it
-    if(handleLogout)
-      handleLogout();
-  }
-
+function NavLink({ icon, href, handleClick, children }: NavLinkProps) {
   return (
     <div className={styles.subNavDiv}>
       <Link href={href}>
