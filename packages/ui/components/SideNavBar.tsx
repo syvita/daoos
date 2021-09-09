@@ -44,18 +44,7 @@ export const SideNavBar:React.FC<{navigation:TNavigation[]}> = ({navigation}) =>
                 aria-hidden="true"
               />
               <span className="flex-1">{item.name}</span>
-              {item.count ? (
-                <span
-                  className={classNames(
-                    isCurrentLink(router,item.href)
-                      ? "bg-gray-800"
-                      : "bg-gray-900 group-hover:bg-gray-800",
-                    "ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full"
-                  )}
-                >
-                  {item.count}
-                </span>
-              ) : null}
+              
             </a>
           ))}
         </nav>
