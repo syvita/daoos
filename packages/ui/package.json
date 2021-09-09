@@ -7,9 +7,8 @@
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "mockdata": "node ./node_modules/intermock/build/src/cli/index.js --files ./ui/types/index.d.ts --interfaces TProposalSummary"
-  },
+    "build-storybook": "build-storybook"
+     },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
