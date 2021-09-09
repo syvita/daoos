@@ -10,6 +10,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
     "next": "11.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -24,6 +26,9 @@
     "@storybook/addon-links": "^6.3.8",
     "@storybook/addon-viewport": "^6.3.8",
     "@storybook/react": "^6.3.8",
+    "@tailwindcss/aspect-ratio": "^0.2.1",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/typography": "^0.4.1",
     "@types/react": "^17.0.20",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.2.2",
