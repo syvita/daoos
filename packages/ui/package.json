@@ -7,15 +7,19 @@
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "mockdata": "node ./node_modules/intermock/build/src/cli/index.js --files ./ui/types/index.d.ts --interfaces TProposalSummary"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
+    "faker": "^5.5.3",
     "next": "11.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.2.3"
+    "react-fakers": "^1.0.3-rc1",
+    "styled-components": "^5.2.3",
+    "swr": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -28,10 +32,12 @@
     "@storybook/react": "^6.3.8",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "@types/react": "^17.0.20",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.2.2",
+    "faker": "^5.5.3",
     "postcss": "^7.0.36",
     "prettier": "^2.3.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
