@@ -6,15 +6,15 @@ import styles from "./NavLink.module.css";
 interface NavLinkProps {
   icon: React.ReactElement;
   href: string;
-  closeDrawer: () => void;
+  handleClick?: () => void;
   children: React.ReactNode;
 }
 
-function NavLink({ icon, href, closeDrawer, children }: NavLinkProps) {
+function NavLink({ icon, href, handleClick, children }: NavLinkProps) {
   return (
     <div className={styles.subNavDiv}>
       <Link href={href}>
-        <a className={styles.navLink} onClick={closeDrawer}>
+        <a className={styles.navLink} onClick={handleClick}>
           {icon}
           {children}
         </a>

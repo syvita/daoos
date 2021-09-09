@@ -8,6 +8,7 @@ import styles from "./MainNavMobile.module.css";
 import transitionStyles from "./transitions.module.css";
 import Drawer from "./Drawer";
 import { useRef } from "react";
+import { userSession } from "./auth";
 
 interface MainNavMobileProps {
   children: React.ReactNode;
@@ -21,6 +22,14 @@ function MainNavMobile({ children }: MainNavMobileProps) {
       setExpanded(false);
     }
   };
+
+  const handleLogout = () => {
+    // Sign the user out
+    userSession.signUserOut();
+
+    // TODO: Redirect the user to the home/landing page
+    window.location.href = "/login";
+  }
 
   const ref = useRef(null);
   useClickAway(ref, () => {

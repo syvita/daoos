@@ -11,6 +11,7 @@ import clsx from "clsx";
 
 import styles from "./Drawer.module.css";
 import NavLink from "./NavLink";
+import { handleLogout } from "./auth";
 
 interface DrawerProps {
   innerRef?: React.MutableRefObject<HTMLElement | null>;
@@ -27,6 +28,15 @@ function Drawer({
   handleCloseClick,
   closeDrawer,
 }: DrawerProps) {
+  const handleClick = () => {
+    closeDrawer();
+  };
+
+  const handleLogoutClick = () => {
+    closeDrawer();
+    handleLogout();
+  };
+
   return (
     <div
       className={clsx(styles.mainNavDiv, className, {
@@ -48,35 +58,35 @@ function Drawer({
         <NavLink
           icon={<DashboardIcon className={styles.navIcon} />}
           href="/"
-          closeDrawer={closeDrawer}
+          handleClick={handleClick}
         >
           Dashboard
         </NavLink>
         <NavLink
           icon={<PeopleIcon className={styles.navIcon} />}
           href="/members"
-          closeDrawer={closeDrawer}
+          handleClick={handleClick}
         >
           Members
         </NavLink>
         <NavLink
           icon={<AccountCircleIcon className={styles.navIcon} />}
           href="/profile"
-          closeDrawer={closeDrawer}
+          handleClick={handleClick}
         >
           Profile
         </NavLink>
         <NavLink
           icon={<ContactSupportIcon className={styles.navIcon} />}
           href="/faq"
-          closeDrawer={closeDrawer}
+          handleClick={handleClick}
         >
           FAQ & Help
         </NavLink>
         <NavLink
           icon={<ExitToAppIcon className={styles.navIcon} />}
-          href="/logout"
-          closeDrawer={closeDrawer}
+          href="#"
+          handleClick={handleLogoutClick}
         >
           Log out
         </NavLink>
