@@ -63,7 +63,7 @@ export const Layout:React.FC<{title:string}> = ({children,title}) => {
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
+                    alt="MiamiVoice"
                   />
                 </div>
                 <nav className="mt-5 px-2 space-y-1">

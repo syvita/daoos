@@ -21,7 +21,8 @@ const getProposals = (qty: number = 50): TProposalSummary[] => {
     totalVotes: faker.datatype.number({ min: 200, max: 400 }),
     avatars: getProfiles(10),
     owner: getProfiles(1)[0],
-    isClosed:faker.datatype.boolean()
+    isClosed:faker.datatype.boolean(),
+    postDate:faker.datatype.datetime()
   }));
 };
 

@@ -21,4 +21,5 @@ export interface TProposalSummary{
     owner:TProfile
     isClosed:boolean
     avatars:TProfile[]
+    postDate:Date
 }
