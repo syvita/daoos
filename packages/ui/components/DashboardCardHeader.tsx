@@ -1,9 +1,10 @@
 import React from 'react'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { CodeIcon, DotsVerticalIcon, FlagIcon, StarIcon } from '@heroicons/react/solid'
+import { AnnotationIcon, DotsVerticalIcon, PencilIcon, EyeIcon } from '@heroicons/react/solid'
 import { classNames } from '../lib/utils'
 import moment from 'moment'
+
 
 
 
@@ -59,8 +60,8 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                           'flex px-4 py-2 text-sm'
                         )}
                       >
-                        <StarIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-                        <span>Add to favorites</span>
+                        <EyeIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <span>Vote</span>
                       </a>
                     )}
                   </Menu.Item>
@@ -73,8 +74,8 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                           'flex px-4 py-2 text-sm'
                         )}
                       >
-                        <CodeIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-                        <span>Embed</span>
+                        <AnnotationIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <span>Comment</span>
                       </a>
                     )}
                   </Menu.Item>
@@ -87,8 +88,22 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                           'flex px-4 py-2 text-sm'
                         )}
                       >
-                        <FlagIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-                        <span>Report content</span>
+                        <EyeIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <span>View</span>
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'flex px-4 py-2 text-sm'
+                        )}
+                      >
+                        <PencilIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <span>Change</span>
                       </a>
                     )}
                   </Menu.Item>

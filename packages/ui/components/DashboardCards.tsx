@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/outline";
 import React from "react";
 import { TProposalSummary } from "../types";
 import { CardAvatars } from "./CardAvatars";
@@ -20,17 +21,20 @@ const DashboardCard = (proposal: TProposalSummary) => (
       totalVotes={proposal.totalVotes}
     />
 
-    <div className="flex items-start space-x-3">
-      
+    <div className=" min-w-0">
+      <div className="focus:outline-none">
+        <span className="absolute inset-0" aria-hidden="true" />
 
-      <div className="flex-1 min-w-0">
-        <div className="focus:outline-none">
-          <span className="absolute inset-0" aria-hidden="true" />
-
-          <p className="text-sm text-gray-500 line-clamp-3">
-            {proposal.description}
-          </p>
-          <CardAvatars avatars={proposal.avatars} />
+        <p className="text-sm text-gray-500 line-clamp-3">
+          {proposal.description}
+        </p>
+        <div className="flex items-center space-x-3">
+          <div className="flex-1">
+            <CardAvatars avatars={proposal.avatars} />
+          </div>
+          <button className="relative inline-flex items-center px-1 py-1  rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+          <ArrowRightIcon className="h-5 w-5" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </div>
