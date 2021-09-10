@@ -3,14 +3,21 @@ import { useFaker } from "react-fakers";
 import { ddOptionsForProposal, fetcher, prepareMockUrl } from "../lib/utils";
 import { TProfile, TProposalSummary } from "../types";
 import useSWR from "swr";
-import { DashboardCards } from "./DashboardCards";
-export const Dashboard = () => {
-  const { data, error } = useSWR("./api/mock-data", fetcher);
+import { DashboardCard } from "./DashboardCards";
+export const Dashboard: React.FC<{ onShowDetail?: (id: string) => void }> = ({
+  onShowDetail,
+}) => {
+  const { data, error } = useSWR("./api/mock-server", fetcher);
   return (
     <>
       {!data && <h4>Loading....</h4>}
-      {data && <DashboardCards proposals={data}/>}
-        
+      {data && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {data.map((proposal) => (
+            <DashboardCard onShowDetail={onShowDetail} proposal={proposal} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

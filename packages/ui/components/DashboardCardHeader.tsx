@@ -1,33 +1,45 @@
-import React from 'react'
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { AnnotationIcon, DotsVerticalIcon, PencilIcon, EyeIcon } from '@heroicons/react/solid'
-import { classNames } from '../lib/utils'
-import moment from 'moment'
+import React, { MouseEventHandler } from "react";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  AnnotationIcon,
+  DotsVerticalIcon,
+  PencilIcon,
+  EyeIcon,
+} from "@heroicons/react/solid";
+import { classNames } from "../lib/utils";
+import moment from "moment";
+import { HandIcon } from "@heroicons/react/outline";
+import { TProposalSummary } from "../types";
 
+export const DashboardCardHeader: React.FC<{
+  proposal: TProposalSummary;
+  onShowDetail?: (id: string) => void;
+}> = ({ proposal, onShowDetail }) => {
 
+  const handleShowDetail = (id: string) => () => {
+    onShowDetail && onShowDetail(id);
+  };
 
-
-export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?:Date}>=({avatar,title,postDate})=> {
   return (
     <div className="bg-white px-0 py-0 sm:px-0">
       <div className="flex space-x-3">
         <div className="flex-shrink-0">
           <img
             className="h-10 w-10 rounded-full"
-            src={avatar}
+            src={proposal.owner.imageUrl}
             alt="Owner picture "
           />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium truncate text-gray-900">
             <a href="#" className="hover:underline">
-              {title}
+              {proposal.title}
             </a>
           </p>
           <p className="text-xs text-gray-500">
             <a href="#" className="hover:underline">
-              {moment(postDate).calendar()}
+              {moment(proposal.postDate).calendar()}
             </a>
           </p>
         </div>
@@ -56,11 +68,16 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                       <a
                         href="#"
                         className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'flex px-4 py-2 text-sm'
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "flex px-4 py-2 text-sm"
                         )}
                       >
-                        <EyeIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <HandIcon
+                          className="mr-3 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
                         <span>Vote</span>
                       </a>
                     )}
@@ -70,11 +87,16 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                       <a
                         href="#"
                         className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'flex px-4 py-2 text-sm'
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "flex px-4 py-2 text-sm"
                         )}
                       >
-                        <AnnotationIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <AnnotationIcon
+                          className="mr-3 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
                         <span>Comment</span>
                       </a>
                     )}
@@ -83,12 +105,18 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                     {({ active }) => (
                       <a
                         href="#"
+                        onClick={handleShowDetail(proposal.id)}
                         className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'flex px-4 py-2 text-sm'
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "flex px-4 py-2 text-sm"
                         )}
                       >
-                        <EyeIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <EyeIcon
+                          className="mr-3 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
                         <span>View</span>
                       </a>
                     )}
@@ -98,11 +126,16 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
                       <a
                         href="#"
                         className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'flex px-4 py-2 text-sm'
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "flex px-4 py-2 text-sm"
                         )}
                       >
-                        <PencilIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <PencilIcon
+                          className="mr-3 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
                         <span>Change</span>
                       </a>
                     )}
@@ -114,6 +147,5 @@ export  const DashboardCardHeader:React.FC<{avatar:string,title:string,postDate?
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};

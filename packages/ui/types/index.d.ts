@@ -23,3 +23,8 @@ export interface TProposalSummary{
     avatars:TProfile[]
     postDate:Date
 }
+
+export interface TProposal implements TProposalSummary{
+    body:string
+    media?:[]
+}
