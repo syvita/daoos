@@ -12,7 +12,9 @@
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
+    "@types/faker": "^5.5.8",
     "faker": "^5.5.3",
+    "html-to-react": "^1.4.5",
     "moment": "^2.29.1",
     "next": "11.1.2",
     "react": "^17.0.2",

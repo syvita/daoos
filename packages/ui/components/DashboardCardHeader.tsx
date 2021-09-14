@@ -10,10 +10,10 @@ import {
 import { classNames } from "../lib/utils";
 import moment from "moment";
 import { HandIcon } from "@heroicons/react/outline";
-import { TProposalSummary } from "../types";
+import { TProposalSummary, TVoteSingle } from "../types";
 
 export const DashboardCardHeader: React.FC<{
-  proposal: TProposalSummary;
+  proposal: TProposalSummary<TVoteSingle>;
   onShowDetail?: (id: string) => void;
 }> = ({ proposal, onShowDetail }) => {
 
@@ -39,7 +39,7 @@ export const DashboardCardHeader: React.FC<{
           </p>
           <p className="text-xs text-gray-500">
             <a href="#" className="hover:underline">
-              {moment(proposal.postDate).calendar()}
+              Closes {moment(proposal.expiryDate).fromNow()}
             </a>
           </p>
         </div>

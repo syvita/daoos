@@ -12,19 +12,29 @@ export interface TProfile{
     email:string
 }
 
-export interface TProposalSummary{
-    id:string,
-    title:string,
-    description?:string
-    votes:number
-    totalVotes:number
-    owner:TProfile
-    isClosed:boolean
-    avatars:TProfile[]
-    postDate:Date
+export interface TVoteSingle{
+    yes:boolean
 }
 
-export interface TProposal implements TProposalSummary{
+export interface TVote<T>{
+    voter:TProfile
+    vote:T
+    onChainLink:string
+}
+
+
+export interface TProposalSummary<T>{
+    id:string,
+    title:string,
+    summary?:string
+    votes:TVote<T>[]
+    owner:TProfile
+    isClosed:boolean
+    postDate:Date
+    expiryDate:Date
+}
+
+export interface TProposal<T> extends TProposalSummary<T>{
     body:string
     media?:[]
 }

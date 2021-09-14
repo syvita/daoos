@@ -1,6 +1,9 @@
 import React from "react";
 import { classNames } from "../lib/utils";
 
+const ACTIVE='Active'
+const CLOSED='Closed'
+
 const StatusTag = ({ isClosed, label }) => {
   return (
     <span
@@ -35,7 +38,7 @@ export const ProposalStatus: React.FC<{ isClosed: boolean }> = ({
   return (
     <StatusTag
       isClosed={isClosed}
-      label={isClosed ? "complete" : "in progress"}
+      label={isClosed ? ACTIVE : CLOSED}
     />
   );
 };
