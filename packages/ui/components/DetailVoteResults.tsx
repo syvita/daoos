@@ -26,7 +26,7 @@ export const DetailVoteResults: React.FC<{ votes: TVote<TVoteSingle>[] }> = ({
           total={totalVotes}
         />
       </div>
-      <button type="button"  className=" btn text-center w-full">
+      <button type="button" className="btn text-center w-full">
         Vote
       </button>
     </div>

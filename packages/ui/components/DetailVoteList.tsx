@@ -14,7 +14,10 @@ const ListComponent: React.FC<{ vote: TVote<TVoteSingle> }> = ({ vote }) => (
       </p>
     </div>
     <div className="flex-shrink-0">
-      <Badge classnames="px-2 py-0 w-10 text-center" color={vote.vote.yes ? "purple" : "indigo"}>
+      <Badge
+        classnames="px-2 py-0 w-10 text-center"
+        color={vote.vote.yes ? "purple" : "indigo"}
+      >
         {vote.vote.yes ? "Yes" : "No"}
       </Badge>
     </div>

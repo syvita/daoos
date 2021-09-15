@@ -74,7 +74,6 @@ export const badgeColors = {
     bg: "bg-gray-700",
     text: "text-gray-100",
   },
- 
 };
 
 export const navigation: TNavigation[] = [
