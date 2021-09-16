@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { PlusSmIcon, XIcon } from "@heroicons/react/outline";
 import { DotsVerticalIcon } from "@heroicons/react/solid";
-import { ProposalDetail } from "./ProposalDetail";
+import { ProposalDetail } from "./MvProposalDetail";
 
 export const SlideOver: React.FC<{
   title: string;

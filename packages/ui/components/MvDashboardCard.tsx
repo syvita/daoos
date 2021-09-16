@@ -1,9 +1,9 @@
 import { ArrowRightIcon } from "@heroicons/react/outline";
 import React from "react";
 import { TProposalSummary, TVoteSingle } from "../types";
-import { CardAvatars } from "./CardAvatars";
-import { DashboardCardHeader } from "./DashboardCardHeader";
-import { ProgressIndicator } from "./ProgressIndicator";
+import { CardAvatars } from "./MvCardAvatars";
+import { DashboardCardHeader } from "./MvDashboardCardHeader";
+import { ProgressIndicator } from "./MvProgressIndicator";
 
 export const DashboardCard: React.FC<{
   proposal: TProposalSummary<TVoteSingle>;

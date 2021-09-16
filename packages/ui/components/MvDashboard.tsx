@@ -1,7 +1,7 @@
 import React from "react";
 import { fetcher } from "../lib/utils";
 import useSWR from "swr";
-import { DashboardCard } from "./DashboardCard";
+import { DashboardCard } from "./MvDashboardCard";
 export const Dashboard: React.FC<{ onShowDetail?: (id: string) => void }> = ({
   onShowDetail,
 }) => {

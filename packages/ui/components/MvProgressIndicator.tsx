@@ -1,7 +1,7 @@
 import React, { Children } from "react";
 import { classNames, colors, numberToPercent } from "../lib/utils";
-import Badge from "./Badge";
-import { ProposalStatus } from "./ProposalStatus";
+import Badge from "./MvBadge";
+import { ProposalStatus } from "./MvProposalStatus";
 
 type TColorConfig = {
   prefix: string;

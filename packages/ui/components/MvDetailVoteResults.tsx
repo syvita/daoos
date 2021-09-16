@@ -1,6 +1,6 @@
 import React from "react";
 import { TVoteSingle, TVote } from "../types";
-import { ProgressIndicator } from "./ProgressIndicator";
+import { ProgressIndicator } from "./MvProgressIndicator";
 
 export const DetailVoteResults: React.FC<{ votes: TVote<TVoteSingle>[] }> = ({
   votes,

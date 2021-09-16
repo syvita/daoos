@@ -3,7 +3,7 @@ import { XIcon, MenuIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/dist/client/router";
 import React, { Fragment, useState } from "react";
 import { classNames, isCurrentLink,navigation } from "../lib/utils";
-import { SideNavBar } from "./SideNavBar";
+import { SideNavBar } from "./MvSideNavBar";
 
 
 export const Layout:React.FC<{title:string}> = ({children,title}) => {

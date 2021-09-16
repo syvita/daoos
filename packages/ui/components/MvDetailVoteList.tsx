@@ -1,6 +1,6 @@
 import React from "react";
 import { TVoteSingle, TVote } from "../types";
-import Badge from "./Badge";
+import Badge from "./MvBadge";
 
 const ListComponent: React.FC<{ vote: TVote<TVoteSingle> }> = ({ vote }) => (
   <li className="py-2 flex justify-between items-center">

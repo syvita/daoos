@@ -1,5 +1,5 @@
 import React from "react";
-import { classNames, badgeColors as colors} from "../lib/utils";
+import { classNames, badgeColors as colors } from "../lib/utils";
 
 const Badge: React.FC<{ color: string; classnames?: string }> = ({
   color,
@@ -18,6 +18,10 @@ const Badge: React.FC<{ color: string; classnames?: string }> = ({
       {children}
     </span>
   );
+};
+
+Badge.defaultProps = {
+  color: "indigo",
 };
 
 export default Badge;

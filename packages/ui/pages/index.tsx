@@ -1,22 +1,21 @@
 import Head from "next/head";
 import { useState } from "react";
-import { Dashboard } from "../components/Dashboard";
-import { Layout } from "../components/Layout";
-import { ProposalDetail } from "../components/ProposalDetail";
-import { SlideOver } from "../components/SlideOver";
+import { Dashboard } from "../components/MvDashboard";
+import { Layout } from "../components/MvLayout";
+import { ProposalDetail } from "../components/MvProposalDetail";
+import { SlideOver } from "../components/MvSlideOver";
 export default function Home() {
   const [show, setShow] = useState(false);
   const onClose = () => {
     setShow(false);
   };
 
-  const [proposalId,setId] = useState<string>(null)
+  const [proposalId, setId] = useState<string>(null);
 
-  const showDetail=(id:string)=>{
-    setShow(false)
-    setId(id)
-    setShow(true)
-  }
+  const showDetail = (id: string) => {
+    setId(id);
+    setShow(true);
+  };
 
   return (
     <Layout title="Dashboard">

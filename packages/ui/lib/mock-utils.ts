@@ -1,6 +1,13 @@
 import faker from "faker";
 import moment from "moment";
-import { TProfile, TVote, TVoteSingle, TProposalSummary, TProposal } from "../types";
+import {
+  TProfile,
+  TVote,
+  TVoteSingle,
+  TProposalSummary,
+  TProposal,
+  TMemberStats,
+} from "../types";
 
 export const getProfiles = (qty: number = 10): TProfile[] => {
   return Array.from(Array(qty).keys()).map((item) => ({
@@ -9,6 +16,13 @@ export const getProfiles = (qty: number = 10): TProfile[] => {
     id: faker.datatype.uuid(),
     imageUrl: faker.internet.avatar(),
   }));
+};
+
+export const getMemberStats = (memberId: string): TMemberStats => {
+  return {
+    closedProposals: faker.datatype.number({ min: 0, max: 15 }),
+    openProposals: faker.datatype.number({ min: 0, max: 15 }),
+  };
 };
 
 export const getVotes = (qty: number = 10): TVote<TVoteSingle>[] => {
@@ -20,7 +34,7 @@ export const getVotes = (qty: number = 10): TVote<TVoteSingle>[] => {
 };
 
 export const getProposals = (
-  qty: number = 50
+  qty: number = 30
 ): TProposalSummary<TVoteSingle>[] => {
   return Array.from(Array(qty).keys()).map((item) => ({
     title: faker.lorem.sentence(),
@@ -38,7 +52,7 @@ export const getProposals = (
   }));
 };
 
-export const getProposal = (id:string): TProposal<TVoteSingle> => {
-    const body=faker.lorem.paragraphs()
-  return {...getProposals(1)[0],body,id};
+export const getProposal = (id: string): TProposal<TVoteSingle> => {
+  const body = faker.lorem.paragraphs();
+  return { ...getProposals(1)[0], body, id };
 };

@@ -1,13 +1,13 @@
 import React from "react";
 import { TProposal, TVoteSingle } from "../types";
 import { Parser } from "html-to-react";
-import { DetailVoteResults } from "./DetailVoteResults";
-import DetailVoteList from "./DetailVoteList";
-import DetailInformation from "./DetailInformation";
+import { DetailVoteResults } from "./MvDetailVoteResults";
+import DetailVoteList from "./MvDetailVoteList";
+import DetailInformation from "./MvDetailInformation";
 import useSWR from "swr";
 import { fetcher } from "../lib/utils";
 import { getVotes } from "../lib/mock-utils";
-import Badge from "./Badge";
+import Badge from "./MvBadge";
 const ProposalDetailComponent: React.FC<{ proposal: TProposal<TVoteSingle> }> =
   ({ proposal }) => {
     return (
