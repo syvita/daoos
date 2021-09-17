@@ -10,16 +10,22 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@emotion-icons/material": "^3.14.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
+    "@tiptap/react": "^2.0.0-beta.67",
+    "@tiptap/starter-kit": "^2.0.0-beta.105",
     "@types/faker": "^5.5.8",
     "faker": "^5.5.3",
     "html-to-react": "^1.4.5",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.capitalize": "^4.2.1",
     "moment": "^2.29.1",
     "next": "11.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-fakers": "^1.0.3-rc1",
+    "react-hook-form": "^7.15.3",
     "swr": "^1.0.0"
   },
   "devDependencies": {

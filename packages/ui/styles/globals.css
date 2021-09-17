@@ -6,4 +6,16 @@
   .btn {
     @apply flex-shrink-0 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1;
   }
+  .form-control-error {
+    @apply block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md;
+  }
+  .form-control-error-text {
+    @apply mt-2 text-sm text-red-600;
+  }
+  .form-control{
+    @apply shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md;
+  }
+  .form-control-label{
+    @apply block text-sm font-medium text-gray-700;
+  }
 }

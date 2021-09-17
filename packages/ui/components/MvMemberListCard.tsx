@@ -11,13 +11,16 @@ const MemberListCard: React.FC<{ member: TProfile }> = ({ member }) => {
       <div className="flex-shrink-0">
         <img className="h-10 w-10 rounded-full" src={member.imageUrl} alt="" />
       </div>
-      <div className="flex-1 min-w-0">
-        <a
-          href="#"
-          className="focus:outline-none  hover:text-indigo-800 text-sm font-medium text-indigo-500 mb-1 pb-1 border-dotted border-b"
-        >
-          {member.name}
-        </a>
+      <div className="flex-1 space-y-2 min-w-0">
+        <div className="border-b pb-2">
+          <a
+            href="#"
+            className="focus:outline-none  hover:text-indigo-500 text-sm font-medium text-gray-800  "
+          >
+            {member.name}
+          </a>
+        </div>
+
         <MemberCardStats id={member.id} />
       </div>
     </div>
