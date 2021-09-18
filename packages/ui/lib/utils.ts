@@ -3,6 +3,7 @@ import {
   HomeIcon,
   QuestionMarkCircleIcon,
   UsersIcon,
+  LogoutIcon
 } from "@heroicons/react/outline";
 import { TNavigation } from "../types";
 
@@ -83,12 +84,13 @@ export const badgeColors = {
 export const navigation: TNavigation[] = [
   { name: "Dashboard", icon: HomeIcon, href: "/" },
   { name: "Members", icon: UsersIcon, href: "/members" },
-  { name: "Profile", icon: UserIcon, href: "/profile" },
   {
-    name: "FAQ & Help",
+    name: "FAQ's & Help",
     icon: QuestionMarkCircleIcon,
     href: "/help",
   },
+  { name: "Signout", icon: LogoutIcon, href: "/signout" },
+  
 ];
 export const isCurrentLink = (
   router: Record<string, unknown>,

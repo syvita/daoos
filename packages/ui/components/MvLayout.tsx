@@ -2,13 +2,13 @@ import { Transition, Dialog } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/dist/client/router";
 import React, { Fragment, useState } from "react";
-import { classNames, isCurrentLink,navigation } from "../lib/utils";
+import { classNames, isCurrentLink, navigation } from "../lib/utils";
+import MvLayoutHeader from "./MvLayoutHeader";
 import { SideNavBar } from "./MvSideNavBar";
 
-
-export const Layout:React.FC<{title:string}> = ({children,title}) => {
+export const Layout: React.FC<{ title: string }> = ({ children, title }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -72,7 +72,7 @@ export const Layout:React.FC<{title:string}> = ({children,title}) => {
                       key={item.name}
                       href={item.href}
                       className={classNames(
-                        isCurrentLink(router,item.href)
+                        isCurrentLink(router, item.href)
                           ? "bg-gray-900 text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
                         "group flex items-center px-2 py-2 text-base font-medium rounded-md"
@@ -80,7 +80,7 @@ export const Layout:React.FC<{title:string}> = ({children,title}) => {
                     >
                       <item.icon
                         className={classNames(
-                          isCurrentLink(router,item.href)
+                          isCurrentLink(router, item.href)
                             ? "text-gray-300"
                             : "text-gray-400 group-hover:text-gray-300",
                           "mr-4 flex-shrink-0 h-6 w-6"
@@ -125,8 +125,8 @@ export const Layout:React.FC<{title:string}> = ({children,title}) => {
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <SideNavBar navigation={navigation}/>
-</div>
+          <SideNavBar navigation={navigation} />
+        </div>
       </div>
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         <div className="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
@@ -139,17 +139,14 @@ export const Layout:React.FC<{title:string}> = ({children,title}) => {
             <MenuIcon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
+
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
           <div className="py-6">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h1 className="text-2xl font-semibold text-gray-900">
-                {title}
-              </h1>
+              <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              {/* Replace with your content */}
-              {children}
-              {/* /End replace */}
+              <div className="py-4">{children}</div>
             </div>
           </div>
         </main>
