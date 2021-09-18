@@ -15,7 +15,7 @@ const MvStatsComponent: React.FC<{ label?: string; color?: string }> = ({
     className="hover:font-semibold text-xs flex flex-shrink-0 font-normal text-gray-900"
   >
     {label}
-    <Badge classnames="py-0 px-1 font-normal" color={color}>
+    <Badge classnames="py-0 px-1 mr-2 font-normal" color={color}>
       {" "}
       {children}
     </Badge>

@@ -5,7 +5,7 @@ import React, { Fragment, useState } from "react";
 import { classNames, isCurrentLink, navigation } from "../lib/utils";
 import { SideNavBar } from "./MvSideNavBar";
 
-export const Layout: React.FC<{ title: string }> = ({ children, title }) => {
+export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   return (

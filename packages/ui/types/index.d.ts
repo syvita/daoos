@@ -1,3 +1,14 @@
+
+
+/* Strictly UI */
+
+interface TFaq{
+  id:number,
+  question:string,
+  answer:string
+}
+
+
 /* Strictly UI */
 
 interface TFormInputs {

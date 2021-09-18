@@ -87,7 +87,7 @@ export const navigation: TNavigation[] = [
   {
     name: "FAQ's & Help",
     icon: QuestionMarkCircleIcon,
-    href: "/help",
+    href: "/faqs",
   },
   { name: "Signout", icon: LogoutIcon, href: "/signout" },
   
