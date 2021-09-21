@@ -2,12 +2,14 @@ import React from "react";
 
 import { classNames, isCurrentLink } from "../lib/utils";
 import { useRouter } from "next/dist/client/router";
-import { TNavigation } from "../types";
+import { TNavigation, TProfile } from "../types";
 import Link from "next/link";
+import MvUserProfileComponent from "./MvUserProfileComponent";
 
-export const SideNavBar: React.FC<{ navigation: TNavigation[] }> = ({
-  navigation,
-}) => {
+export const SideNavBar: React.FC<{
+  navigation: TNavigation[];
+  profile?: TProfile;
+}> = ({ navigation, profile }) => {
   const router = useRouter();
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
@@ -49,25 +51,7 @@ export const SideNavBar: React.FC<{ navigation: TNavigation[] }> = ({
           ))}
         </nav>
       </div>
-      <div className="flex-shrink-0 flex bg-gray-700 p-4">
-        <a href="#" className="flex-shrink-0 w-full group block">
-          <div className="flex items-center">
-            <div>
-              <img
-                className="inline-block h-9 w-9 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-white">Tom Cook</p>
-              <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
-                View profile
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
+      <MvUserProfileComponent profile={profile} />
     </div>
   );
 };

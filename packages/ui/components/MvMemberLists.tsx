@@ -10,7 +10,9 @@ import MvSectionHeader from "./MvSectionHeader";
 const LINK_TITLE = "Return to proposals";
 const LINK = "/";
 
-const MemberLists: React.FC = () => {
+const MemberLists: React.FC<{ onMemberSelect?: (payload:string) => void }> = ({
+  onMemberSelect,
+}) => {
   const { data, error }: { data?: TProfile[]; error?: any } = useSWR(
     "./api/members",
     fetcher
@@ -21,7 +23,11 @@ const MemberLists: React.FC = () => {
       {data && data.length ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {data.map((member) => (
-            <MemberListCard key={member.id} member={member} />
+            <MemberListCard
+              onMemberSelect={onMemberSelect}
+              key={member.id}
+              member={member}
+            />
           ))}
         </div>
       ) : (

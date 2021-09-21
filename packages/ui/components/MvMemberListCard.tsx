@@ -1,8 +1,12 @@
+import Link from "next/link";
 import React from "react";
 import { TProfile } from "../types";
 import MemberCardStats from "./MvMemberCardStats";
 
-const MemberListCard: React.FC<{ member: TProfile }> = ({ member }) => {
+const MemberListCard: React.FC<{
+  member: TProfile;
+  onMemberSelect?: (payload: any) => void;
+}> = ({ member,onMemberSelect }) => {
   return (
     <div
       key={member.id}
@@ -13,12 +17,12 @@ const MemberListCard: React.FC<{ member: TProfile }> = ({ member }) => {
       </div>
       <div className="flex-1 space-y-2 min-w-0">
         <div className="border-b pb-2">
-          <a
-            href="#"
+          <button
+            onClick={onMemberSelect}
             className="focus:outline-none  hover:text-indigo-500 text-sm font-medium text-gray-800  "
           >
             {member.name}
-          </a>
+          </button>
         </div>
 
         <MemberCardStats id={member.id} />

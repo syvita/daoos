@@ -2,11 +2,15 @@ import { Transition, Dialog } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/dist/client/router";
 import React, { Fragment, useState } from "react";
+import { getProfile } from "../lib/mock-utils";
 import { classNames, isCurrentLink, navigation } from "../lib/utils";
+import { TProfile } from "../types";
 import { SideNavBar } from "./MvSideNavBar";
 
 export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  //ToDo get profile from auth provider
+  const profile: TProfile = getProfile("user-id");
   const router = useRouter();
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -124,7 +128,7 @@ export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <SideNavBar navigation={navigation} />
+          <SideNavBar profile={profile} navigation={navigation} />
         </div>
       </div>
       <div className="flex flex-col w-0 flex-1 overflow-hidden">

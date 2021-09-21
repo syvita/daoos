@@ -37,6 +37,8 @@ export interface TProfile {
   imageUrl?: string;
   id?: string;
   email: string;
+  bio?:string;
+  profileLink?:string
 }
 
 export interface TVoteSingle {

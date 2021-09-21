@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "../components/MvLayout";
 import MemberLists from "../components/MvMemberLists";
+import MvProfileDetail from "../components/MvProfileDetail";
 import { SlideOver } from "../components/MvSlideOver";
 
 export default function Members() {
@@ -9,7 +10,7 @@ export default function Members() {
     setShow(false);
   };
 
-  const [proposalId, setId] = useState<string>(null);
+  const [profileId, setId] = useState<string>(null);
 
   const showDetail = (id: string) => {
     setShow(false);
@@ -18,8 +19,10 @@ export default function Members() {
   };
   return (
     <Layout title="Members">
-      <MemberLists />
-      <SlideOver onClose={onClose} show={show} title={"Profile"}></SlideOver>
+      <MemberLists  onMemberSelect={showDetail} />
+      <SlideOver onClose={onClose} show={show} title={"Profile"}>
+        {<MvProfileDetail  id={profileId} />}
+      </SlideOver>
     </Layout>
   );
 }

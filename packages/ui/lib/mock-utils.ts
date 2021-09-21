@@ -18,6 +18,16 @@ export const getProfiles = (qty: number = 10): TProfile[] => {
   }));
 };
 
+export const getProfile = (id: string): TProfile => {
+  return {
+    email: faker.internet.email(),
+    name: faker.name.findName(),
+    bio: faker.lorem.paragraph(),
+    id: faker.datatype.uuid(),
+    imageUrl: faker.image.imageUrl(),
+  };
+};
+
 export const getMemberStats = (memberId: string): TMemberStats => {
   return {
     closedProposals: faker.datatype.number({ min: 0, max: 15 }),

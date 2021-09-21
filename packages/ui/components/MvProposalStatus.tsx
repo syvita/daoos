@@ -14,7 +14,7 @@ export const ProposalStatus: React.FC<{ isClosed: boolean }> = ({
       classnames="px-3 py-1"
       color={isClosed ? CLOSED_COLOR : ACTIVE_COLOR}
     >
-      {isClosed ? ACTIVE : CLOSED}
+      {!isClosed ? ACTIVE : CLOSED}
     </Badge>
   );
 };
