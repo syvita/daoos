@@ -1,31 +1,25 @@
-import Head from "next/head";
-import { useState } from "react";
-import { Dashboard } from "../components/MvDashboard";
-import Link from "next/link";
-import { Layout } from "../components/MvLayout";
-import { ProposalDetail } from "../components/MvProposalDetail";
-import MvSectionHeader from "../components/MvSectionHeader";
-import { SlideOver } from "../components/MvSlideOver";
-export default function Home() {
-  const [show, setShow] = useState(false);
-  const onClose = () => {
-    setShow(false);
-  };
+import React from "react";
+import FancyPalmStripSection from "../components/marketing/FancyPalmStripSection";
+import HowDoesItWorkSection from "../components/marketing/HowDoesItWorkSection";
+import LandingHeader from "../components/marketing/HeaderSection";
+import HeroSection from "../components/marketing/HeroSection";
+import WhatIsMiaCoinSection from "../components/marketing/WhatIsMiaCoinSection";
+import WhoIsMvSection from "../components/marketing/WhoIsMVSection";
+import BottomSection from "../components/marketing/BottomSection";
 
-  const [proposalId, setId] = useState<string>(null);
-
-  const showDetail = (id: string) => {
-    setId(id);
-    setShow(true);
-  };
-
+export default function Landing() {
   return (
-    <Layout title="Dashboard">
-      
-      <Dashboard onShowDetail={showDetail} />
-      <SlideOver onClose={onClose} show={show} title={"Proposal"}>
-        <ProposalDetail id={proposalId} />
-      </SlideOver>
-    </Layout>
+    <div>
+      <LandingHeader>
+        <HeroSection />
+      </LandingHeader>
+      <main>
+        <WhoIsMvSection />
+        <HowDoesItWorkSection/>
+        <WhatIsMiaCoinSection/>
+        <FancyPalmStripSection/>
+        <BottomSection/>
+      </main>
+    </div>
   );
 }

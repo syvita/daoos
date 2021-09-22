@@ -12,10 +12,15 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
+      colors:{
+        'deep-pink':'#752F7B'
+      }
     },
   },
   variants: {
-    extend: {},
+    extend: {
+     
+    },
   },
   plugins: [
     require("@tailwindcss/line-clamp"),
