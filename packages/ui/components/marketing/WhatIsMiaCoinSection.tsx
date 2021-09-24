@@ -2,28 +2,38 @@ import React from "react";
 
 const WhatIsMiaCoinSegment = () => {
   return (
-    <div className="relative pt-16 pb-32 overflow-hidden">
+    <div className="relative  sm:pt-0 pb-16 overflow-hidden">
       <div
         aria-hidden="true"
-        className="absolute md:hidden lg:block inset-x-48 top-52 h-60 bg-gradient-to-l rounded-3xl from-blue-100"
+        className="absolute md:rounded-3xl hidden md:block   right-48 w-1/2 top-72 h-80 bg-gradient-to-l from-blue-100"
       />
-      <div className="relative">
-        <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
-          <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
+      <div className="md:mt-24 mt-5">
+        <div className="md:mx-auto pl-10 pr-10 md:max-w-7xl md:px-8 md:grid md:grid-cols-2 md:grid-flow-col-dense md:gap-10 lg:gap-24">
+          <div className="mt-0  md:mt-0 md:col-start-2">
+            <div className=" md:px-0 md:m-0 md:relative md:h-full">
+              <img
+                className="w-full  rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 md:absolute md:left-0 md:h-full md:w-auto md:max-w-none"
+                src="/section-3-pic.png"
+                alt="Who is miami voice"
+              />
+            </div>
+          </div>
+
+          <div className=" max-w-xl   md:py-32 md:max-w-none md:mx-0 md:px-0 md:col-start-1">
             <div>
               <div className="mt-6">
                 <h2 className="text-3xl inline uppercase text-color-gradient font-extrabold tracking-tight">
                   What Is Maimi Coin
                 </h2>
 
-                <p className="mt-4 text-lg text-gray-500">
+                <p className="mt-4 text-lg text-justify text-gray-500">
                   MiamiCoin is a cryptocurrency built to raise funds for the
                   Magic City. In order to generate new MiamiCoin, miners
                   contribute money - 30% of this is set aside in a
                   cryptocurrency wallet for the city of Miami to use how they
                   please.
                 </p>
-                <p className="mt-4 text-lg text-gray-500">
+                <p className="mt-4 text-justify text-lg text-gray-500">
                   The rest is saved and “stacked” to generate interest and
                   allows holders of MiamiCoin to earn money by holding onto
                   MiamiCoin. As time goes on, there will be more ways to use and
@@ -31,15 +41,6 @@ const WhatIsMiaCoinSegment = () => {
                   of Miami, Florida.
                 </p>
               </div>
-            </div>
-          </div>
-          <div className="mt-12 sm:mt-16 lg:mt-0">
-            <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
-              <img
-                className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                src="/section-3-pic.png"
-                alt="Inbox user interface"
-              />
             </div>
           </div>
         </div>

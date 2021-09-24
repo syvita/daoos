@@ -5,6 +5,8 @@ import { useRouter } from "next/dist/client/router";
 import { TNavigation, TProfile } from "../../types";
 import Link from "next/link";
 import MvUserProfileComponent from "./MvUserProfileComponent";
+import MvClientOnly from "../common/MvClientOnly";
+import MvLogOutBtn from "./MvLogOutBtn";
 
 export const SideNavBar: React.FC<{
   navigation: TNavigation[];
@@ -49,9 +51,10 @@ export const SideNavBar: React.FC<{
               </a>
             </Link>
           ))}
+          <MvLogOutBtn/>
         </nav>
       </div>
-      <MvUserProfileComponent profile={profile} />
+        <MvUserProfileComponent />
     </div>
   );
 };

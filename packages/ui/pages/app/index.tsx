@@ -18,7 +18,6 @@ export default function Home() {
 
   return (
     <Layout title="Dashboard">
-      
       <Dashboard onShowDetail={showDetail} />
       <SlideOver onClose={onClose} show={show} title={"Proposal"}>
         <ProposalDetail id={proposalId} />

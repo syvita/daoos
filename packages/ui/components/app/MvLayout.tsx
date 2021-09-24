@@ -1,15 +1,21 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { XIcon, MenuIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/dist/client/router";
-import React, { Fragment, useState } from "react";
+import { route } from "next/dist/server/router";
+import { useRouter } from "next/router";
+import React, { Fragment, Suspense, useEffect, useState } from "react";
+import { useUser } from "../../lib/hooks/useUser";
 import { getProfile } from "../../lib/mock-utils";
 import { classNames, isCurrentLink, navigation } from "../../lib/utils";
 import { TProfile } from "../../types";
+import MvProtected from "../common/MvProtected";
 import { SideNavBar } from "./MvSideNavBar";
 
-export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
+export const Layout: React.FC<{ title?: string; isProtected?: boolean }> = ({
+  children,
+  title,
+  isProtected,
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  //ToDo get profile from auth provider
   const profile: TProfile = getProfile("user-id");
   const router = useRouter();
   return (
@@ -149,7 +155,9 @@ export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
               <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              <div className="py-4">{children}</div>
+              <div className="py-4">
+                {isProtected ? <MvProtected>{children}</MvProtected> : children}
+              </div>
             </div>
           </div>
         </main>
@@ -157,3 +165,7 @@ export const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
     </div>
   );
 };
+
+Layout.defaultProps={
+  isProtected:true
+}

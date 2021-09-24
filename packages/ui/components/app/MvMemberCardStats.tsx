@@ -27,7 +27,7 @@ const MvStatsComponent: React.FC<{ label?: string; color?: string }> = ({
 
 const MemberCardStats: React.FC<{ id: string }> = ({ id }) => {
   const { data, error }: { data?: TMemberStats; error?: any } = useSWR(
-    `./api/members/${id}/stats`,
+    `/api/members/${id}/stats`,
     fetcher
   );
   return (

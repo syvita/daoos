@@ -6,11 +6,22 @@ const WhoIsMVSection = () => {
       <div
         aria-hidden="true"
 
-        className="absolute rounded-3xl hidden lg:block  inset-x-48 w-1/2 top-48 h-60 bg-gradient-to-r from-pink-400"
+        className="absolute md:rounded-3xl hidden md:block  inset-x-48 w-1/2 top-48 h-60 bg-gradient-to-r from-pink-400"
       />
-      <div className="mt-24">
-        <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
-          <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
+      <div className="md:mt-24 mt-5">
+        <div className="md:mx-auto pl-10 pr-10 md:max-w-7xl md:px-8 md:grid md:grid-cols-2 md:grid-flow-col-dense md:gap-10 lg:gap-24">
+          
+          <div className="mt-0  md:mt-0 md:col-start-1">
+            <div className=" md:px-0 md:m-0 md:relative md:h-full">
+              <img
+                className="w-full  rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 md:absolute md:right-0 md:h-full md:w-auto md:max-w-none"
+                src="/section-1-pic.png"
+                alt="Who is miami voice"
+              />
+            </div>
+          </div>
+          
+          <div className=" max-w-xl   md:py-32 md:max-w-none md:mx-0 md:px-0 md:col-start-2">
             <div>
               <div className="mt-6">
                 <h2 className="text-color-gradient text-3xl uppercase
@@ -25,15 +36,7 @@ const WhoIsMVSection = () => {
               </div>
             </div>
           </div>
-          <div className="mt-12 sm:mt-16 lg:mt-0 lg:col-start-1">
-            <div className="pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
-              <img
-                className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
-                src="/section-1-pic.png"
-                alt="Who is miami voice"
-              />
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ const content = [
 export default function HowDoesItWorkSection() {
   return (
     <div className=" bg-gradient-to-bl from-blue-100 relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative pl-10 pr-10 max-w-7xl mx-auto">
         <div className="text-center">
           <h2
             className="text-3xl text-color-gradient
@@ -39,21 +39,21 @@ export default function HowDoesItWorkSection() {
             Vote and create ideas for your city in 4 easy steps
           </p>
         </div>
-        <div className="mt-6 max-w-lg mx-auto grid bg-transparent gap-5 lg:grid-cols-4 lg:max-w-none">
+        <div className="mt-6  max-w-lg mx-auto grid bg-transparent gap-5 lg:grid-cols-4 lg:max-w-none">
           {content.map((content, index) => (
-            <div key={content.title} className="flex flex-col overflow-hidden">
-              <div className="text-9xl text-center opacity-40  top-30 absolute ">
-                <span className="text-color-gradient absolute -inset-x-14  ">
+            <div key={content.title} className="flex flex-col  overflow-hidden">
+              <div className="text-9xl text-center opacity-10 md:opacity-30  top-30 absolute ">
+                <span className="text-color-gradient absolute md:-inset-x-14  ">
                   {index + 1}
                 </span>
               </div>
               <div className="flex-1  p-6 flex z-10 flex-col justify-between">
                 <div className="flex-1">
-                  <span className="block mt-2">
+                  <span className="block mt-2 text-justify">
                     <span className="text-lg font-semibold text-color-gradient">
                       {content.title}
                     </span>
-                    <p className="mt-3 text-base text-gray-500">
+                    <p className="mt-3 text-base  text-gray-500">
                       {content.description}
                     </p>
                   </span>

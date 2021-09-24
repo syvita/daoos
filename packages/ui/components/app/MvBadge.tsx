@@ -1,12 +1,12 @@
 import React from "react";
-import { classNames, badgeColors as colors } from "../../lib/utils";
+import { badgeColors as colors } from "../../lib/constants";
+import { classNames } from "../../lib/utils";
 
-const Badge: React.FC<{ color: string; classnames?: string,showIndicator?:boolean }> = ({
-  color,
-  classnames,
-  children,
-  showIndicator
-}) => {
+const Badge: React.FC<{
+  color: string;
+  classnames?: string;
+  showIndicator?: boolean;
+}> = ({ color, classnames, children, showIndicator }) => {
   return (
     <span
       className={classNames(
@@ -16,17 +16,15 @@ const Badge: React.FC<{ color: string; classnames?: string,showIndicator?:boolea
         "text-xs font-semibold  inline-block    rounded-full "
       )}
     >
-      {showIndicator&&<svg
-        className={classNames(
-            colors[color].text,
-            "ml-0.5 mr-1.5 h-2 w-2"
-          )}
-        
-        fill="currentColor"
-        viewBox="0 0 8 8"
-      >
-        <circle cx={4} cy={4} r={3} />
-      </svg>}
+      {showIndicator && (
+        <svg
+          className={classNames(colors[color].text, "ml-0.5 mr-1.5 h-2 w-2")}
+          fill="currentColor"
+          viewBox="0 0 8 8"
+        >
+          <circle cx={4} cy={4} r={3} />
+        </svg>
+      )}
       {children}
     </span>
   );

@@ -3,14 +3,10 @@ import React from "react";
 const BottomSection = () => {
   return (
     <div className=" relative pt-0 pb-0 overflow-hidden">
-      <div className="lg:mx-auto lg:max-w-7xl items-center lg:px-8 lg:grid lg:grid-cols-3 lg:grid-flow-col-dense lg:gap-0">
-        <img className="max-w-xs " src="/Mia-coin.png" />
-        <div className="text-4xl lg:3xl text-color-gradient uppercase font-bold tracking-tight">
-          Raised For Miami:
-        </div>
-        <div className="text-4xl lg:3xl text-color-gradient uppercase font-bold tracking-tight">
-          {/*Todo write function to update with latest dollar value of STX for miami*/}
-          $2,906,108.14
+      <div className="flex justify-items-stretch">
+        <img className="w-auto  lg:max-w-xs flex-shrink-0  " src="/Mia-coin.png" />
+        <div className="text-3xl max-w-sm lg:text-4xl text-color-gradient uppercase font-bold tracking-tight">
+          Raised For Miami:$2,906,108.14
         </div>
       </div>
       <div

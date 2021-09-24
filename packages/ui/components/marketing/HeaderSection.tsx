@@ -1,12 +1,14 @@
-import Image from "next/image";
-import { Children } from "react";
+import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
+
+const AuthButton = dynamic(() => import("./AuthButton"), { ssr: false });
 
 const navigation = [
   { name: "About", href: "#" },
   { name: "Docs", href: "#" },
 ];
 
-export default function HeaderSection({ children }) {
+export const HeaderSection: React.FC = ({ children }) => {
   return (
     <div className="bg-gradient-to-br pb-10 from-pink-100 via-blue-100 to-white">
       <header>
@@ -33,9 +35,7 @@ export default function HeaderSection({ children }) {
               </div>
             </div>
             <div className="ml-10 space-x-4">
-              <button className="inline-block rounded-md bg-deep-pink py-1.5 px-4 border border-transparent uppercase text-sm font-medium text-white hover:bg-blue-400">
-                Connect
-              </button>
+              <AuthButton />
             </div>
           </div>
           <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
@@ -54,4 +54,5 @@ export default function HeaderSection({ children }) {
       {children}
     </div>
   );
-}
+};
+export default HeaderSection;

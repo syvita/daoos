@@ -8,18 +8,19 @@ import WhoIsMvSection from "../components/marketing/WhoIsMVSection";
 import BottomSection from "../components/marketing/BottomSection";
 
 export default function Landing() {
+  
   return (
-    <div>
-      <LandingHeader>
-        <HeroSection />
+    <>
+      <LandingHeader >
+         <HeroSection />
       </LandingHeader>
       <main>
         <WhoIsMvSection />
-        <HowDoesItWorkSection/>
-        <WhatIsMiaCoinSection/>
-        <FancyPalmStripSection/>
-        <BottomSection/>
+        <HowDoesItWorkSection />
+        <WhatIsMiaCoinSection />
+        <FancyPalmStripSection />
+        <BottomSection />
       </main>
-    </div>
+    </>
   );
 }

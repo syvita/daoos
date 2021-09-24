@@ -1,5 +1,6 @@
 import React, { Children } from "react";
-import { classNames, colors, numberToPercent } from "../../lib/utils";
+import { classNames, numberToPercent } from "../../lib/utils";
+import { colors } from "../../lib/constants";
 import Badge from "./MvBadge";
 import { ProposalStatus } from "./MvProposalStatus";
 
@@ -18,7 +19,7 @@ const ProgressIndicator: React.FC<{
     <div className="relative pt-1">
       <div className="flex mb-2 items-center justify-between">
         <div>
-          <Badge color={color} classnames='py-0 px-3'>
+          <Badge color={color} classnames="py-0 px-3">
             {label} {actual}/{total}
           </Badge>
           {children}

@@ -14,7 +14,7 @@ const MemberLists: React.FC<{ onMemberSelect?: (payload:string) => void }> = ({
   onMemberSelect,
 }) => {
   const { data, error }: { data?: TProfile[]; error?: any } = useSWR(
-    "./api/members",
+    "/api/members",
     fetcher
   );
   return (
