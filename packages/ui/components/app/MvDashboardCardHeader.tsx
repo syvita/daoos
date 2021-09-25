@@ -5,11 +5,7 @@ import { ProposalStatus } from "./MvProposalStatus";
 
 export const DashboardCardHeader: React.FC<{
   proposal: TProposalSummary<TVoteSingle>;
-  onShowDetail?: (id: string) => void;
-}> = ({ proposal, onShowDetail }) => {
-  const handleShowDetail = (id: string) => () => {
-    onShowDetail && onShowDetail(id);
-  };
+}> = ({ proposal }) => {
 
   return (
     <div className="bg-white px-0 py-0 sm:px-0">
@@ -17,24 +13,24 @@ export const DashboardCardHeader: React.FC<{
         <div className="flex-shrink-0">
           <img
             className="h-10 w-10 rounded-full"
-            src={proposal.owner.imageUrl}
+            src={proposal?.owner?.imageUrl||'/avatar-place-holder.jpg'}
             alt="Owner picture "
           />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium truncate text-gray-900">
             <a href="#" className="hover:underline">
-              {proposal.title}
+              {proposal?.title}
             </a>
           </p>
           <p className="text-xs text-gray-500">
             <a href="#" className="hover:underline">
-              Closes {moment(proposal.expiryDate).fromNow()}
+              Closes {moment(proposal?.expiryDate).fromNow()}
             </a>
           </p>
         </div>
         <div className="flex-shrink-0 self-center flex">
-          <ProposalStatus isClosed={proposal.isClosed} />
+          <ProposalStatus isClosed={proposal?.isClosed} />
         </div>
       </div>
     </div>

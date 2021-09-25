@@ -1,25 +1,84 @@
 import { atomFamily } from "jotai/utils";
-import { Atom, atom } from "jotai";
+import { atom } from "jotai";
 import { StacksMainnet, StacksTestnet } from "@stacks/network";
-import { userSessionAtom } from "./auth";
-import { AuthOptions } from "@stacks/connect";
+import { get } from "react-hook-form";
+import { profileAtom } from "./auth";
+import { TProfile, TProposal, TVoteSingle } from "../../types";
+import { getVotes } from "../mock-utils";
 
 export enum LOADING_KEYS {
   AUTH = "loading/AUTH",
-  CLAIM_HEY = "loading/CLAIM_HEY",
-  SEND_HEY = "loading/SEND_HEY",
+  FORM = "loading/FORM",
+}
+export enum TOAST_KEYS {
+  SUCCESS = "success",
+  ERROR = "error",
+  INFO = "info",
 }
 
+type slideOutSettings = {
+  title?: string;
+  component?: null;
+  show?: boolean;
+};
+
+export enum SLIDE_PANEL_KEYS {
+  PROPOSAL = "panel/PROPOSAL",
+  PROFILE = "panel/PROFILE",
+}
+
+const defaultToastSettings = {
+  duration: 5,
+  type: "",
+  title: "",
+};
 
 export const loadingAtom = atomFamily((key) => atom(false));
+
+export const selectedProposalAtom = atom({});
+export const selectedMemberAtom = atom({});
+
+const toastAtom = atom({});
+
+export const toastAtomOptions = atom(
+  (get) => get(toastAtom),
+  (get, set, val) => {
+    set(toastAtom, {
+      ...get(toastAtom),
+      ...{ id: val, duration: 5, title: val, type: val as string },
+    });
+  }
+);
+const slideOutAtom = atom({ title: "", component: null, show: false });
+
+
+export const slideOutPanelAtom = atom(
+  (get) => get(slideOutAtom),
+  (get, set, val) => {
+    set(slideOutAtom, {
+      ...get(slideOutAtom),
+      ...(val as slideOutSettings),
+    });
+  }
+);
+
 export const networkAtom = atom(() => {
   const _network = new StacksTestnet();
-  //_network.coreApiUrl = "https://stacks-node-api.regtest.stacks.co";
   return _network;
 });
 // Used temporarily to force getting names from mainnet
 export const mainnetNetworkAtom = atom(() => {
   const _network = new StacksMainnet();
-  //_network.coreApiUrl = "https://stacks-node-api.stacks.co";
   return _network;
+});
+
+export const isActiveAtom = atom(false);
+
+export const canPerformVoteAtom = atom((get) => {
+  const proposal = get(selectedProposalAtom) as TProposal<TVoteSingle>;
+  const currentProfile = get(profileAtom).data as TProfile;
+   const result= proposal?.votes?.filter(
+      (vote) => vote.voter.objectID == currentProfile.objectID
+    ).length ==0
+    return result
 });

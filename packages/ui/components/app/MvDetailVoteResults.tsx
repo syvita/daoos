@@ -1,12 +1,14 @@
+import { useAtomValue } from "jotai/utils";
 import React from "react";
-import { TVoteSingle, TVote } from "../../types";
+import { canPerformVoteAtom, selectedProposalAtom } from "../../lib/store/ui";
+import { TVoteSingle, TVote, TProposal } from "../../types";
 import { ProgressIndicator } from "./MvProgressIndicator";
 
-export const DetailVoteResults: React.FC<{ votes: TVote<TVoteSingle>[] }> = ({
-  votes,
-}) => {
-  const totalVotes = votes.length;
-  const yesVotes = votes.filter((vote) => vote.vote.yes).length;
+export const DetailVoteResults = () => {
+  const proposal = useAtomValue(selectedProposalAtom) as TProposal<TVoteSingle>;
+  const canVote = useAtomValue(canPerformVoteAtom);
+  const totalVotes = proposal.votes.length;
+  const yesVotes = proposal.votes.filter((vote) => vote.vote.yes).length;
   const noVotes = totalVotes - yesVotes;
   return (
     <div>
@@ -26,8 +28,13 @@ export const DetailVoteResults: React.FC<{ votes: TVote<TVoteSingle>[] }> = ({
           total={totalVotes}
         />
       </div>
-      <button type="button" className="btn text-center w-full">
-        Vote
+      <button
+        disabled={!canVote}
+        type="button"
+        className=" disabled:bg-red-100 disabled:cursor-not-allowed 
+        disabled:text-indigo-800   btn text-center w-full"
+      >
+        {canVote ? "Vote" : "Your vote has been captured!"}
       </button>
     </div>
   );

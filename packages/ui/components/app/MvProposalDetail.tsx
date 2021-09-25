@@ -4,10 +4,11 @@ import { Parser } from "html-to-react";
 import { DetailVoteResults } from "./MvDetailVoteResults";
 import DetailVoteList from "./MvDetailVoteList";
 import DetailInformation from "./MvDetailInformation";
-import useSWR from "swr";
-import { fetcher } from "../../lib/utils";
-import { getVotes } from "../../lib/mock-utils";
 import Badge from "./MvBadge";
+import MvLoader from "./MvLoader";
+import { selectedProposalAtom } from "../../lib/store/ui";
+import { useAtomValue } from "jotai/utils";
+import MvVote from "./MvVote";
 const ProposalDetailComponent: React.FC<{ proposal: TProposal<TVoteSingle> }> =
   ({ proposal }) => {
     return (
@@ -15,7 +16,7 @@ const ProposalDetailComponent: React.FC<{ proposal: TProposal<TVoteSingle> }> =
         <div>{Parser().parse(proposal.body)}</div>
         <div className="px-4 pt-5 pb-5 sm:px-0 sm:pt-0">
           <h3 className="font-medium text-gray-900">Results</h3>
-          <DetailVoteResults votes={proposal.votes} />
+          <DetailVoteResults />
         </div>
         <div className="px-4 pt-5 pb-5 sm:px-0 sm:pt-0">
           <h3 className="font-medium text-gray-900">Votes</h3>
@@ -29,11 +30,13 @@ const ProposalDetailComponent: React.FC<{ proposal: TProposal<TVoteSingle> }> =
     );
   };
 
-export const ProposalDetail: React.FC<{ id: string }> = ({ id }) => {
-  const { data, error } = useSWR(`./api/proposals/${id}`, fetcher);
+export const ProposalDetail: React.FC = () => {
+  //Todo load data from Gaia
+  //const { data, error } = useSWR(`./api/proposals/${id}`, fetcher);
 
+  const data = useAtomValue(selectedProposalAtom) as TProposal<TVoteSingle>;
   return !data ? (
-    <h4>Loading....</h4>
+    <MvLoader />
   ) : (
     <>
       <h3 className="font-bold text-gray-700 ">{data.title}</h3>
@@ -41,10 +44,9 @@ export const ProposalDetail: React.FC<{ id: string }> = ({ id }) => {
         {Parser().parse(data.body)}
       </span>
       <div>
-        <h4 className=" font-semibold text-gray-700 bo border-b">Results</h4>
-        <div className="mt-2">
-          <DetailVoteResults votes={data.votes} />
-        </div>
+      <MvVote/>
+          
+        
       </div>
       <div>
         <h3 className=" font-semibold text-gray-700 bo border-b">

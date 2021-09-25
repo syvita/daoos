@@ -2,14 +2,26 @@ import {
   HomeIcon,
   QuestionMarkCircleIcon,
   UsersIcon,
-  LogoutIcon
+  LogoutIcon,
 } from "@heroicons/react/outline";
-import { TNavigation } from "../types";
+import {
+  TFormInputs,
+  TNavigation,
+  TProfile,
+  TProfileFormInputs,
+  TProposal,
+  TRadioGroupSettings,
+  TVote,
+  TVoteSingle,
+} from "../types";
+import { truncate } from "lodash";
+
+import * as yup from "yup";
+import algoliasearch, { AlgoliaSearchOptions } from "algoliasearch";
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
 
 export const navigation: TNavigation[] = [
   { name: "Dashboard", icon: HomeIcon, href: "/app" },
@@ -19,7 +31,6 @@ export const navigation: TNavigation[] = [
     icon: QuestionMarkCircleIcon,
     href: "/app/faqs",
   },
-  
 ];
 export const isCurrentLink = (
   router: Record<string, unknown>,
@@ -30,6 +41,22 @@ export const isCurrentLink = (
 
 export const numberToPercent = (actual: number, total: number): string => {
   return Math.round((actual / total) * 100).toString() + "%";
+};
+
+export const algoliaClient = (options?: AlgoliaSearchOptions) =>
+  algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_FRONTEND_KEY,
+    options
+  );
+
+export const summarize = (content: string, length: number = 100) => {
+  const regex = /<[^>]+>/g;
+  return truncate(content.replace(regex, " ").replace(/\s+/g, " "), {
+    length,
+    omission: "",
+    separator: /,? +/,
+  });
 };
 
 export const ddOptionsForProposal = () => ({
@@ -75,9 +102,86 @@ export function errorHandler(err, res) {
     // jwt authentication error
     return res.status(401).json({ message: "Invalid Token" });
   }
-
   // default to 500 server error
   console.error(err);
   return res.status(500).json({ message: err.message });
 }
 
+export async function postData(payload: any, url: string) {
+  try {
+    const result = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload }),
+    });
+    return await result.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export const proposalYupSchema = yup.object().shape({
+  title: yup.string().required(),
+  startDate: yup.date().required("Please select a start date"),
+  endDate: yup
+    .date()
+    .min(yup.ref("startDate"), "End date should be later than start date")
+    .required("end date is required"),
+});
+
+export const membershipYupSchema = yup.object().shape({
+  name: yup.string().required(),
+});
+
+export const prepareProfile: (data: TProfileFormInputs) => TProfile = (
+  data
+) => {
+  return {
+    ...data,
+    ...{ isActive: true },
+    _tags: ["profile"],
+  };
+};
+
+export const prepareProposal: (
+  data: TFormInputs,
+  owner: TProfile,
+  summaryLength?: number
+) => TProposal<TVoteSingle> = (data, owner, summaryLength) => {
+  return {
+    body: data.content,
+    title: data.title,
+    summary: summarize(data.content, summaryLength),
+    owner,
+    votes: [],
+    isClosed: false,
+    expiryDate: data.endDate,
+    postDate: data.startDate,
+    _tags: ["proposal"],
+  };
+};
+
+export const prepareVote = ({
+  proposal,
+  voter,
+  payload,
+  onChainLink,
+}: {
+  proposal: TProposal<TVoteSingle>;
+  payload: TRadioGroupSettings;
+  voter: TProfile;
+  onChainLink?: string;
+}): { votes: TVote<TVoteSingle>[]; objectID: any } => {
+  const vote: TVote<TVoteSingle> = {
+    vote: { yes: payload.name == "yes" },
+    voter,
+    onChainLink,
+  };
+  return {
+    votes: [...proposal.votes, ...[vote]],
+    objectID: proposal.objectID,
+  };
+};

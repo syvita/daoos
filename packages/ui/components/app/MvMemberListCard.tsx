@@ -1,12 +1,23 @@
+import { useAtom } from "jotai";
+import { useUpdateAtom } from "jotai/utils";
 import Link from "next/link";
 import React from "react";
+import { selectedMemberAtom, slideOutPanelAtom } from "../../lib/store/ui";
 import { TProfile } from "../../types";
 import MemberCardStats from "./MvMemberCardStats";
+import MvProfileDetail from "./MvProfileDetail";
 
 const MemberListCard: React.FC<{
   member: TProfile;
-  onMemberSelect?: (payload: any) => void;
-}> = ({ member,onMemberSelect }) => {
+}> = ({ member }) => {
+  const [selectedMember, setMember] = useAtom(selectedMemberAtom);
+  const setPanel = useUpdateAtom(slideOutPanelAtom);
+
+  const onSelected = () => {
+    setPanel({ show: true, component: MvProfileDetail, title: "Profile" });
+    setMember(member);
+  };
+
   return (
     <div
       key={member.id}
@@ -18,7 +29,7 @@ const MemberListCard: React.FC<{
       <div className="flex-1 space-y-2 min-w-0">
         <div className="border-b pb-2">
           <button
-            onClick={onMemberSelect}
+            onClick={onSelected}
             className="focus:outline-none  hover:text-indigo-500 text-sm font-medium text-gray-800  "
           >
             {member.name}

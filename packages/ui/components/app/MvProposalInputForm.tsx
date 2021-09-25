@@ -1,6 +1,10 @@
 import React from "react";
+
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
+import { prepareProposal, proposalYupSchema as schema } from "../../lib/utils";
+
+import { toast } from "react-nextjs-toast";
 
 import {
   RichTextField,
@@ -9,21 +13,36 @@ import {
   Form,
   Error,
   DateField,
+  SubmitButton,
 } from "./MvFormControls";
+import { postData } from "../../lib/utils";
+import { TFormInputs } from "../../types";
 
-const schema = yup.object().shape({
-  title: yup.string().required(),
-  startDate: yup.date().required('Please select a start date'),
-  endDate: yup
-    .date()
-    .min(yup.ref("startDate"), "End date should be later than start date")
-    .required("end date is required")
-});
+import { useLoading } from "../../lib/hooks/useLoading";
+import { LOADING_KEYS, toastAtomOptions, TOAST_KEYS } from "../../lib/store/ui";
+import { useAtom } from "jotai";
+import { useUser } from "../../lib/hooks/useUser";
+
+const POST_URL = "/api/proposals/create";
 
 const MvProposalInputForm = () => {
-  const onSubmit = (payload) => {
-    //TODO plugin api for submitting data to backend
-    console.log(payload);
+  const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
+  const [toastOptions, setToastOptions] = useAtom(toastAtomOptions);
+  const {profile}=useUser()
+  const onSubmit = async (payload: TFormInputs) => {
+    
+    setIsLoading(true);
+    try {
+      await postData(prepareProposal(payload,profile.data,250), POST_URL);
+      setToastOptions(TOAST_KEYS.SUCCESS);
+      toast.notify("successfully added your proposal!", toastOptions);
+    } catch (err) {
+      setToastOptions(TOAST_KEYS.SUCCESS);
+      toast.notify(err.message, toastOptions);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -33,7 +52,6 @@ const MvProposalInputForm = () => {
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-6">
               <Label className="form-control-label" name="title" />
-
               <div className="mt-1">
                 <TextField
                   errorClass="form-control-error"
@@ -52,7 +70,7 @@ const MvProposalInputForm = () => {
                   name="startDate"
                   className="form-control"
                 />
-                <Error name="startDate"/>
+                <Error name="startDate" />
               </div>
             </div>
             <div className="sm:col-span-3 ">
@@ -78,12 +96,7 @@ const MvProposalInputForm = () => {
         </div>
       </div>
       <div className="max-w-7xl mt-6 mx-auto border-t sm:px-6 lg:px-0">
-        <button
-          type="submit"
-          className="sm:w-1/6  mt-6 text-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Submit
-        </button>
+        <SubmitButton loading={isLoading} />
       </div>
     </Form>
   );

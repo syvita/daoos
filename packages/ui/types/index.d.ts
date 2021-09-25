@@ -1,13 +1,10 @@
-
-
 /* Strictly UI */
 
-interface TFaq{
-  id:number,
-  question:string,
-  answer:string
+interface TFaq {
+  id: number;
+  question: string;
+  answer: string;
 }
-
 
 /* Strictly UI */
 
@@ -16,6 +13,22 @@ interface TFormInputs {
   startDate: date;
   endDate: date;
   content: string;
+}
+
+/* Strictly UI */
+
+interface TProfileFormInputs {
+  name: string;
+  email: string;
+  bio: string;
+}
+
+/* Strictly UI */
+
+interface TRadioGroupSettings {
+  name: string;
+  description?: string;
+  id?: any;
 }
 
 /* Strictly UI */
@@ -35,10 +48,11 @@ export interface TProfile {
   name: string;
   /** @mockType {image.avatar} */
   imageUrl?: string;
-  id?: string;
+  objectID?: any;
   email: string;
-  bio?:string;
-  profileLink?:string
+  bio?: string;
+  isActive: boolean;
+  profileLink?: string;
 }
 
 export interface TVoteSingle {
@@ -58,7 +72,7 @@ export interface TMemberStats {
 }
 /* UI & Backend */
 export interface TProposalSummary<T> {
-  id: string;
+  objectID?: any;
   title: string;
   summary?: string;
   votes: TVote<T>[];

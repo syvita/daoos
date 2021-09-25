@@ -57,7 +57,7 @@ export const profileAtom = atom(
         set(fetchProfileAtom, {
           loading: false,
           error: null,
-          ...JSON.parse(result),
+          data:JSON.parse(result),
         });
       } catch (error) {
         if (error.code === ERR_FILE_NOT_EXIST) {

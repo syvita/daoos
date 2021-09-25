@@ -28,8 +28,9 @@ const MvRichTextEditor: React.FC<{
     },
     onBlur,
     onUpdate: ({ editor }) => {
-      console.log(editor.getHTML());
+      //console.log(editor.getHTML());
       onChange && onChange(editor.getHTML());
+      
     },
   });
   return (

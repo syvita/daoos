@@ -9,22 +9,10 @@ import MvBadge from "./MvBadge";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-// Stats widget for profile detail view
-/*const ProfileStatsWidget = (profile:TProfile) => {
-  return (
-    <div>
-      <h3 className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
-        Proposals
-      </h3>
-      <div className='grid grid-cols-3 justify-items-stretch'>
-          <MvBadge color='lightGray' classnames='py-2 px-1'>Total:</MvBadge>
-      </div>
-    </div>
-  );
-};*/
 
-export const MvProfileDetailComponent: React.FC<{ profile: TProfile }> = ({
-  profile,
+
+export const MvProfileDetailComponent: React.FC<{ profile: TProfile,onEdit:()=>void }> = ({
+  profile,onEdit
 }) => {
   return (
     <div>
@@ -48,8 +36,19 @@ export const MvProfileDetailComponent: React.FC<{ profile: TProfile }> = ({
                     <span className="sr-only">Online</span>
                   </span>
                 </div>
+                <div className="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
+                  <button
+                    onClick={onEdit}
+                    type="button"
+                    className="flex-shrink-0 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1"
+                  >
+                    Edit
+                  </button>
+                </div>
                 <Link href={profile.profileLink || "#"}>
-                  <a className="text-xs text-blue-500 truncate">{profile.id}</a>
+                  <a className="text-xs text-blue-500 truncate">
+                    {profile.objectID}
+                  </a>
                 </Link>
               </div>
             </div>
