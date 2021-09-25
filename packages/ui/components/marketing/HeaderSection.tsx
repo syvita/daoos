@@ -20,7 +20,7 @@ export const HeaderSection: React.FC = ({ children }) => {
             <div className="flex items-center ">
               <a href="#">
                 <span className="sr-only">Workflow</span>
-                <img className="h-10 w-auto" src="/Mvlogo.svg" alt="" />
+                <img className="h-36 w-auto" src="/Mvlogo.svg" alt="" />
               </a>
               <div className="hidden ml-10 space-x-8 lg:block">
                 {navigation.map((link) => (

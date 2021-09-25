@@ -27,7 +27,7 @@ const MvProfileInputForm = () => {
   const [toastOptions, setToastOptions] = useAtom(toastAtomOptions);
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const [profile,setGaiaProfile] = useAtom(profileAtom)
-  console.log(profile.data)
+  console.log(profile)
   const onSubmit = async (payload: TProfileFormInputs) => {
     console.log(payload);
 

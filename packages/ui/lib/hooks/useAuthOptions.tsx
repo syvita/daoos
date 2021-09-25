@@ -4,14 +4,16 @@ import { LOADING_KEYS } from "../store/ui";
 import { useUser } from "./useUser";
 import { useCallback } from "react";
 import { AuthOptions } from "@stacks/connect";
+import router, { useRouter } from "next/router";
 
 const APP_NAME = "Miami Voice";
 const ICON = window?.location?.origin + "/Mvlogo.svg" || "";
-const REDIRECT = "/";
+const REDIRECT = "/app";
 
 export function useAuthOptions() {
   const userSession = useUserSession();
   const { setIsLoading } = useLoading(LOADING_KEYS.AUTH);
+  const {}=useRouter()
   const { setUser } = useUser();
 
   const onFinish = useCallback(
@@ -19,6 +21,7 @@ export function useAuthOptions() {
       const userData = userSession?.loadUserData?.();
       await setUser(userData);
       void setIsLoading(false);
+      router.replace(REDIRECT)
     },
     [setUser]
   );

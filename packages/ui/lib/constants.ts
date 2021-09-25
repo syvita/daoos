@@ -67,3 +67,36 @@ export const badgeColors = {
     text: "text-gray-700",
   },
 };
+
+export const iconSizes = {
+  sm: "h-6 w-6",
+  md: "h-8 w-8",
+  lg: "h-10 w-10",
+  xl: "h-12 w-12",
+  xxl: "h1-4 w-14",
+};
+
+export const iconColors = {
+  text: {
+    blue: "bg-blue-100",
+    indigo: "bg-indigo-100",
+    purple: "bg-purple-100",
+    red: "bg-red-100",
+    green: "bg-green-100",
+    yellow: "bg-yellow-100",
+  },
+  avatar: {
+    blue: "bg-blue-800",
+    indigo: "bg-indigo-800",
+    purple: "bg-purple-800",
+    red: "bg-red-800",
+    green: "bg-green-800",
+    yellow: "bg-yellow-800",
+    inner_blue: "bg-blue-300",
+    inner_indigo: "bg-indigo-300",
+    inner_purple: "bg-purple-300",
+    inner_red: "bg-red-300",
+    inner_green: "bg-green-300",
+    inner_yellow: "bg-yellow-300",
+  },
+};

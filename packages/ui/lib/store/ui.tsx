@@ -27,11 +27,6 @@ export enum SLIDE_PANEL_KEYS {
   PROFILE = "panel/PROFILE",
 }
 
-const defaultToastSettings = {
-  duration: 5,
-  type: "",
-  title: "",
-};
 
 export const loadingAtom = atomFamily((key) => atom(false));
 

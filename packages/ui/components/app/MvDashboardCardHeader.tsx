@@ -2,19 +2,22 @@ import React from "react";
 import moment from "moment";
 import { TProposalSummary, TVoteSingle } from "../../types";
 import { ProposalStatus } from "./MvProposalStatus";
+import MvAvatar from "../common/MvAvatar";
+import { iconColors, iconSizes } from "../../lib/constants";
 
 export const DashboardCardHeader: React.FC<{
   proposal: TProposalSummary<TVoteSingle>;
 }> = ({ proposal }) => {
-
   return (
     <div className="bg-white px-0 py-0 sm:px-0">
       <div className="flex space-x-3">
         <div className="flex-shrink-0">
-          <img
-            className="h-10 w-10 rounded-full"
-            src={proposal?.owner?.imageUrl||'/avatar-place-holder.jpg'}
-            alt="Owner picture "
+          <MvAvatar
+            colorInner={iconColors.avatar.inner_yellow}
+            color={iconColors.avatar.yellow}
+            size={iconSizes.md}
+            name={proposal.owner.name}
+            isText
           />
         </div>
         <div className="min-w-0 flex-1">

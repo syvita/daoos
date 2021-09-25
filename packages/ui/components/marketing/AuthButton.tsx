@@ -14,14 +14,14 @@ const AuthButton = () => {
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.AUTH);
   const { isSignedIn } = useUser();
 
-  const { push } = useRouter();
+  const { replace } = useRouter();
   const login = () => {
     setIsLoading(true);
     authenticate();
   };
   const gotoDash = () => {
     setIsLoading(true);
-    push(DASHBOARD_PATH);
+    replace(DASHBOARD_PATH);
   };
   return (
     <button

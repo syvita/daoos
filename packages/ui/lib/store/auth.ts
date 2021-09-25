@@ -5,7 +5,7 @@ import { gaiStorageAtom } from "./gai";
 
 export const appConfig = new AppConfig(["store_write", "publish_data"]);
 
-const PROFILE_FILE_NAME = "my_daoo_mv_apps_profile.json";
+const PROFILE_FILE_NAME = "my_daoo_mv_app_profile_0.json";
 
 const getFileOptions = {};
 
@@ -30,7 +30,7 @@ const defaultProfile = atomWithDefault((get) => {
     const name =
       get(userAtom)?.username || get(userAtom)?.profile?.stxAddress?.mainnet;
     const imageUrl = "/avatar-place-holder.jpg";
-    return { data: { name, imageUrl, id: name }, loading: false, error: null };
+    return { data: { name, imageUrl, objectID: name }, loading: false, error: null };
   }
 });
 
@@ -63,7 +63,7 @@ export const profileAtom = atom(
         if (error.code === ERR_FILE_NOT_EXIST) {
           await store.putFile(
             PROFILE_FILE_NAME,
-            JSON.stringify(get(defaultProfile))
+            JSON.stringify(get(defaultProfile).data)
           );
         }
         set(fetchProfileAtom, { loading: false, error, data: null });
