@@ -22,6 +22,7 @@
 (define-constant ERR_MEMBER_EXISTS u102)
 (define-constant ERR_BLACKLISTED_PRINCIPAL u103)
 (define-constant ERR_BLACKLIST_OR_ZERO_BALANCE_REQUIRED u104)
+(define-constant ERR_ALREADY_BLACKLISTED u105)
 
 ;; data maps and vars
 (define-data-var dao-name (string-ascii 256) "Miami")
@@ -158,7 +159,7 @@
     (begin
         ;; TODO: call core-proposal-contract and verify tx-sender is a passed proposal
 
-        (map-insert blacklisted-principals {address: address} {blacklist-reason: reason})
+        (asserts! (map-insert blacklisted-principals {address: address} {blacklist-reason: reason}) (err ERR_ALREADY_BLACKLISTED))
         (is-err (remove-dao-member address))
         (ok address)
     )
