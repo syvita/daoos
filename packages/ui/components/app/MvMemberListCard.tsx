@@ -36,7 +36,7 @@ const MemberListCard: React.FC<{
           </button>
         </div>
 
-        <MemberCardStats id={member.id} />
+        <MemberCardStats />
       </div>
     </div>
   );
