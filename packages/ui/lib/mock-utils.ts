@@ -66,5 +66,5 @@ export const getProposals = (
 
 export const getProposal = (id: string): TProposal<TVoteSingle> => {
   const body = faker.lorem.paragraphs();
-  return { ...getProposals(1)[0], body, id };
+  return { ...getProposals(1)[0], body, objectID:id };
 };
