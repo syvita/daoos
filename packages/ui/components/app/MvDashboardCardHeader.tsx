@@ -4,6 +4,7 @@ import { TProposalSummary, TVoteSingle } from "../../types";
 import { ProposalStatus } from "./MvProposalStatus";
 import MvAvatar from "../common/MvAvatar";
 import { iconColors, iconSizes } from "../../lib/constants";
+import { dateGreaterThanNow } from "../../lib/utils";
 
 export const DashboardCardHeader: React.FC<{
   proposal: TProposalSummary<TVoteSingle>;
@@ -28,12 +29,13 @@ export const DashboardCardHeader: React.FC<{
           </p>
           <p className="text-xs text-gray-500">
             <a href="#" className="hover:underline">
-              Closes {moment(proposal?.expiryDate).fromNow()}
+              {dateGreaterThanNow(proposal?.expiryDate) ? "Closed " : "Closes "}
+              {moment(proposal?.expiryDate).fromNow()}
             </a>
           </p>
         </div>
         <div className="flex-shrink-0 self-center flex">
-          <ProposalStatus isClosed={proposal?.isClosed} />
+          <ProposalStatus isClosed={dateGreaterThanNow(proposal?.expiryDate)} />
         </div>
       </div>
     </div>

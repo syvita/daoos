@@ -44,7 +44,7 @@ const MvProfileInputForm = () => {
         prepareProfile(payload),
         "/api/members/update"
       );
-
+      console.log(updatedProfile)
       setProfile(updatedProfile);
       setToastOptions(TOAST_KEYS.SUCCESS);
 
@@ -69,7 +69,7 @@ const MvProfileInputForm = () => {
         />
       )}
       <Form
-        defaultValues={profile.data}
+        defaultValues={profile}
         onSubmit={onSubmit}
         resolver={yupResolver(schema)}
       >

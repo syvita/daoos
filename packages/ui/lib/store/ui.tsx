@@ -5,6 +5,8 @@ import { get } from "react-hook-form";
 import { profileAtom } from "./auth";
 import { TProfile, TProposal, TVoteSingle } from "../../types";
 import { getVotes } from "../mock-utils";
+import { date } from "yup/lib/locale";
+import { dateGreaterThanNow } from "../utils";
 
 export enum LOADING_KEYS {
   AUTH = "loading/AUTH",
@@ -27,10 +29,12 @@ export enum SLIDE_PANEL_KEYS {
   PROFILE = "panel/PROFILE",
 }
 
-
 export const loadingAtom = atomFamily((key) => atom(false));
 
-export const selectedProposalAtom = atom({});
+export const selectedProposalAtom=atom({})
+
+export const exampleAtom=atomFamily(key=>atom({}))
+
 export const selectedMemberAtom = atom({});
 
 const toastAtom = atom({});
@@ -45,7 +49,6 @@ export const toastAtomOptions = atom(
   }
 );
 const slideOutAtom = atom({ title: "", component: null, show: false });
-
 
 export const slideOutPanelAtom = atom(
   (get) => get(slideOutAtom),
@@ -71,14 +74,15 @@ export const isActiveAtom = atom(false);
 
 export const canPerformVoteAtom = atom((get) => {
   const proposal = get(selectedProposalAtom) as TProposal<TVoteSingle>;
-  const currentProfile = get(profileAtom).data as TProfile;
-   const result= proposal?.votes?.filter(
+  const currentProfile = get(profileAtom) as TProfile;
+  const result =
+    proposal?.votes?.filter(
       (vote) => vote.voter.objectID == currentProfile.objectID
-    ).length ==0
-    return result
+    ).length == 0 && !dateGreaterThanNow(proposal.expiryDate);
+  return result;
 });
 
-export const canPerformPostAtom =atom((get)=>{
-  const profile = get(profileAtom).data as TProfile
-  return profile.isActive
-})
+export const canPerformPostAtom = atom((get) => {
+  const profile = get(profileAtom) as TProfile;
+  return profile.isActive;
+});

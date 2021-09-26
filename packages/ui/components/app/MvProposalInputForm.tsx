@@ -31,6 +31,7 @@ import { useAtomValue } from "jotai/utils";
 import { useSlideOut } from "../../lib/hooks/useSlideOut";
 import MvButton from "../common/MvButton";
 import MvProfileInputForm from "./MvProfileInputForm";
+import { useRouter } from "next/router";
 
 const POST_URL = "/api/proposals/create";
 
@@ -38,14 +39,16 @@ const MvProposalInputForm = () => {
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const [toastOptions, setToastOptions] = useAtom(toastAtomOptions);
   const canPost = useAtomValue(canPerformPostAtom);
+  const router =useRouter()
   const { setPanel } = useSlideOut();
   const { profile } = useUser();
   const onSubmit = async (payload: TFormInputs) => {
     setIsLoading(true);
     try {
-      await postData(prepareProposal(payload, profile.data, 250), POST_URL);
+      await postData(prepareProposal(payload, profile, 250), POST_URL);
       setToastOptions(TOAST_KEYS.SUCCESS);
       toast.notify("successfully added your proposal!", toastOptions);
+      router.push('/app')
     } catch (err) {
       setToastOptions(TOAST_KEYS.SUCCESS);
       toast.notify(err.message, toastOptions);

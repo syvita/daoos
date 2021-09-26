@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import { useAtomValue } from "jotai/utils";
 import React from "react";
 import { useLoading } from "../../lib/hooks/useLoading";
@@ -22,7 +23,7 @@ const settings: TRadioGroupSettings[] = [
 
 const MvVoteInputForm = () => {
   const profile = useAtomValue(profileAtom);
-  const proposal = useAtomValue(selectedProposalAtom) as TProposal<TVoteSingle>;
+  const [proposal ,setProposal] =useAtom(selectedProposalAtom) 
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const onSubmit = async (payload) => {
     try {
@@ -30,10 +31,11 @@ const MvVoteInputForm = () => {
       const data = prepareVote({
         payload,
         proposal,
-        voter: profile.data,
+        voter: profile,
         onChainLink: "https://emptyChainlink.link",
       });
-      const updateProposal = await postData(data, "/api/proposals/update");
+      const result = await postData(data, "/api/proposals/update");
+      setProposal({...proposal,...result})
       setIsLoading(false);
     } catch (error) {
       console.log(error);

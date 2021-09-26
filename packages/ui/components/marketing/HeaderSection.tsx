@@ -22,7 +22,7 @@ export const HeaderSection: React.FC = ({ children }) => {
                 <span className="sr-only">Workflow</span>
                 <img className="h-36 w-auto" src="/Mvlogo.svg" alt="" />
               </a>
-              <div className="hidden ml-10 space-x-8 lg:block">
+              {/*<div className="hidden ml-10 space-x-8 lg:block">
                 {navigation.map((link) => (
                   <a
                     key={link.name}
@@ -32,13 +32,13 @@ export const HeaderSection: React.FC = ({ children }) => {
                     {link.name}
                   </a>
                 ))}
-              </div>
+                </div>*/}
             </div>
             <div className="ml-10 space-x-4">
               <AuthButton />
             </div>
           </div>
-          <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
+          {/*<div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
             {navigation.map((link) => (
               <a
                 key={link.name}
@@ -48,7 +48,7 @@ export const HeaderSection: React.FC = ({ children }) => {
                 {link.name}
               </a>
             ))}
-          </div>
+            </div>*/}
         </nav>
       </header>
       {children}

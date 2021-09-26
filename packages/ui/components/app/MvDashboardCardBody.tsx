@@ -15,7 +15,7 @@ const MvDashboardCardBody: React.FC<{
         <p className="text-sm text-gray-500 line-clamp-3">{proposal.summary}</p>
         <div className="flex items-center space-x-3">
           <div className="flex-1">
-            <CardAvatars avatars={proposal?.votes?.map((item) => item.voter)} />
+            <CardAvatars votes={proposal.votes} />
           </div>
           <button
             onClick={onSelected}

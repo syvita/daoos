@@ -1,14 +1,7 @@
-import React, { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
-import { DotsVerticalIcon } from "@heroicons/react/solid";
+import React, {  } from "react";
 import { TProfile } from "../../types";
 import Link from "next/link";
-import MvBadge from "./MvBadge";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Parser } from "html-to-react";
 
 
 export const MvProfileDetailComponent: React.FC<{ profile: TProfile,onEdit:()=>void }> = ({
@@ -62,7 +55,7 @@ export const MvProfileDetailComponent: React.FC<{ profile: TProfile,onEdit:()=>v
               Bio
             </dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-              <p>{profile.bio}</p>
+              <p>{Parser().parse(profile.bio)}</p>
             </dd>
           </div>
           <div>

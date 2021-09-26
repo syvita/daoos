@@ -6,7 +6,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { payload } = req.body;
     try {
-      return await res.status(200).json(await updateRecord(payload as any));
+      const result = await updateRecord(payload as any);
+      return res.status(200).json({ ...payload, objectID: result.objectID });
     } catch (err) {
       errorHandler(err, res);
     }

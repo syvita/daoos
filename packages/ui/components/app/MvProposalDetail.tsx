@@ -52,7 +52,7 @@ export const ProposalDetail: React.FC = () => {
         <h3 className=" font-semibold text-gray-700 bo border-b">
           Votes
           <Badge color={"gray"} classnames="py-0 mb-2 ml-1 py-0 px-1">
-            {data.votes.length}
+            {data?.votes?.length}
           </Badge>
         </h3>
         <DetailVoteList votes={data.votes} />

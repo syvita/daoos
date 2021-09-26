@@ -22,8 +22,8 @@ const WhatIsMiaCoinSegment = () => {
           <div className=" max-w-xl   md:py-32 md:max-w-none md:mx-0 md:px-0 md:col-start-1">
             <div>
               <div className="mt-6">
-                <h2 className="text-3xl inline uppercase text-color-gradient font-extrabold tracking-tight">
-                  What Is Maimi Coin
+                <h2 className="text-3xl inline  text-color-gradient font-extrabold tracking-tight">
+                  <span className="uppercase">What Is</span> Maimi Coin
                 </h2>
 
                 <p className="mt-4 text-lg text-justify text-gray-500">
@@ -33,12 +33,12 @@ const WhatIsMiaCoinSegment = () => {
                   cryptocurrency wallet for the city of Miami to use how they
                   please.
                 </p>
-                <p className="mt-4 text-justify text-lg text-gray-500">
-                  The rest is saved and “stacked” to generate interest and
-                  allows holders of MiamiCoin to earn money by holding onto
-                  MiamiCoin. As time goes on, there will be more ways to use and
-                  spend your $MIA, all the while supporting the beautiful city
-                  of Miami, Florida.
+                <p className="mt-4 text-lg text-justify text-gray-500">
+                  The remaining 70% is given back to holders of MiamiCoin to
+                  earn money by "stacking" MiamiCoin - simply locking it away
+                  for one or more 2-week cycles. As time goes on, there will be
+                  more ways to use and spend your $MIA, all the while supporting
+                  the beautiful city of Miami, Florida.
                 </p>
               </div>
             </div>

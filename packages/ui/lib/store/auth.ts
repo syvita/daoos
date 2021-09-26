@@ -1,7 +1,9 @@
 import { atom } from "jotai";
 import { AppConfig, UserSession } from "@stacks/auth";
-import { atomWithDefault } from "jotai/utils";
+import { atomFamily, atomWithDefault, atomWithStorage } from "jotai/utils";
 import { gaiStorageAtom } from "./gai";
+import { TProfile } from "../../types";
+import { profileEnd } from "console";
 
 export const appConfig = new AppConfig(["store_write", "publish_data"]);
 
@@ -24,55 +26,29 @@ export const userAtom = atomWithDefault((get) => {
   }
 });
 
-const defaultProfile = atomWithDefault((get) => {
-  const profile = get(fetchProfileAtom);
-  if (!profile.data) {
-    const name =
-      get(userAtom)?.username || get(userAtom)?.profile?.stxAddress?.mainnet;
-    const imageUrl = "/avatar-place-holder.jpg";
-    return { data: { name, imageUrl, objectID: name }, loading: false, error: null };
+const getDefaultProfile = (address) => ({
+  name: address,
+  isActive: false,
+  objectID:address
+});
+
+const profileAtomFamily = atomFamily<string, TProfile, TProfile>((key) => {
+  try {
+    const profile = JSON.parse(localStorage.getItem(key));
+    //console.log(profile)
+    return atom(profile || getDefaultProfile(key));
+  } catch (err) {
   }
 });
 
-const fetchProfileAtom = atom({ data: null, loading: true, error: null });
-
-export const profileAtom = atom(
+export const profileAtom = atom<TProfile, TProfile>(
   (get) => {
-    return get(fetchProfileAtom);
+    const user = get(userAtom);
+    const address = user?.profile?.stxAddress?.testnet;
+    return get(profileAtomFamily(address));
   },
-  (get, set, data) => {
-    const store = get(gaiStorageAtom);
-
-    const fetchProfile = async () => {
-      set(fetchProfileAtom, (prev) => ({ ...prev, loading: true }));
-      try {
-        let result: any;
-        if (data) {
-          await store.putFile(PROFILE_FILE_NAME, JSON.stringify(data));
-          result = data;
-        } else {
-          result = await store.getFile(PROFILE_FILE_NAME);
-        }
-
-        set(fetchProfileAtom, {
-          loading: false,
-          error: null,
-          data:JSON.parse(result),
-        });
-      } catch (error) {
-        if (error.code === ERR_FILE_NOT_EXIST) {
-          await store.putFile(
-            PROFILE_FILE_NAME,
-            JSON.stringify(get(defaultProfile).data)
-          );
-        }
-        set(fetchProfileAtom, { loading: false, error, data: null });
-      }
-    };
-    fetchProfile();
+  (get, set, val) => {
+     localStorage.setItem(val.objectID, JSON.stringify(val));
+    set(profileAtomFamily(val.objectID), val);
   }
 );
-
-profileAtom.onMount = (runProfile) => {
-  runProfile();
-};

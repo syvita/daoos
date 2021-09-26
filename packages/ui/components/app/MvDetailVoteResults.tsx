@@ -34,7 +34,7 @@ export const DetailVoteResults = () => {
         className=" disabled:bg-red-100 disabled:cursor-not-allowed 
         disabled:text-indigo-800   btn text-center w-full"
       >
-        {canVote ? "Vote" : "Your vote has been captured!"}
+        {canVote ? "Vote" : "You can no longer vote!"}
       </button>
     </div>
   );

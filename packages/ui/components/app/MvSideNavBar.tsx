@@ -6,6 +6,7 @@ import { TNavigation, TProfile } from "../../types";
 import Link from "next/link";
 import MvUserProfileComponent from "./MvUserProfileComponent";
 import MvLogOutBtn from "./MvLogOutBtn";
+import MvClientOnly from "../common/MvClientOnly";
 
 export const SideNavBar: React.FC<{
   navigation: TNavigation[];
@@ -49,7 +50,9 @@ export const SideNavBar: React.FC<{
           <MvLogOutBtn />
         </nav>
       </div>
-      <MvUserProfileComponent />
+      <MvClientOnly>
+        <MvUserProfileComponent />
+      </MvClientOnly>
     </div>
   );
 };

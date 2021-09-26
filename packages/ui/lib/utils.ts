@@ -14,10 +14,11 @@ import {
   TVote,
   TVoteSingle,
 } from "../types";
-import { truncate } from "lodash";
+import { pick, truncate } from "lodash";
 
 import * as yup from "yup";
 import algoliasearch, { AlgoliaSearchOptions } from "algoliasearch";
+import moment from "moment";
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -170,18 +171,23 @@ export const prepareVote = ({
   payload,
   onChainLink,
 }: {
-  proposal: TProposal<TVoteSingle>;
-  payload: TRadioGroupSettings;
+  proposal: TProposal<TVoteSingle>|any;
+  payload: {vote:TRadioGroupSettings;}
   voter: TProfile;
   onChainLink?: string;
 }): { votes: TVote<TVoteSingle>[]; objectID: any } => {
   const vote: TVote<TVoteSingle> = {
-    vote: { yes: payload.name == "yes" },
-    voter,
+    vote: { yes: payload.vote.name === "Yes" },
+    voter: pick(voter,["objectID", "name", "imageUrl", "email"]) as TProfile,
     onChainLink,
   };
+  console.log(payload.vote)
   return {
     votes: [...proposal.votes, ...[vote]],
     objectID: proposal.objectID,
   };
 };
+
+export const dateGreaterThanNow=(date)=>{
+  return moment(date).diff(moment())<0
+}

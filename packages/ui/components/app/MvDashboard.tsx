@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { algoliaClient, fetcher } from "../../lib/utils";
 import useSWR from "swr";
 import { DashboardCard } from "./MvDashboardCard";
@@ -24,6 +24,12 @@ const DashboardItems = connectHits(({ hits }) => {
 });
 
 export const Dashboard: React.FC = () => {
+  useEffect(() => {
+    algoliaClient().clearCache()
+    return () => {
+      algoliaClient().clearCache()
+    }
+  }, [])
   return (
     <>
       <MvSectionHeader link={LINK} linkTitle={LINK_TITLE} />

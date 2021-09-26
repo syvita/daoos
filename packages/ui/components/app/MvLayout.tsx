@@ -12,6 +12,7 @@ import { useSlideOut } from "../../lib/hooks/useSlideOut";
 import { SlideOver } from "./MvSlideOver";
 import Link from "next/link";
 import MvUserProfileComponent from "./MvUserProfileComponent";
+import MvClientOnly from "../common/MvClientOnly";
 
 export const Layout: React.FC<{ title?: string; isProtected?: boolean }> = ({
   children,
@@ -24,7 +25,7 @@ export const Layout: React.FC<{ title?: string; isProtected?: boolean }> = ({
   const profile: TProfile = getProfile("user-id");
   const router = useRouter();
   return (
-    <>
+    <MvClientOnly>
       <div className="h-screen flex overflow-hidden bg-gray-100">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -111,8 +112,10 @@ export const Layout: React.FC<{ title?: string; isProtected?: boolean }> = ({
                     ))}
                   </nav>
                 </div>
-                <MvUserProfileComponent/>
-                 </div>
+                
+                  <MvUserProfileComponent />
+               
+              </div>
             </Transition.Child>
             <div className="flex-shrink-0 w-14">
               {/* Force sidebar to shrink to fit close icon */}
@@ -160,14 +163,14 @@ export const Layout: React.FC<{ title?: string; isProtected?: boolean }> = ({
                   show={panel.show}
                   title={panel.title}
                 >
-                  {panel?.component&&<panel.component />}
+                  {panel?.component && <panel.component />}
                 </SlideOver>
-              </div>
+              </div>    
             </div>
           </main>
         </div>
       </div>
-    </>
+      </MvClientOnly>
   );
 };
 

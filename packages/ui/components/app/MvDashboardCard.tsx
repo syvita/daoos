@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "@heroicons/react/outline";
-import { useAtom } from "jotai";
-import { useUpdateAtom } from "jotai/utils";
+import { atom, useAtom } from "jotai";
+import { useAtomValue, useUpdateAtom } from "jotai/utils";
 import React from "react";
 import { useSlideOut } from "../../lib/hooks/useSlideOut";
 import { selectedProposalAtom } from "../../lib/store/ui";
@@ -15,13 +15,11 @@ export const DashboardCard: React.FC<{
   proposal: TProposalSummary<TVoteSingle>;
 }> = ({ proposal }) => {
   const { setPanel } = useSlideOut();
-  const set = useUpdateAtom(selectedProposalAtom);
+  const setSelected=useUpdateAtom(selectedProposalAtom)
   const onSelected = () => {
-    console.log(proposal)
+    setSelected(proposal)
     setPanel({ show: true, component: ProposalDetail, title: proposal.title });
-    set(proposal);
   };
-
   return (
     <div
       key={proposal.objectID}
