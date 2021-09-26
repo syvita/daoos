@@ -24,8 +24,9 @@ export const getProfile = (id: string): TProfile => {
     email: faker.internet.email(),
     name: faker.name.findName(),
     bio: faker.lorem.paragraph(),
-    id: faker.datatype.uuid(),
+    objectID: faker.datatype.uuid(),
     imageUrl: faker.image.imageUrl(),
+    isActive:true
   };
 };
 
