@@ -1,21 +1,11 @@
-import { useAtomValue } from "jotai/utils";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { Layout } from "../../../components/app/MvLayout";
-import MvProfileInputForm from "../../../components/app/MvProfileInputForm";
 import MvProposalInputForm from "../../../components/app/MvProposalInputForm";
 import MvSectionHeader from "../../../components/app/MvSectionHeader";
-import { useSlideOut } from "../../../lib/hooks/useSlideOut";
-import { canPerformPostAtom, slideOutPanelAtom } from "../../../lib/store/ui";
 
 export default function CreateProposal() {
-  const canPost = useAtomValue(canPerformPostAtom);
-  const { setPanel } = useSlideOut();
-  useEffect(() => {
-    if (!canPost) {
-      setPanel({ show: true, component: MvProfileInputForm });
-    }
-  }, [canPost]);
+  
   return (
     <Layout title="Submit a Proposal">
       <MvSectionHeader>
