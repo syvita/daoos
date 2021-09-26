@@ -6,14 +6,17 @@ import { TRadioGroupSettings } from "../../types";
 const MvRadioGroupComponent: React.FC<{
   title: string;
   settings: TRadioGroupSettings[];
-}> = ({ title, settings, ...rest }) => {
+  onChange: any;
+  value: any;
+  onBlur: any;
+}> = ({ title, settings, onChange, value, onBlur }) => {
   return (
-    <RadioGroup {...rest}>
+    <RadioGroup  value={value} onChange={onChange}>
       <RadioGroup.Label className="sr-only">{title}</RadioGroup.Label>
       <div className="bg-white rounded-md -space-y-px">
         {settings.map((setting, settingIdx) => (
           <RadioGroup.Option
-            key={setting.id}
+            key={setting.name}
             value={setting}
             className={({ checked }) =>
               classNames(
