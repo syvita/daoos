@@ -1,8 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { PlusSmIcon, XIcon } from "@heroicons/react/outline";
-import { DotsVerticalIcon } from "@heroicons/react/solid";
-import { ProposalDetail } from "./MvProposalDetail";
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
 
 export const SlideOver: React.FC<{
   title: string;

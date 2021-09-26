@@ -31,7 +31,7 @@ export const Dashboard: React.FC = () => {
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_DEFAULT_INDEX}
         searchClient={algoliaClient()}
       >
-        <Configure filters={'proposal'} />
+        <Configure filters={"proposal"} />
         {<DashboardItems />}
       </InstantSearch>
     </>

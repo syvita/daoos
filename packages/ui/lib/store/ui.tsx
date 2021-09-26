@@ -77,3 +77,8 @@ export const canPerformVoteAtom = atom((get) => {
     ).length ==0
     return result
 });
+
+export const canPerformPostAtom =atom((get)=>{
+  const profile = get(profileAtom).data as TProfile
+  return profile.isActive
+})

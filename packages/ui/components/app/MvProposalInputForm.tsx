@@ -19,21 +19,31 @@ import { postData } from "../../lib/utils";
 import { TFormInputs } from "../../types";
 
 import { useLoading } from "../../lib/hooks/useLoading";
-import { LOADING_KEYS, toastAtomOptions, TOAST_KEYS } from "../../lib/store/ui";
+import {
+  canPerformPostAtom,
+  LOADING_KEYS,
+  toastAtomOptions,
+  TOAST_KEYS,
+} from "../../lib/store/ui";
 import { useAtom } from "jotai";
 import { useUser } from "../../lib/hooks/useUser";
+import { useAtomValue } from "jotai/utils";
+import { useSlideOut } from "../../lib/hooks/useSlideOut";
+import MvButton from "../common/MvButton";
+import MvProfileInputForm from "./MvProfileInputForm";
 
 const POST_URL = "/api/proposals/create";
 
 const MvProposalInputForm = () => {
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const [toastOptions, setToastOptions] = useAtom(toastAtomOptions);
-  const {profile}=useUser()
+  const canPost = useAtomValue(canPerformPostAtom);
+  const { setPanel } = useSlideOut();
+  const { profile } = useUser();
   const onSubmit = async (payload: TFormInputs) => {
-    
     setIsLoading(true);
     try {
-      await postData(prepareProposal(payload,profile.data,250), POST_URL);
+      await postData(prepareProposal(payload, profile.data, 250), POST_URL);
       setToastOptions(TOAST_KEYS.SUCCESS);
       toast.notify("successfully added your proposal!", toastOptions);
     } catch (err) {
@@ -46,6 +56,7 @@ const MvProposalInputForm = () => {
   };
 
   return (
+    <>
     <Form onSubmit={onSubmit} resolver={yupResolver(schema)}>
       <div className="bg-white overflow-hidden shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:p-6">
@@ -96,9 +107,17 @@ const MvProposalInputForm = () => {
         </div>
       </div>
       <div className="max-w-7xl mt-6 mx-auto border-t sm:px-6 lg:px-0">
-        <SubmitButton loading={isLoading} />
-      </div>
+        {canPost &&
+          <SubmitButton loading={isLoading} />}
+       </div>
     </Form>
+          {!canPost && <MvButton
+            title="Submit"
+            onClick={() => {
+              setPanel({ component: MvProfileInputForm, show: true });
+            }}
+          />}
+    </>
   );
 };
 
