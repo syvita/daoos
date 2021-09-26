@@ -15,6 +15,7 @@ export const getProfiles = (qty: number = 10): TProfile[] => {
     name: faker.name.findName(),
     id: faker.datatype.uuid(),
     imageUrl: faker.internet.avatar(),
+    isActive:true
   }));
 };
 
