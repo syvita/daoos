@@ -5,7 +5,7 @@ const WhatIsMiaCoinSegment = () => {
     <div className="relative  sm:pt-0 pb-16 overflow-hidden">
       <div
         aria-hidden="true"
-        className="absolute md:rounded-3xl hidden md:block   right-48 w-1/2 top-72 h-80 bg-gradient-to-l from-blue-100"
+        className="absolute md:rounded-3xl hidden md:block right-48 w-1/2 top-72 h-80 bg-gradient-to-l from-blue-100"
       />
       <div className="md:mt-24 mt-5">
         <div className="md:mx-auto pl-10 pr-10 md:max-w-7xl md:px-8 md:grid md:grid-cols-2 md:grid-flow-col-dense md:gap-10 lg:gap-24">
