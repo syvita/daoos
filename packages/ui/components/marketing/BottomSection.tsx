@@ -1,6 +1,4 @@
-import { useAtomValue } from "jotai/utils";
 import React from "react";
-import MvClientOnly from "../common/MvClientOnly";
 import MvMiaWalletUsdVal from "../common/MvMiaWalletUsdVal";
 
 const BottomSection = () => {
