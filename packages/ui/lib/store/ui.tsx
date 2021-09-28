@@ -116,7 +116,7 @@ export const miaStxWalletValueAtom = atom(async (get) => {
   );
   const result = (await response.json()) as TMiaStxBalance;
   //console.log(result)
-  return result.stx.balance;
+  return result.balance;
 });
 
 export const miaUsdValueAtom = atom(async (get) => {

@@ -6,7 +6,7 @@ import MvMiaWalletUsdVal from "../common/MvMiaWalletUsdVal";
 const BottomSection = () => {
   return (
     <div className=" relative pt-0 pb-0 overflow-hidden">
-      <div className="flex  items-stretch">
+      <div className="flex justify-around">
         <img
           className="w-auto lg:max-w-xs  "
           src="/Mia-coin.png"
