@@ -6,14 +6,12 @@ import HeroSection from "../components/marketing/HeroSection";
 import WhatIsMiaCoinSection from "../components/marketing/WhatIsMiaCoinSection";
 import WhoIsMvSection from "../components/marketing/WhoIsMVSection";
 import BottomSection from "../components/marketing/BottomSection";
-import MvClientOnly from "../components/common/MvClientOnly";
 
 export default function Landing() {
-  
   return (
-    <MvClientOnly>
-      <LandingHeader >
-         <HeroSection />
+    <>
+      <LandingHeader>
+        <HeroSection />
       </LandingHeader>
       <main>
         <WhoIsMvSection />
@@ -22,6 +20,6 @@ export default function Landing() {
         <FancyPalmStripSection />
         <BottomSection />
       </main>
-    </MvClientOnly>
+    </>
   );
 }

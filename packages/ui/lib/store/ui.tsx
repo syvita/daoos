@@ -1,11 +1,8 @@
-import { atomFamily, waitForAll } from "jotai/utils";
+import { atomFamily } from "jotai/utils";
 import { atom } from "jotai";
 import { StacksMainnet, StacksTestnet } from "@stacks/network";
-import { get } from "react-hook-form";
 import { profileAtom } from "./auth";
 import { TProfile, TProposal, TVoteSingle } from "../../types";
-import { getVotes } from "../mock-utils";
-import { date } from "yup/lib/locale";
 import { dateGreaterThanNow } from "../utils";
 
 export enum LOADING_KEYS {
@@ -110,7 +107,7 @@ export const canPerformPostAtom = atom((get) => {
   return profile.isActive;
 });
 
-export const miaStxWalletValueAtom = atom(async (get) => {
+/*export const miaStxWalletValueAtom = atom(async (get) => {
   const response = await fetch(
     `${CORE_STX_API_ADDRESS}/address/${MiamiSTXAddress}/stx`
   );
@@ -139,4 +136,4 @@ export const MiaCoinCurrentValueAtom = atom((get) => {
   }));
   //console.log(result)
   return result
-});
+});*/

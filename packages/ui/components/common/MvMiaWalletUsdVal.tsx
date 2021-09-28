@@ -1,5 +1,3 @@
-import { useAtom } from "jotai";
-import { useAtomValue } from "jotai/utils";
 import React, { memo, useEffect, useState } from "react";
 import { getMiaUsdValue } from "../../lib/utils";
 

@@ -1,7 +1,8 @@
 import { TransactionOptions } from "@stacks/connect";
 
 const APP_NAME = "Miami Voice";
-const ICON = window?.location?.origin + "/Mvlogo.svg" || "";
+const ICON =
+  typeof window !== "undefined" ? window?.location?.origin + "/Mvlogo.svg" : "";
 
 export function useTransactionOptions({
   onFinish,
