@@ -213,7 +213,7 @@ const getMiaSTXbalance = async () => {
   );
   const result = (await response.json()) as TMiaStxBalance;
   console.log(result)
-  return result.balance;
+  return result.balance*0.000001;
 };
 
 const getMiaUsdPrice = async () => {
@@ -232,7 +232,7 @@ const getMiaUsdPrice = async () => {
 export const getMiaUsdValue=async ()=>{
   const stxValue = await getMiaSTXbalance()
   const usdValue = await getMiaUsdPrice()
+ 
   const result= stxValue * usdValue
-  console.log(result)
   return result
 }

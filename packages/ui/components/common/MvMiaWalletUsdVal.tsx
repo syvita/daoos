@@ -13,7 +13,7 @@ const MvMiaWalletUsdVal: React.FC = () => {
   }, []);
   return value ? (
     <>
-      <span>Raised: </span>{new Intl.NumberFormat("en-US", {
+      {new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(value)}{" "}
