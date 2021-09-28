@@ -1,4 +1,4 @@
-import { atomFamily } from "jotai/utils";
+import { atomFamily, waitForAll } from "jotai/utils";
 import { atom } from "jotai";
 import { StacksMainnet, StacksTestnet } from "@stacks/network";
 import { get } from "react-hook-form";
@@ -11,6 +11,7 @@ import { dateGreaterThanNow } from "../utils";
 export enum LOADING_KEYS {
   AUTH = "loading/AUTH",
   FORM = "loading/FORM",
+  TRNX = "loading/TRNX",
 }
 export enum TOAST_KEYS {
   SUCCESS = "success",
@@ -24,16 +25,38 @@ type slideOutSettings = {
   show?: boolean;
 };
 
+export type TMiaStxBalance = {
+   balance: number ;
+};
+
+export type TStxUsdPrice = {
+  blockstack: {
+    usd: number;
+  };
+};
+
 export enum SLIDE_PANEL_KEYS {
   PROPOSAL = "panel/PROPOSAL",
   PROFILE = "panel/PROFILE",
 }
 
+const MiamiSTXAddress = "SM2MARAVW6BEJCD13YV2RHGYHQWT7TDDNMNRB1MVT";
+
+const CORE_STX_API_ADDRESS =
+  "https://stacks-node-api.mainnet.stacks.co/extended/v1";
+
+const COIN_GECKO_TOKEN_PRICE_END_POINT =
+  "https://api.coingecko.com/api/v3/simple/price";
+
+const STX_CG_ID = "blockstack";
+
+const SEARCH_CURRENCY = "usd";
+
 export const loadingAtom = atomFamily((key) => atom(false));
 
-export const selectedProposalAtom=atom({})
+export const selectedProposalAtom = atom({});
 
-export const exampleAtom=atomFamily(key=>atom({}))
+export const exampleAtom = atomFamily((key) => atom({}));
 
 export const selectedMemberAtom = atom({});
 
@@ -85,4 +108,35 @@ export const canPerformVoteAtom = atom((get) => {
 export const canPerformPostAtom = atom((get) => {
   const profile = get(profileAtom) as TProfile;
   return profile.isActive;
+});
+
+export const miaStxWalletValueAtom = atom(async (get) => {
+  const response = await fetch(
+    `${CORE_STX_API_ADDRESS}/address/${MiamiSTXAddress}/stx`
+  );
+  const result = (await response.json()) as TMiaStxBalance;
+  //console.log(result)
+  return result.stx.balance;
+});
+
+export const miaUsdValueAtom = atom(async (get) => {
+  const urlSearchParams = new URLSearchParams({
+    ids: STX_CG_ID,
+    vs_currencies: SEARCH_CURRENCY,
+  });
+  const url = new URL(COIN_GECKO_TOKEN_PRICE_END_POINT);
+  url.search = urlSearchParams.toString();
+  const response = await fetch(url.toString());
+  const result = (await response.json()) as TStxUsdPrice;
+  //console.log(result)
+  return result.blockstack.usd;
+});
+
+export const MiaCoinCurrentValueAtom = atom((get) => {
+  const result=  get(waitForAll({
+    usd: miaUsdValueAtom,
+    stx: miaStxWalletValueAtom,
+  }));
+  //console.log(result)
+  return result
 });

@@ -1,0 +1,6 @@
+[project]
+name = "contracts"
+requirements = []
+[contracts.vote]
+path = "contracts/vote.clar"
+depends_on = []

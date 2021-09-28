@@ -1,5 +1,4 @@
 import { showConnect } from "@stacks/connect";
-import { useAtomValue } from "jotai/utils";
 import { useCallback } from "react";
 import { useAuthOptions } from "./useAuthOptions";
 

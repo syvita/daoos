@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth } from "../../lib/hooks/useAuth";
 import { useLoading } from "../../lib/hooks/useLoading";
 import { useUser } from "../../lib/hooks/useUser";
 import { LOADING_KEYS } from "../../lib/store/ui";
 import { useRouter } from "next/router";
 import MvLoader from "../app/MvLoader";
-import MvClientOnly from "../common/MvClientOnly";
 
 const DASHBOARD_PATH = "/app";
 

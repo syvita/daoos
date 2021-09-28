@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { useAtomValue } from "jotai/utils";
 import React from "react";
 import { useLoading } from "../../lib/hooks/useLoading";
+import { useTransaction } from "../../lib/hooks/useTransaction";
 import { profileAtom } from "../../lib/store/auth";
 import { LOADING_KEYS, selectedProposalAtom } from "../../lib/store/ui";
 import { postData, prepareVote } from "../../lib/utils";
@@ -27,13 +28,15 @@ const MvVoteInputForm = () => {
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const onSubmit = async (payload) => {
     try {
-      setIsLoading(true);
+
       const data = prepareVote({
         payload,
         proposal,
         voter: profile,
         onChainLink: "https://emptyChainlink.link",
       });
+      setIsLoading(true);
+      useTransaction({})
       const result = await postData(data, "/api/proposals/update");
       setProposal({...proposal,...result})
       setIsLoading(false);

@@ -19,6 +19,7 @@ import { pick, truncate } from "lodash";
 import * as yup from "yup";
 import algoliasearch, { AlgoliaSearchOptions } from "algoliasearch";
 import moment from "moment";
+import { TMiaStxBalance, TStxUsdPrice } from "./store/ui";
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -171,23 +172,67 @@ export const prepareVote = ({
   payload,
   onChainLink,
 }: {
-  proposal: TProposal<TVoteSingle>|any;
-  payload: {vote:TRadioGroupSettings;}
+  proposal: TProposal<TVoteSingle> | any;
+  payload: { vote: TRadioGroupSettings };
   voter: TProfile;
   onChainLink?: string;
 }): { votes: TVote<TVoteSingle>[]; objectID: any } => {
   const vote: TVote<TVoteSingle> = {
     vote: { yes: payload.vote.name === "Yes" },
-    voter: pick(voter,["objectID", "name", "imageUrl", "email"]) as TProfile,
+    voter: pick(voter, ["objectID", "name", "imageUrl", "email"]) as TProfile,
     onChainLink,
   };
-  console.log(payload.vote)
+  console.log(payload.vote);
   return {
     votes: [...proposal.votes, ...[vote]],
     objectID: proposal.objectID,
   };
 };
 
-export const dateGreaterThanNow=(date)=>{
-  return moment(date).diff(moment())<0
+export const dateGreaterThanNow = (date) => {
+  return moment(date).diff(moment()) < 0;
+};
+
+//get dynamic price value for miami STX wallet
+
+const MiamiSTXAddress = "SM2MARAVW6BEJCD13YV2RHGYHQWT7TDDNMNRB1MVT";
+
+const CORE_STX_API_ADDRESS =
+  "https://stacks-node-api.mainnet.stacks.co/extended/v1";
+
+const COIN_GECKO_TOKEN_PRICE_END_POINT =
+  "https://api.coingecko.com/api/v3/simple/price";
+
+const STX_CG_ID = "blockstack";
+
+const SEARCH_CURRENCY = "usd";
+
+const getMiaSTXbalance = async () => {
+  const response = await fetch(
+    `${CORE_STX_API_ADDRESS}/address/${MiamiSTXAddress}/stx`
+  );
+  const result = (await response.json()) as TMiaStxBalance;
+  console.log(result)
+  return result.balance;
+};
+
+const getMiaUsdPrice = async () => {
+  const urlSearchParams = new URLSearchParams({
+    ids: STX_CG_ID,
+    vs_currencies: SEARCH_CURRENCY,
+  });
+  const url = new URL(COIN_GECKO_TOKEN_PRICE_END_POINT);
+  url.search = urlSearchParams.toString();
+  const response = await fetch(url.toString());
+  const result = (await response.json()) as TStxUsdPrice;
+  //console.log(result)
+  return result.blockstack.usd;
+};
+
+export const getMiaUsdValue=async ()=>{
+  const stxValue = await getMiaSTXbalance()
+  const usdValue = await getMiaUsdPrice()
+  const result= stxValue * usdValue
+  console.log(result)
+  return result
 }

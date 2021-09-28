@@ -3,5 +3,5 @@ import { mainnetNetworkAtom, networkAtom } from "../store/ui";
 
 export function useNetwork(isMainnet?:boolean){
   const network= useAtomValue(isMainnet?networkAtom:mainnetNetworkAtom)
-  return {networkAtom}
+  return {network}
 }

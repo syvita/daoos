@@ -28,15 +28,13 @@ const MvUserProfileComponent: React.FC = () => {
     <div className="flex-shrink-0 flex bg-indigo-200 p-4">
       <button onClick={onSelect} className="flex-shrink-0 w-full group block">
         <div className="flex items-center">
-        
             <MvAvatar
               isText
               name={profile.name}
               colorInner={iconColors.avatar.inner_green}
               color={iconColors.avatar.red}
               size={iconSizes.md}
-            />
-          
+            /> 
           <div className=" ml-3">
             <p className="text-sm w-40 truncate font-medium text-gray-900">
               {profile.name}
