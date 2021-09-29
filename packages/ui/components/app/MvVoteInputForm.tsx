@@ -29,10 +29,7 @@ const settings: TRadioGroupSettings[] = [
 
 const MvVoteInputForm = () => {
   const profile = useAtomValue(profileAtom);
-  const [proposal, setProposal]: [
-    proposal: TProposal<TVoteSingle>,
-    setProposal: any
-  ] = useAtom(selectedProposalAtom);
+  const [proposal, setProposal] = useAtom(selectedProposalAtom);
   const {signVoteTransaction} = useVoteTransaction();
   const { isLoading, setIsLoading } = useLoading(LOADING_KEYS.FORM);
   const onSubmit = async (payload) => {
