@@ -1,16 +1,38 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@layer components {
+  .btn {
+    @apply flex-shrink-0 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1;
+  }
+  .form-control-error {
+    @apply block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md;
+  }
+  .form-control-error-text {
+    @apply mt-2 text-sm text-red-600;
+  }
+  .form-control{
+    @apply shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md;
+  }
+  .form-control-label{
+    @apply block text-sm font-medium text-gray-700;
+  }
+  .text-color-gradient{
+    @apply text-transparent bg-gradient-to-tr bg-clip-text
+    from-deep-pink via-red-400 to-blue-400;
+  }
 
-* {
-  box-sizing: border-box;
+  .bg-color-gradient{
+    @apply bg-gradient-to-tr 
+    from-deep-pink via-red-400 to-blue-400;
+  }
+
+  .form-control-btn{
+    @apply inline-flex items-center disabled:bg-indigo-300    mt-6 
+     px-4 py-2 border border-transparent 
+    rounded-md shadow-sm text-sm font-bold text-white
+     bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+      focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+  }
 }

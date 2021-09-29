@@ -1,3 +1,0 @@
-# Ignore artifacts:
-.vscode/extensions.json
-tsconfig.json
