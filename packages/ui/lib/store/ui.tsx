@@ -1,6 +1,6 @@
 import { atomFamily } from "jotai/utils";
 import { atom } from "jotai";
-import { StacksMainnet, StacksTestnet ,StacksRegtest} from "@stacks/network";
+import { StacksMainnet, StacksTestnet } from "@stacks/network";
 import { profileAtom } from "./auth";
 import { TProfile, TProposal, TVoteSingle } from "../../types";
 import { dateGreaterThanNow } from "../utils";
@@ -86,7 +86,7 @@ export const networkAtom = atom(() => {
 });
 // Used temporarily to force getting names from mainnet
 export const mainnetNetworkAtom = atom(() => {
-  const _network = new StacksRegtest();
+  const _network = new StacksMainnet();
   return _network;
 });
 
