@@ -12,7 +12,7 @@ Clarinet.test({
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const wallet_1 = accounts.get("wallet_1");
     let block = chain.mineBlock([
-      Tx.contractCall("daoos-vote", "castvote", [
+      Tx.contractCall("vote", "castvote", [
         types.bool(true),
         types.ascii("prop-id"),
       ]),

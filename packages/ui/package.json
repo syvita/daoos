@@ -17,6 +17,7 @@
     "@heroicons/react": "^1.0.4",
     "@hookform/resolvers": "^2.8.0",
     "@stacks/connect": "^6.2.0",
+    "@stacks/connect-react": "^13.0.0",
     "@stacks/profile": "^2.0.1",
     "@stacks/storage": "^2.0.1",
     "@tailwindcss/aspect-ratio": "^0.2.1",

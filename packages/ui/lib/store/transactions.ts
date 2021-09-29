@@ -1,7 +1,8 @@
 import { atomFamily } from "jotai/utils";
+import { env } from "process";
 
-export enum CONTRACTS{
-    votingAddress='',
-    votingContractName='',
-    votingFunctionName=''
-}
+export const CONTRACTS = {
+  votingContractAddress: process.env.NEXT_PUBLIC_VOTE_CONTRACT_ADDRESS,
+  votingContractName: process.env.NEXT_PUBLIC_VOTE_CONTRACT_NAME,
+  votingFunctionName: process.env.NEXT_PUBLIC_VOTE_FUNCTION_NAME,
+};

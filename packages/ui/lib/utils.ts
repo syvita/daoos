@@ -5,6 +5,7 @@ import {
   LogoutIcon,
 } from "@heroicons/react/outline";
 import {
+  TChainVoteArgs,
   TFormInputs,
   TNavigation,
   TProfile,
@@ -20,6 +21,13 @@ import * as yup from "yup";
 import algoliasearch, { AlgoliaSearchOptions } from "algoliasearch";
 import moment from "moment";
 import { TMiaStxBalance, TStxUsdPrice } from "./store/ui";
+
+import {
+  stringAsciiCV,
+  stringUtf8CV,
+  trueCV,
+  falseCV,
+} from "@stacks/transactions";
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -166,6 +174,10 @@ export const prepareProposal: (
   };
 };
 
+export const getBallot = (payload: { vote: TRadioGroupSettings }) => {
+  return payload.vote.name === "Yes";
+};
+
 export const prepareVote = ({
   proposal,
   voter,
@@ -178,7 +190,7 @@ export const prepareVote = ({
   onChainLink?: string;
 }): { votes: TVote<TVoteSingle>[]; objectID: any } => {
   const vote: TVote<TVoteSingle> = {
-    vote: { yes: payload.vote.name === "Yes" },
+    vote: { yes: getBallot(payload) },
     voter: pick(voter, ["objectID", "name", "imageUrl", "email"]) as TProfile,
     onChainLink,
   };
@@ -212,8 +224,8 @@ const getMiaSTXbalance = async () => {
     `${CORE_STX_API_ADDRESS}/address/${MiamiSTXAddress}/stx`
   );
   const result = (await response.json()) as TMiaStxBalance;
-  console.log(result)
-  return result.balance*0.000001;
+  console.log(result);
+  return result.balance * 0.000001;
 };
 
 const getMiaUsdPrice = async () => {
@@ -225,14 +237,29 @@ const getMiaUsdPrice = async () => {
   url.search = urlSearchParams.toString();
   const response = await fetch(url.toString());
   const result = (await response.json()) as TStxUsdPrice;
-  //console.log(result)
   return result.blockstack.usd;
 };
 
-export const getMiaUsdValue=async ()=>{
-  const stxValue = await getMiaSTXbalance()
-  const usdValue = await getMiaUsdPrice()
- 
-  const result= stxValue * usdValue
-  return result
-}
+export const getMiaUsdValue = async () => {
+  const stxValue = await getMiaSTXbalance();
+  const usdValue = await getMiaUsdPrice();
+  const result = stxValue * usdValue;
+  return result;
+};
+
+export const prepareVoteArgs = ({
+  name,
+  email,
+  ballot,
+  userId,
+  proposalId,
+}: TChainVoteArgs) => {
+  const _ballot = ballot ? trueCV() : falseCV();
+  return [
+    stringAsciiCV(proposalId),
+    _ballot,
+    stringAsciiCV(name),
+    stringUtf8CV(email),
+    stringUtf8CV(userId),
+  ];
+};

@@ -91,3 +91,14 @@ export interface TProposal<T> extends TProposalSummary<T> {
   body: string;
   media?: [];
 }
+
+/* Contracts */
+
+export interface TChainVoteArgs{
+  name: string;
+  email: string;
+  ballot:boolean;
+  userId: string;
+  proposalId: string;
+  
+}
